@@ -29,9 +29,8 @@
 
 (defvar xah-js-mode-hook nil "Standard hook for `xah-js-mode'")
 
-(defvar xjs-js-lang-words nil "a list of JavaScript keywords.")
-(setq xjs-js-lang-words '(
-
+(defvar xjs-keyword-builtin nil "a list of js  names")
+(setq xjs-keyword-builtin '(
 "break"
 "case"
 "catch"
@@ -57,7 +56,10 @@
 "var"
 "void"
 "while"
-"with"
+"with") )
+
+(defvar xjs-js-lang-words nil "a list of JavaScript keywords.")
+(setq xjs-js-lang-words '(
 
 "call"
 "isExtensible"
@@ -75,9 +77,7 @@
 "Error"
 "EvalError"
 "Function"
-"Infinity"
 "JSON"
-"NaN"
 "Number"
 "Object"
 "RangeError"
@@ -154,10 +154,6 @@
 
 "apply"
 "arguments"
-"getBoundingClientRect"
-"indexOf"
-"firstChild"
-"nodeValue"
 
 "constructor"
 "length"
@@ -276,20 +272,22 @@
 "createElement"
 "innerHTML"
 "hasChildNodes"
+"firstChild"
 "lastChild"
 "removeChild"
 "document"
 
 "parentNode"
 "appendChild"
-) )
 
-(defvar xjs-keyword-builtin nil "a list of js  names")
-(setq xjs-keyword-builtin '(
+"getBoundingClientRect"
+"nodeValue"
 ) )
 
 (defvar xjs-constants nil "a list of constants")
 (setq xjs-constants '(
+"NaN"
+"Infinity"
 "null"
 "undefined"
 "true"
@@ -323,10 +321,10 @@
           (jsConstants (regexp-opt xjs-constants 'symbols) )
           )
         `(
-          (,jsMathMethods . font-lock-keyword-face)
+          (,jsMathMethods . font-lock-type-face)
           (,jsConstants . font-lock-constant-face)
           (,domWords . font-lock-function-name-face)
-          (,jsBuildins . font-lock-type-face)
+          (,jsBuildins . font-lock-keyword-face)
           (,jsLangWords . font-lock-keyword-face)
           (,jsArrayMethods . font-lock-keyword-face)
           (,jsStrMethods . font-lock-keyword-face)
@@ -360,47 +358,116 @@
 
 
 ;; syntax table
+
 (defvar xjs-syntax-table nil "Syntax table for `xah-js-mode'.")
 
- ;; (setq xjs-syntax-table
- ;;       (let ((synTable (make-syntax-table)))
- ;;   (modify-syntax-entry ?\/ ". 12b" synTable)
- ;;   (modify-syntax-entry ?\n "> b" synTable)
- ;;         synTable))
-
-(require 'cc-mode)
-
 (setq xjs-syntax-table
-     (let ((synTable (make-syntax-table)))
-       (c-populate-syntax-table synTable) ; todo: rid of dependence
-       (modify-syntax-entry ?$ "_" synTable)
-       synTable))
+      (let ((synTable (make-syntax-table)))
+        (modify-syntax-entry ?\n "> b" synTable)
+
+        ;; complete printable ascii
+        (modify-syntax-entry ?\! "." synTable)
+        (modify-syntax-entry ?\" "\"" synTable)
+        (modify-syntax-entry ?\# "." synTable)
+        (modify-syntax-entry ?\$ "." synTable)
+        (modify-syntax-entry ?\% "." synTable)
+        (modify-syntax-entry ?\& "." synTable)
+        (modify-syntax-entry ?\' "." synTable)
+        (modify-syntax-entry ?\( "()" synTable)
+        (modify-syntax-entry ?\) ")(" synTable)
+        (modify-syntax-entry ?\* "." synTable)
+        (modify-syntax-entry ?\+ "." synTable)
+        (modify-syntax-entry ?\, "." synTable)
+        (modify-syntax-entry ?\- "." synTable)
+        (modify-syntax-entry ?\. "." synTable)
+        (modify-syntax-entry ?\/ ". 12b" synTable)
+        (modify-syntax-entry '(?0 . ?9) "w" synTable)
+        (modify-syntax-entry ?\: "." synTable)
+        (modify-syntax-entry ?\; "." synTable)
+        (modify-syntax-entry ?\< "." synTable)
+        (modify-syntax-entry ?\= "." synTable)
+        (modify-syntax-entry ?\> "." synTable)
+        (modify-syntax-entry ?\? "." synTable)
+        (modify-syntax-entry ?\@ "." synTable)
+        (modify-syntax-entry '(?A . ?Z) "w" synTable)
+        (modify-syntax-entry ?\[ "(]" synTable)
+        (modify-syntax-entry ?\\ "\\" synTable)
+        (modify-syntax-entry ?\] ")[" synTable)
+        (modify-syntax-entry ?^ "." synTable) ; can't use blackslash, because it became control
+        (modify-syntax-entry ?\_ "_" synTable)
+        (modify-syntax-entry ?\` "." synTable)
+        (modify-syntax-entry '(?a . ?z) "w" synTable)
+        (modify-syntax-entry ?\{ "(}" synTable)
+        (modify-syntax-entry ?\| "." synTable)
+        (modify-syntax-entry ?\} "){" synTable)
+        (modify-syntax-entry ?\~ "." synTable)
+
+        synTable))
+
+
+;; indent
+
+(defun xjs-complete-or-indent ()
+  ""
+  (interactive)
+  nil)
+
+(defun xjs-indent-region ()
+  ""
+  (interactive)
+  nil)
+
+(defun xjs-complete-symbol-ido ()
+  ""
+  (interactive)
+  nil)
+
+
 
 
 
 ;; define the mode
-(define-derived-mode xah-js-mode fundamental-mode
-  "ξXJS"
-  "A simple major mode for JavaScript.
-
-JavaScript keywords are colored. Basically that's it.
+(defun xah-js-mode ()
+  "A major mode for JavaScript.
 
 \\{xjs-keymap}"
-  (js-mode)
-  (setq mode-name "ξXJS")
-  (setq font-lock-defaults '((xjs-font-lock-keywords)))
+  (interactive)
+  (kill-all-local-variables)
 
-(setq comment-start "//")
-(setq comment-end "")
+  (setq mode-name "ξjs")
+  (setq major-mode 'xah-js-mode)
+
+  (setq font-lock-defaults '((xjs-font-lock-keywords)))
 
   (set-syntax-table xjs-syntax-table)
   (use-local-map xjs-keymap)
-  (run-mode-hooks 'xah-js-mode-hook)
-)
 
-(when (featurep 'auto-complete )
-  (add-to-list 'ac-modes 'xah-js-mode)
-  (add-hook 'xah-js-mode-hook 'ac-emacs-lisp-mode-setup)
+  (setq-local comment-start "//")
+  (setq-local comment-end "")
+  (setq-local comment-column 2)
+
+  (setq-local indent-line-function 'xjs-complete-or-indent)
+  (setq-local indent-region-function 'xjs-indent-region)
+  (setq-local tab-always-indent 'complete)
+  (add-hook 'completion-at-point-functions 'xjs-complete-symbol-ido nil 'local)
+
+  ;; if emacs 23, turn on linum-mode
+  (when
+      (and
+       (fboundp 'linum-mode)
+       (>= emacs-major-version 23)
+       (>= emacs-minor-version 1)
+       )
+    (linum-mode 1)
+    )
+
+  (setq indent-tabs-mode nil) ; don't mix space and tab
+  (setq tab-width 1)
+
+  (run-mode-hooks 'xah-js-mode-hook)
+
+  :syntax-table xjs-syntax-table
+
   )
 
 (provide 'xah-js-mode)
