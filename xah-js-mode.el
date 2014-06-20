@@ -24,8 +24,22 @@
 ;; add indentation
 ;; add support for autocomplete
 
+
+
+(require 'js) ; temp hack, to borrow its indentation function
+
+
 (defvar xah-js-mode-hook nil "Standard hook for `xah-js-mode'")
 
+
+
+(define-abbrev-table 'xjs-abbrev-table '(
+ ("f" "function")
+ )
+"abbrev table for `xah-js-mode'"
+  )
+
+
 (defvar xjs-keyword-builtin nil "a list of js  names")
 (setq xjs-keyword-builtin '(
 "break"
@@ -303,6 +317,19 @@
 (setq xjs-js-vars-1 '(
 ) )
 
+(defvar xjs-all-js-keywords nil "a list all js words.")
+(setq xjs-all-js-keywords
+      (append xjs-keyword-builtin
+              xjs-js-lang-words
+              xjs-js-array-methods
+              xjs-js-str-methods
+              xjs-js-math-methods
+              xjs-dom-words
+              xjs-constants
+              xjs-js-vars-1
+              )
+      )
+
 
 ;; syntax coloring related
 
@@ -345,13 +372,35 @@
 ;; font-lock-warning-face
 
 
+
+(defun xjs-complete-symbol ()
+  "Perform keyword completion on current word.
+
+This uses `ido-mode' user interface style for completion."
+  (interactive)
+  (let* (
+         (bds (bounds-of-thing-at-point 'symbol))
+         (p1 (car bds) )
+         (p2 (cdr bds) )
+         (currentWord (buffer-substring-no-properties p1 p2) )
+
+         finalResult)
+    (when (not currentWord) (setq currentWord ""))
+    (setq finalResult
+          (ido-completing-read "" xjs-all-js-keywords nil nil currentWord )
+          )
+    (delete-region p1 p2)
+    (insert finalResult)
+    ))
+
+
 ;; keybinding
 
 (defvar xjs-keymap nil "Keybinding for `xah-js-mode'")
 (progn
   (setq xjs-keymap (make-sparse-keymap))
-;  (define-key xjs-keymap [remap comment-dwim] 'xjs-comment-dwim)
-)
+  (define-key xjs-keymap (kbd "<menu> e TAB") 'xjs-complete-symbol)
+  )
 
 
 ;; syntax table
@@ -407,7 +456,8 @@
 (defun xjs-complete-or-indent ()
   ""
   (interactive)
-  nil)
+  (js-indent-line)
+)
 
 (defun xjs-indent-region ()
   ""
@@ -442,7 +492,7 @@
   (setq-local comment-column 2)
 
   (setq-local indent-line-function 'xjs-complete-or-indent)
-  (setq-local indent-region-function 'xjs-indent-region)
+  ;; (setq-local indent-region-function 'xjs-indent-region)
   (setq-local tab-always-indent 'complete)
   (add-hook 'completion-at-point-functions 'xjs-complete-symbol-ido nil 'local)
 
@@ -458,6 +508,8 @@
 
   (setq indent-tabs-mode nil) ; don't mix space and tab
   (setq tab-width 1)
+
+  (setq local-abbrev-table xjs-abbrev-table)
 
   (run-mode-hooks 'xah-js-mode-hook)
 
