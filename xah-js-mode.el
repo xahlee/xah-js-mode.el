@@ -18,9 +18,6 @@
 ;; version 0.1, 2013-08-21 first version
 
 ;; TODO
-;; rid of calling js-mode
-;; make sure the comment works
-;; create complete syntax table
 ;; add new faces
 ;; separate diff types of keywords to use diff face
 ;; add completion
@@ -372,7 +369,7 @@
         (modify-syntax-entry ?\$ "." synTable)
         (modify-syntax-entry ?\% "." synTable)
         (modify-syntax-entry ?\& "." synTable)
-        (modify-syntax-entry ?\' "." synTable)
+        (modify-syntax-entry ?\' "\"" synTable)
         (modify-syntax-entry ?\( "()" synTable)
         (modify-syntax-entry ?\) ")(" synTable)
         (modify-syntax-entry ?\* "." synTable)
@@ -422,8 +419,6 @@
   (interactive)
   nil)
 
-
-
 
 
 ;; define the mode
@@ -434,7 +429,7 @@
   (interactive)
   (kill-all-local-variables)
 
-  (setq mode-name "ξjs")
+  (setq mode-name "Σjs")
   (setq major-mode 'xah-js-mode)
 
   (setq font-lock-defaults '((xjs-font-lock-keywords)))
