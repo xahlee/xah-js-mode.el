@@ -20,7 +20,6 @@
 ;; TODO
 ;; add new faces
 ;; separate diff types of keywords to use diff face
-;; add completion
 ;; add indentation
 ;; add support for autocomplete
 
@@ -372,34 +371,12 @@
 ;; font-lock-warning-face
 
 
-
-(defun xjs-complete-symbol ()
-  "Perform keyword completion on current word.
-
-This uses `ido-mode' user interface style for completion."
-  (interactive)
-  (let* (
-         (bds (bounds-of-thing-at-point 'symbol))
-         (p1 (car bds) )
-         (p2 (cdr bds) )
-         (currentWord (buffer-substring-no-properties p1 p2) )
-
-         finalResult)
-    (when (not currentWord) (setq currentWord ""))
-    (setq finalResult
-          (ido-completing-read "" xjs-all-js-keywords nil nil currentWord )
-          )
-    (delete-region p1 p2)
-    (insert finalResult)
-    ))
-
-
 ;; keybinding
 
 (defvar xjs-keymap nil "Keybinding for `xah-js-mode'")
 (progn
   (setq xjs-keymap (make-sparse-keymap))
-  (define-key xjs-keymap (kbd "<menu> e TAB") 'xjs-complete-symbol)
+  (define-key xjs-keymap (kbd "<menu> e TAB") 'xjs-complete-symbol-ido)
   )
 
 
@@ -465,9 +442,24 @@ This uses `ido-mode' user interface style for completion."
   nil)
 
 (defun xjs-complete-symbol-ido ()
-  ""
+  "Perform keyword completion on current word.
+
+This uses `ido-mode' user interface style for completion."
   (interactive)
-  nil)
+  (let* (
+         (bds (bounds-of-thing-at-point 'symbol))
+         (p1 (car bds) )
+         (p2 (cdr bds) )
+         (currentWord (buffer-substring-no-properties p1 p2) )
+
+         finalResult)
+    (when (not currentWord) (setq currentWord ""))
+    (setq finalResult
+          (ido-completing-read "" xjs-all-js-keywords nil nil currentWord )
+          )
+    (delete-region p1 p2)
+    (insert finalResult)
+    ))
 
 
 
