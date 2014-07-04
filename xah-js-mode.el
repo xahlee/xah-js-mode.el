@@ -34,7 +34,9 @@
 
 (define-abbrev-table 'xjs-abbrev-table
   '(
-    ("f" "function")
+    ("f" "function" nil :system t)
+    ("us" "\"use strict\";" nil :system t)
+    ("cmt" "/* ▮ */" nil :system t)
 
     ("cl" "console.log(▮)" nil :system t)
 
@@ -47,6 +49,8 @@
 }" nil :system t)
 
     ("else" "else { ▮ }" nil :system t)
+
+    ("elf" "else if (▮) { ▮ }" nil :system t)
 
     ("switch" "switch(▮) {
     case ▮:
@@ -422,9 +426,11 @@
 
 (setq xjs-syntax-table
       (let ((synTable (make-syntax-table)))
+
+        (modify-syntax-entry ?\/ "< 124b" synTable)
+        (modify-syntax-entry ?* "< 23" synTable)
         (modify-syntax-entry ?\n "> b" synTable)
 
-        ;; complete printable ascii
         (modify-syntax-entry ?\! "." synTable)
         (modify-syntax-entry ?\" "\"" synTable)
         (modify-syntax-entry ?\# "." synTable)
@@ -439,7 +445,6 @@
         (modify-syntax-entry ?\, "." synTable)
         (modify-syntax-entry ?\- "." synTable)
         (modify-syntax-entry ?\. "." synTable)
-        (modify-syntax-entry ?\/ ". 12b" synTable)
         (modify-syntax-entry '(?0 . ?9) "w" synTable)
         (modify-syntax-entry ?\: "." synTable)
         (modify-syntax-entry ?\; "." synTable)
@@ -462,6 +467,10 @@
         (modify-syntax-entry ?\~ "." synTable)
 
         synTable))
+
+;; tired of syntax table. major steal
+  (require 'cc-mode)     ; (only) for `c-populate-syntax-table'
+(setq xjs-syntax-table (let ((table (make-syntax-table))) (c-populate-syntax-table table) table))
 
 
 ;; indent
