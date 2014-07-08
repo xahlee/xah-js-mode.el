@@ -35,6 +35,7 @@
 (define-abbrev-table 'xjs-abbrev-table
   '(
     ("f" "function" nil :system t)
+    ("pt" "prototype" nil :system t)
     ("us" "\"use strict\";" nil :system t)
     ("cmt" "/* ▮ */" nil :system t)
 
@@ -43,7 +44,7 @@
     ("do" "do { ▮; x++;} while (x != 5)" nil :system t)
 
     ("function" "function () { ▮; }" nil :system t)
-    ("for" "for (var i = 0; i < 9; i++) { ▮; }" nil :system t)
+    ("for" "for (var i = 0; i < ▮.length; i++) { ▮; }" nil :system t)
     ("if" "if ( ▮ ) {
 ▮
 }" nil :system t)
@@ -63,7 +64,7 @@
         ▮;
 }" nil :system t)
 
-("case" "case ▮: ▮; break;" nil :system t)
+    ("case" "case ▮: ▮; break;" nil :system t)
 
     ("try" "try {
 ▮;
@@ -71,7 +72,11 @@
 ▮;
 }" nil :system t)
     ("var" "var ▮ = ▮;" nil :system t)
-    ("while" "while (▮ != ▮) { ▮; x++;}" nil :system t))
+    ("addEventListener" "addEventListener(\"click\", FUNCTION , false);" nil :system t)
+    ("forEach" "forEach(FUNCTION▮ , contexObject);" nil :system t)
+
+    )
+    
   "abbrev table for `xah-js-mode'"
   )
 
