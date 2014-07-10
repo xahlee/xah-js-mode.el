@@ -32,6 +32,8 @@
 
 
 
+(setq xjs-abbrev-table nil)
+
 (define-abbrev-table 'xjs-abbrev-table
   '(
     ("f" "function" nil :system t)
@@ -78,6 +80,7 @@
     )
     
   "abbrev table for `xah-js-mode'"
+  :case-fixed t
   )
 
 
