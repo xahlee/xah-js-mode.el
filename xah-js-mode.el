@@ -80,7 +80,7 @@
     ("forEach" "forEach(FUNCTION▮ , contexObject);" nil :system t)
 
     )
-    
+
   "abbrev table for `xah-js-mode'"
   :case-fixed t
   )
@@ -317,7 +317,7 @@
 
 "location"
 
-"window"    
+"window"
 "children"
 "nodeName"
 "tagName"
@@ -333,6 +333,9 @@
 "getElementsByClassName"
 
 "onmouseover"
+
+"setTimeout"
+"setInterval"
 
 "console.log"
 "createElement"
@@ -350,6 +353,9 @@
 
 ".pageXOffset"
 ".pageYOffset"
+
+".innerWidth"
+".innerHeight"
 
 "parentNode"
 "appendChild"
