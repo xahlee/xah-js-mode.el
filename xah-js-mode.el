@@ -339,6 +339,7 @@
 
 "console.log"
 "createElement"
+"createElementNS"
 "innerHTML"
 "hasChildNodes"
 "firstChild"
