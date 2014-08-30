@@ -243,7 +243,7 @@
 "sort"
 "splice"
 "toLocalString"
-
+"isArray"
 "unshift"
 ) )
 
@@ -342,6 +342,7 @@
 "createElementNS"
 "innerHTML"
 "hasChildNodes"
+"childNodes"
 "firstChild"
 "lastChild"
 "removeChild"
