@@ -47,6 +47,7 @@
 
     ("function" "function () { ▮; }" nil :system t)
     ("for" "for (var i = 0; i < ▮.length; i++) { ▮; }" nil :system t)
+    ("while" "while (i<10) { ▮; i++; }" nil :system t)
     ("if" "if ( ▮ ) {
 ▮
 }" nil :system t)
@@ -55,7 +56,7 @@
 
     ("elf" "else if (▮) { ▮ }" nil :system t)
 
-    ("ter" "test ? expr1 : expr2" nil :system t)
+    ("ife" "test ? expr1 : expr2" nil :system t)
 
     ("switch" "switch(▮) {
     case ▮:
