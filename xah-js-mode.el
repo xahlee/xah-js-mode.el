@@ -344,11 +344,15 @@
 "innerHTML"
 "hasChildNodes"
 "childNodes"
-"firstChild"
-"lastChild"
 "removeChild"
 "replaceChild"
 "document"
+
+"previousSibling"
+"nextSibling"
+"firstChild"	
+"lastChild"	
+"parentNode"
 
 "documentElement"
 "clientWidth"
@@ -360,7 +364,6 @@
 ".innerWidth"
 ".innerHeight"
 
-"parentNode"
 "appendChild"
 
 "getBoundingClientRect"
