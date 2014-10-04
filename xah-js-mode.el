@@ -139,6 +139,9 @@
 "Error"
 "Function"
 
+"Object.keys" ; hack. todo
+"insertBefore" ; hack. todo
+
 "EvalError"
 "RangeError"
 "ReferenceError"
@@ -350,8 +353,8 @@
 
 "previousSibling"
 "nextSibling"
-"firstChild"	
-"lastChild"	
+"firstChild"
+"lastChild"
 "parentNode"
 
 "documentElement"
