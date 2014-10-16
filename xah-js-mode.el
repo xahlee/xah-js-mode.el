@@ -14,6 +14,7 @@
 
 ;;; HISTORY
 
+;; 2014-10-16 version are no longer logged here. just github latest.
 ;; version 0.2, 2013-12-25 added array methods and string method highlighting
 ;; version 0.1, 2013-08-21 first version
 
@@ -40,6 +41,7 @@
     ("pt" "prototype" nil :system t)
     ("us" "\"use strict\";" nil :system t)
     ("cmt" "/* ▮ */" nil :system t)
+    ;; ("ogopn" "Object.getOwnPropertyNames" nil :system t)
 
     ("cl" "console.log(▮)" nil :system t)
 
@@ -565,16 +567,6 @@ This uses `ido-mode' user interface style for completion."
   (setq-local indent-line-function 'xjs-complete-or-indent)
   (setq-local tab-always-indent 'complete)
   (add-hook 'completion-at-point-functions 'xjs-complete-symbol-ido nil 'local)
-
-  ;; if emacs 23, turn on linum-mode
-  (when
-      (and
-       (fboundp 'linum-mode)
-       (>= emacs-major-version 23)
-       (>= emacs-minor-version 1)
-       )
-    (linum-mode 1)
-    )
 
   (setq indent-tabs-mode nil) ; don't mix space and tab
   (setq tab-width 1)
