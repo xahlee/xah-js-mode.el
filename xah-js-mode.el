@@ -338,7 +338,11 @@
 "getElementsByTagName"
 "getElementsByClassName"
 
-"onmouseover"
+"textContent"
+
+"getHours"
+"getMinutes"
+"getSeconds"
 
 "setTimeout"
 "setInterval"
@@ -425,6 +429,7 @@
           (jsConstants (regexp-opt xjs-constants 'symbols) )
           )
         `(
+          ("\\(\\.replace\\|\\.search\\|\\.match\\)[ ]*([ ]*\\(/[^/]+/\\)" . (2 font-lock-string-face t)) ; regex
           (,jsMathMethods . font-lock-type-face)
           (,jsConstants . font-lock-constant-face)
           (,domWords . font-lock-function-name-face)
@@ -560,7 +565,7 @@ This uses `ido-mode' user interface style for completion."
   (set-syntax-table xjs-syntax-table)
   (use-local-map xjs-keymap)
 
-  (setq-local comment-start "//")
+  (setq-local comment-start "// ")
   (setq-local comment-end "")
   (setq-local comment-column 2)
 
