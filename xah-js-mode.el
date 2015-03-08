@@ -326,6 +326,8 @@
 "window"
 "children"
 "nodeName"
+"nodeValue"
+"nodeType"
 "tagName"
 "querySelectorAll"
 "style"
@@ -376,7 +378,7 @@
 "appendChild"
 
 "getBoundingClientRect"
-"nodeValue"
+
 ) )
 
 (defvar xjs-constants nil "a list of constants")
