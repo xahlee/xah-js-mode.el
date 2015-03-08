@@ -89,7 +89,7 @@
   )
 
 
-(defvar xjs-keyword-builtin nil "a list of js  names")
+(defvar xjs-keyword-builtin nil "List of js  names")
 (setq xjs-keyword-builtin '(
 "break"
 "case"
@@ -118,7 +118,7 @@
 "while"
 "with") )
 
-(defvar xjs-js-lang-words nil "a list of JavaScript keywords.")
+(defvar xjs-js-lang-words nil "List of JavaScript keywords.")
 (setq xjs-js-lang-words '(
 
 "call"
@@ -227,7 +227,7 @@
 
 ) )
 
-(defvar xjs-js-array-methods nil "a list of JavaScript array methods.")
+(defvar xjs-js-array-methods nil "List of JavaScript array methods.")
 (setq xjs-js-array-methods '(
 "concat"
 "every"
@@ -253,7 +253,7 @@
 "unshift"
 ) )
 
-(defvar xjs-js-str-methods nil "a list of JavaScript string methods.")
+(defvar xjs-js-str-methods nil "List of JavaScript string methods.")
 (setq xjs-js-str-methods '(
 "length"
 "concat"
@@ -278,7 +278,7 @@
 "localeCompare"
 ) )
 
-(defvar xjs-js-math-methods nil "a list of JavaScript Math methods.")
+(defvar xjs-js-math-methods nil "List of JavaScript Math methods.")
 (setq xjs-js-math-methods '(
 "Math.abs"
 "Math.acos"
@@ -318,7 +318,7 @@
 "Math.trunc"
 ) )
 
-(defvar xjs-dom-words nil "a list of keywords from DOM or browser.")
+(defvar xjs-dom-words nil "List of keywords from DOM or browser.")
 (setq xjs-dom-words '(
 
 "location"
@@ -381,7 +381,193 @@
 
 ) )
 
-(defvar xjs-constants nil "a list of constants")
+(defvar xjs-dom-style-obj-words nil "List of constants")
+(setq xjs-dom-style-obj-words '(
+
+"style.alignContent"
+"style.alignItems"
+"style.alignSelf"
+"style.animation"
+"style.animationDelay"
+"style.animationDirection"
+"style.animationDuration"
+"style.animationFillMode"
+"style.animationIterationCount"
+"style.animationName"
+"style.animationTimingFunction"
+"style.animationPlayState"
+"style.background"
+"style.backgroundAttachment"
+"style.backgroundColor"
+"style.backgroundImage"
+"style.backgroundPosition"
+"style.backgroundRepeat"
+"style.backgroundClip"
+"style.backgroundOrigin"
+"style.backgroundSize"
+"style.backfaceVisibility"
+"style.border"
+"style.borderBottom"
+"style.borderBottomColor"
+"style.borderBottomLeftRadius"
+"style.borderBottomRightRadius"
+"style.borderBottomStyle"
+"style.borderBottomWidth"
+"style.borderCollapse"
+"style.borderColor"
+"style.borderImage"
+"style.borderImageOutset"
+"style.borderImageRepeat"
+"style.borderImageSlice"
+"style.borderImageSource"
+"style.borderImageWidth"
+"style.borderLeft"
+"style.borderLeftColor"
+"style.borderLeftStyle"
+"style.borderLeftWidth"
+"style.borderRadius"
+"style.borderRight"
+"style.borderRightColor"
+"style.borderRightStyle"
+"style.borderRightWidth"
+"style.borderSpacing"
+"style.borderStyle"
+"style.borderTop"
+"style.borderTopColor"
+"style.borderTopLeftRadius"
+"style.borderTopRightRadius"
+"style.borderTopStyle"
+"style.borderTopWidth"
+"style.borderWidth"
+"style.bottom"
+"style.boxDecorationBreak"
+"style.boxShadow"
+"style.boxSizing"
+"style.captionSide"
+"style.clear"
+"style.clip"
+"style.color"
+"style.columnCount"
+"style.columnFill"
+"style.columnGap"
+"style.columnRule"
+"style.columnRuleColor"
+"style.columnRuleStyle"
+"style.columnRuleWidth"
+"style.columns"
+"style.columnSpan"
+"style.columnWidth"
+"style.content"
+"style.counterIncrement"
+"style.counterReset"
+"style.cursor"
+"style.direction"
+"style.display"
+"style.emptyCells"
+"style.flex"
+"style.flexBasis"
+"style.flexDirection"
+"style.flexFlow"
+"style.flexGrow"
+"style.flexShrink"
+"style.flexWrap"
+"style.cssFloat"
+"style.font"
+"style.fontFamily"
+"style.fontSize"
+"style.fontStyle"
+"style.fontVariant"
+"style.fontWeight"
+"style.fontSizeAdjust"
+"style.fontStretch"
+"style.hangingPunctuation"
+"style.height"
+"style.hyphens"
+"style.icon"
+"style.imageOrientation"
+"style.justifyContent"
+"style.left"
+"style.letterSpacing"
+"style.lineHeight"
+"style.listStyle"
+"style.listStyleImage"
+"style.listStylePosition"
+"style.listStyleType"
+"style.margin"
+"style.marginBottom"
+"style.marginLeft"
+"style.marginRight"
+"style.marginTop"
+"style.maxHeight"
+"style.maxWidth"
+"style.minHeight"
+"style.minWidth"
+"style.navDown"
+"style.navIndex"
+"style.navLeft"
+"style.navRight"
+"style.navUp"
+"style.opacity"
+"style.order"
+"style.orphans"
+"style.outline"
+"style.outlineColor"
+"style.outlineOffset"
+"style.outlineStyle"
+"style.outlineWidth"
+"style.overflow"
+"style.overflowX"
+"style.overflowY"
+"style.padding"
+"style.paddingBottom"
+"style.paddingLeft"
+"style.paddingRight"
+"style.paddingTop"
+"style.pageBreakAfter"
+"style.pageBreakBefore"
+"style.pageBreakInside"
+"style.perspective"
+"style.perspectiveOrigin"
+"style.position"
+"style.quotes"
+"style.resize"
+"style.right"
+"style.tableLayout"
+"style.tabSize"
+"style.textAlign"
+"style.textAlignLast"
+"style.textDecoration"
+"style.textDecorationColor"
+"style.textDecorationLine"
+"style.textDecorationStyle"
+"style.textIndent"
+"style.textJustify"
+"style.textOverflow"
+"style.textShadow"
+"style.textTransform"
+"style.top"
+"style.transform"
+"style.transformOrigin"
+"style.transformStyle"
+"style.transition"
+"style.transitionProperty"
+"style.transitionDuration"
+"style.transitionTimingFunction"
+"style.transitionDelay"
+"style.unicodeBidi"
+"style.verticalAlign"
+"style.visibility"
+"style.whiteSpace"
+"style.width"
+"style.wordBreak"
+"style.wordSpacing"
+"style.wordWrap"
+"style.widows"
+"style.zIndex"
+
+) )
+
+(defvar xjs-constants nil "List of constants")
 (setq xjs-constants '(
 "NaN"
 "Infinity"
@@ -399,11 +585,11 @@
 "Math.SQRT2"
 ) )
 
-(defvar xjs-js-vars-1 nil "a list js variables names")
+(defvar xjs-js-vars-1 nil "List js variables names")
 (setq xjs-js-vars-1 '(
 ) )
 
-(defvar xjs-all-js-keywords nil "a list all js words.")
+(defvar xjs-all-js-keywords nil "List all js words.")
 (setq xjs-all-js-keywords
       (append xjs-keyword-builtin
               xjs-js-lang-words
@@ -422,6 +608,7 @@
 (setq xjs-font-lock-keywords
       (let (
           (jsMathMethods (regexp-opt xjs-js-math-methods 'symbols) )
+          (domStyle (regexp-opt xjs-dom-style-obj-words) )
           (domWords (regexp-opt xjs-dom-words) )
           (jsBuildins (regexp-opt xjs-keyword-builtin 'symbols) )
           (jsLangWords (regexp-opt xjs-js-lang-words 'symbols) )
@@ -433,6 +620,7 @@
         `(
           ("\\(\\.replace\\|\\.search\\|\\.match\\)[ ]*([ ]*\\(/[^/]+/\\)" . (2 font-lock-string-face t)) ; regex
           (,jsMathMethods . font-lock-type-face)
+          (,domStyle . font-lock-function-name-face)
           (,jsConstants . font-lock-constant-face)
           (,domWords . font-lock-function-name-face)
           (,jsBuildins . font-lock-keyword-face)
