@@ -359,6 +359,8 @@
 "replaceChild"
 "document"
 
+"previousElementSibling"
+"nextElementSibling"
 "previousSibling"
 "nextSibling"
 "firstChild"
