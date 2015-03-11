@@ -342,6 +342,12 @@
 
 "textContent"
 
+"classList"
+"classList.add"
+"classList.remove"
+"classList.toggle"
+"classList.contains"
+
 "getHours"
 "getMinutes"
 "getSeconds"
