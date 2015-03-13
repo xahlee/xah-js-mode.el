@@ -58,7 +58,7 @@
 
     ("elf" "else if (▮) { ▮ }" nil :system t)
 
-    ("ife" "test ? expr1 : expr2" nil :system t)
+    ("ife" "( test ? expr1 : expr2 )" nil :system t)
 
     ("switch" "switch(▮) {
     case ▮:
@@ -342,28 +342,61 @@
 
 "textContent"
 
+"localStorage"
+"localStorage.getItem"
+"localStorage.setItem"
+"localStorage.removeItem"
+"localStorage.clear"
+"localStorage.key"
+
+"navigator.appName"
+"navigator.appCodeName"
+"navigator.appVersion"
+"navigator.platform"
+"navigator.appCodeName"
+"navigator.product"
+"navigator.userAgent"
+"navigator.cookieEnabled"
+"navigator.javaEnabled"
+"navigator.mimeTypes"
+"navigator.plugins"
+
+"cookie"
+"cookie.path" ; cookie
+"cookie.domain" ; cookie
+"cookie.max-age" ; cookie
+"cookie.expires" ; cookie
+"cookie.secure"  ; cookie
+
 "classList"
 "classList.add"
 "classList.remove"
 "classList.toggle"
 "classList.contains"
 
-"getHours"
-"getMinutes"
-"getSeconds"
+".target"
 
-"setTimeout"
-"setInterval"
+
+".getHours"
+".getMinutes"
+".getSeconds"
+
+".setTimeout"
+".setInterval"
+
+".innerHTML"
+".innerText"
+".textContent"
 
 "console.log"
 "createElement"
 "createElementNS"
-"innerHTML"
 "hasChildNodes"
 "childNodes"
 "removeChild"
 "replaceChild"
 "document"
+
 
 "previousElementSibling"
 "nextElementSibling"
