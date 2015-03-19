@@ -339,6 +339,7 @@
 "getElementById"
 "getElementsByTagName"
 "getElementsByClassName"
+"getElementsByName"
 
 "textContent"
 
