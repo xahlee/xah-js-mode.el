@@ -377,13 +377,16 @@
 
 ".target"
 
-
+".getFullYear"
+".getMonth"
+".getDate"
+".getDay"
 ".getHours"
 ".getMinutes"
 ".getSeconds"
 
-".setTimeout"
-".setInterval"
+"setTimeout"
+"setInterval"
 
 ".innerHTML"
 ".innerText"
@@ -397,7 +400,6 @@
 "removeChild"
 "replaceChild"
 "document"
-
 
 "previousElementSibling"
 "nextElementSibling"
