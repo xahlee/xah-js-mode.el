@@ -384,6 +384,12 @@
 ".getHours"
 ".getMinutes"
 ".getSeconds"
+".getUTCMonth"
+".getUTCDate"
+".getUTCDay"
+".getUTCHours"
+".getUTCMinutes"
+".getUTCSeconds"
 
 "setTimeout"
 "setInterval"
