@@ -33,8 +33,20 @@
 
 
 
-(setq xjs-abbrev-table nil)
+(defface xjs-function-param-face
+  '(
+    (t :foreground "black" :background "LightYellow"))
+  "face for function parameters."
+  :group 'xah-js-mode )
 
+(defface xjs-user-variable-face
+  '(
+    (t :foreground "magenta"))
+  "face for user variables."
+  :group 'xah-js-mode )
+
+(defvar xjs-abbrev-table nil "abbrev table for `xah-js-mode'")
+(setq xjs-abbrev-table nil)
 (define-abbrev-table 'xjs-abbrev-table
   '(
     ("f" "function" nil :system t)
@@ -47,7 +59,7 @@
 
     ("do" "do { ▮; x++;} while (x != 5)" nil :system t)
 
-    ("function" "function () { ▮; }" nil :system t)
+    ("function" "function ff▮ () { 3; }" nil :system t)
     ("for" "for (var i = 0; i < ▮.length; i++) { ▮; }" nil :system t)
     ("while" "while (i<10) { ▮; i++; }" nil :system t)
     ("if" "if ( ▮ ) {
@@ -81,6 +93,7 @@
     ("v" "var ▮ = ▮;" nil :system t)
     ("addEventListener" "addEventListener(\"click\", FUNCTION , false);" nil :system t)
     ("forEach" "forEach(FUNCTION▮ , contexObject);" nil :system t)
+    ("getElementById" "getElementById(\"▮\")" nil :system t)
 
     )
 
@@ -690,16 +703,15 @@
 
 (setq xjs-font-lock-keywords
       (let (
-          (jsMathMethods (regexp-opt xjs-js-math-methods 'symbols) )
-          (domStyle (regexp-opt xjs-dom-style-obj-words) )
-          (domWords (regexp-opt xjs-dom-words) )
-          (jsBuildins (regexp-opt xjs-keyword-builtin 'symbols) )
-          (jsLangWords (regexp-opt xjs-js-lang-words 'symbols) )
-          (jsVars1 (regexp-opt xjs-js-vars-1 'symbols) )
-          (jsArrayMethods (regexp-opt xjs-js-array-methods 'symbols) )
-          (jsStrMethods (regexp-opt xjs-js-str-methods 'symbols) )
-          (jsConstants (regexp-opt xjs-constants 'symbols) )
-          )
+            (jsMathMethods (regexp-opt xjs-js-math-methods 'symbols))
+            (domStyle (regexp-opt xjs-dom-style-obj-words))
+            (domWords (regexp-opt xjs-dom-words))
+            (jsBuildins (regexp-opt xjs-keyword-builtin 'symbols))
+            (jsLangWords (regexp-opt xjs-js-lang-words 'symbols))
+            (jsVars1 (regexp-opt xjs-js-vars-1 'symbols))
+            (jsArrayMethods (regexp-opt xjs-js-array-methods 'symbols))
+            (jsStrMethods (regexp-opt xjs-js-str-methods 'symbols))
+            (jsConstants (regexp-opt xjs-constants 'symbols)))
         `(
           ("\\(\\.replace\\|\\.search\\|\\.match\\)[ ]*([ ]*\\(/[^/]+/\\)" . (2 font-lock-string-face t)) ; regex
           (,jsMathMethods . font-lock-type-face)
@@ -711,6 +723,8 @@
           (,jsArrayMethods . font-lock-keyword-face)
           (,jsStrMethods . font-lock-keyword-face)
           (,jsVars1 . font-lock-variable-name-face)
+          ("φ[$_0-9A-Za-z]+" . 'xjs-function-param-face)
+          ("ξ[$_0-9A-Za-z]+" . 'xjs-user-variable-face)
           ) ) )
 
 ;; fontfont-lock-builtin-face
