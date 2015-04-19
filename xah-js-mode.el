@@ -760,25 +760,16 @@
 (setq xjs-syntax-table
       (let ((synTable (make-syntax-table)))
 
-        (modify-syntax-entry ?\/ "< 124b" synTable)
-        (modify-syntax-entry ?* "< 23" synTable)
-        (modify-syntax-entry ?\n "> b" synTable)
-
         (modify-syntax-entry ?\! "." synTable)
-        (modify-syntax-entry ?\" "\"" synTable)
         (modify-syntax-entry ?\# "." synTable)
         (modify-syntax-entry ?\$ "." synTable)
         (modify-syntax-entry ?\% "." synTable)
         (modify-syntax-entry ?\& "." synTable)
-        (modify-syntax-entry ?\' "\"" synTable)
-        (modify-syntax-entry ?\( "()" synTable)
-        (modify-syntax-entry ?\) ")(" synTable)
         (modify-syntax-entry ?\* "." synTable)
         (modify-syntax-entry ?\+ "." synTable)
         (modify-syntax-entry ?\, "." synTable)
         (modify-syntax-entry ?\- "." synTable)
         (modify-syntax-entry ?\. "." synTable)
-        (modify-syntax-entry '(?0 . ?9) "w" synTable)
         (modify-syntax-entry ?\: "." synTable)
         (modify-syntax-entry ?\; "." synTable)
         (modify-syntax-entry ?\< "." synTable)
@@ -786,24 +777,32 @@
         (modify-syntax-entry ?\> "." synTable)
         (modify-syntax-entry ?\? "." synTable)
         (modify-syntax-entry ?\@ "." synTable)
-        (modify-syntax-entry '(?A . ?Z) "w" synTable)
-        (modify-syntax-entry ?\[ "(]" synTable)
-        (modify-syntax-entry ?\\ "\\" synTable)
-        (modify-syntax-entry ?\] ")[" synTable)
         (modify-syntax-entry ?^ "." synTable) ; can't use blackslash, because it became control
         (modify-syntax-entry ?\_ "_" synTable)
         (modify-syntax-entry ?\` "." synTable)
-        (modify-syntax-entry '(?a . ?z) "w" synTable)
-        (modify-syntax-entry ?\{ "(}" synTable)
         (modify-syntax-entry ?\| "." synTable)
-        (modify-syntax-entry ?\} "){" synTable)
         (modify-syntax-entry ?\~ "." synTable)
+        (modify-syntax-entry ?\\ "\\" synTable)
+
+        (modify-syntax-entry ?\/ ". 124" synTable)
+        (modify-syntax-entry ?* ". 23b" synTable)
+        (modify-syntax-entry ?\n ">" synTable)
+
+        (modify-syntax-entry ?\" "\"" synTable)
+        (modify-syntax-entry ?\' "." synTable)
+
+        (modify-syntax-entry ?\( "()" synTable)
+        (modify-syntax-entry ?\) ")(" synTable)
+        (modify-syntax-entry ?\[ "(]" synTable)
+        (modify-syntax-entry ?\] ")[" synTable)
+        (modify-syntax-entry ?\{ "(}" synTable)
+        (modify-syntax-entry ?\} "){" synTable)
+
+        (modify-syntax-entry '(?0 . ?9) "w" synTable)
+        (modify-syntax-entry '(?A . ?Z) "w" synTable)
+        (modify-syntax-entry '(?a . ?z) "w" synTable)
 
         synTable))
-
-;; tired of syntax table. major steal
-  (require 'cc-mode)     ; (only) for `c-populate-syntax-table'
-(setq xjs-syntax-table (let ((table (make-syntax-table))) (c-populate-syntax-table table) table))
 
 
 ;; indent

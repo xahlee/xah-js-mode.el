@@ -1,6 +1,27 @@
 // © 2013 Xah Lee, http://xahlee.info/
 "use strict";
 
+/*
+comment 
+*/
+
+function countChars (inputString) {
+    // returns (json), the keys are chars, the values are count of occurance of each char.
+    //  that's  some-lingual thing
+    var hashtable = {};
+
+    for (var i = 0; i < inputString.length; i++) {
+        var c = inputString[i];
+        if (  hashtable.hasOwnProperty(c) ) {
+            hashtable[c] += 1;
+        } else {
+            hashtable[c] = 1;
+        }
+    }
+    return hashtable;
+}
+
+
 // example of using Date object
 console.log( (new Date("2014-12-31T23:08")).getFullYear() ) // 2014
 console.log( (new Date("2014-12-31T23:08")).getMonth() ) // 11
