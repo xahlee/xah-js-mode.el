@@ -344,7 +344,6 @@
 "tagName"
 "querySelectorAll"
 "style"
-"setAttribute"
 "createTextNode"
 
 "addEventListener"
@@ -353,6 +352,11 @@
 "getElementsByTagName"
 "getElementsByClassName"
 "getElementsByName"
+
+"getAttribute"
+"setAttribute"
+"hasAttribute"
+"removeAttribute"
 
 "textContent"
 
