@@ -357,6 +357,7 @@
 "setAttribute"
 "hasAttribute"
 "removeAttribute"
+".attributes"
 
 "textContent"
 
