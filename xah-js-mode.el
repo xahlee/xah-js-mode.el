@@ -342,7 +342,7 @@
 (setq xah-js-dom-words '(
 
 "location"
-
+"body"
 "window"
 "children"
 "nodeName"
@@ -484,6 +484,7 @@
 ".innerHeight"
 
 "appendChild"
+"cloneNode"
 
 "getBoundingClientRect"
 
