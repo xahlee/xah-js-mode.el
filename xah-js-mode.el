@@ -3,7 +3,7 @@
 ;; Copyright © 2013 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.org/ )
-;; Version: 0.4.0
+;; Version: 0.4.1
 ;; Created: 23 March 2013
 ;; Keywords: lisp, languages, JavaScript
 ;; URL: http://ergoemacs.org/emacs/xah-js-mode.html
@@ -100,6 +100,7 @@
     ("v" "var ▮ = ▮;" nil :system t)
     ("addEventListener" "addEventListener(\"click\", FUNCTION , false);" nil :system t)
     ("forEach" "forEach(FUNCTION▮ , contexObject);" nil :system t)
+    ("map" "map(FUNCTION▮ , contexObject);" nil :system t)
     ("getElementById" "getElementById(\"▮\")" nil :system t)
 
     )
@@ -726,6 +727,8 @@
             (jsStrMethods (regexp-opt xah-js-js-str-methods 'symbols))
             (jsConstants (regexp-opt xah-js-constants 'symbols)))
         `(
+          ("φ[$_0-9A-Za-z]+" . 'xah-js-function-param-face)
+          ("ξ[$_0-9A-Za-z]+" . 'xah-js-user-variable-face)
           ("\\(\\.replace\\|\\.search\\|\\.match\\)[ ]*([ ]*\\(/[^/]+/\\)" . (2 font-lock-string-face t)) ; regex
           (,jsMathMethods . font-lock-type-face)
           (,domStyle . font-lock-function-name-face)
@@ -735,26 +738,7 @@
           (,jsLangWords . font-lock-keyword-face)
           (,jsArrayMethods . font-lock-keyword-face)
           (,jsStrMethods . font-lock-keyword-face)
-          (,jsVars1 . font-lock-variable-name-face)
-          ("φ[$_0-9A-Za-z]+" . 'xah-js-function-param-face)
-          ("ξ[$_0-9A-Za-z]+" . 'xah-js-user-variable-face)
-          ) ) )
-
-;; fontfont-lock-builtin-face
-;; font-lock-comment-delimiter-face
-;; font-lock-comment-face
-;; font-lock-constant-face
-;; font-lock-doc-face
-;; font-lock-function-name-face
-;; font-lock-keyword-face
-;; font-lock-negation-char-face
-;; font-lock-preprocessor-face
-;; font-lock-reference-face
-;; font-lock-string-face
-;; font-lock-syntactic-face-function
-;; font-lock-type-face
-;; font-lock-variable-name-face
-;; font-lock-warning-face
+          (,jsVars1 . font-lock-variable-name-face))))
 
 
 ;; keybinding
