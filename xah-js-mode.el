@@ -3,7 +3,7 @@
 ;; Copyright © 2013 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.org/ )
-;; Version: 0.4.1
+;; Version: 0.4.3
 ;; Created: 23 March 2013
 ;; Keywords: lisp, languages, JavaScript
 ;; URL: http://ergoemacs.org/emacs/xah-js-mode.html
@@ -62,20 +62,20 @@
     ("cmt" "/* ▮ */" nil :system t)
     ;; ("ogopn" "Object.getOwnPropertyNames" nil :system t)
 
-    ("cl" "console.log(▮)" nil :system t)
+    ("cl" "console.log(▮);" nil :system t)
 
-    ("do" "do { ▮; x++;} while (x != 5)" nil :system t)
+    ("do" "do { ▮; x++;} while (x != 5);" nil :system t)
 
-    ("function" "function ff▮ () { 3; }" nil :system t)
+    ("function" "function ff▮ () { return 3; }" nil :system t)
     ("for" "for (var i = 0; i < ▮.length; i++) { ▮; }" nil :system t)
     ("while" "while (i<10) { ▮; i++; }" nil :system t)
     ("if" "if ( ▮ ) {
-▮
+▮;
 }" nil :system t)
 
-    ("else" "else { ▮ }" nil :system t)
+    ("else" "else { ▮; }" nil :system t)
 
-    ("elf" "else if (▮) { ▮ }" nil :system t)
+    ("elf" "else if (▮) { ▮; }" nil :system t)
 
     ("ife" "( test ? expr1 : expr2 )" nil :system t)
 
@@ -245,7 +245,8 @@
 "length"
 
 "JSON.stringify"
-
+"JSON.parse"
+"__proto__"
 ) )
 
 (defvar xah-js-js-array-methods nil "List of JavaScript array methods.")
