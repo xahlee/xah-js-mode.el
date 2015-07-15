@@ -3,7 +3,7 @@
 ;; Copyright © 2013 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.org/ )
-;; Version: 0.4.3
+;; Version: 0.4.4
 ;; Created: 23 March 2013
 ;; Keywords: lisp, languages, JavaScript
 ;; URL: http://ergoemacs.org/emacs/xah-js-mode.html
@@ -56,7 +56,10 @@
 (setq xah-js-abbrev-table nil)
 (define-abbrev-table 'xah-js-abbrev-table
   '(
-    ("f" "function" nil :system t)
+    ("f" "function ▮ () { return 3; }" nil :system t)
+    ("d" "document" nil :system t)
+    ("r" "return" nil :system t)
+    ("w" "window" nil :system t)
     ("pt" "prototype" nil :system t)
     ("us" "\"use strict\";" nil :system t)
     ("cmt" "/* ▮ */" nil :system t)
@@ -66,7 +69,7 @@
 
     ("do" "do { ▮; x++;} while (x != 5);" nil :system t)
 
-    ("function" "function ff▮ () { return 3; }" nil :system t)
+    ("function" "function ▮ () { return 3; }" nil :system t)
     ("for" "for (var i = 0; i < ▮.length; i++) { ▮; }" nil :system t)
     ("while" "while (i<10) { ▮; i++; }" nil :system t)
     ("if" "if ( ▮ ) {
@@ -99,8 +102,8 @@
 }" nil :system t)
     ("v" "var ▮ = ▮;" nil :system t)
     ("addEventListener" "addEventListener(\"click\", FUNCTION , false);" nil :system t)
-    ("forEach" "forEach(FUNCTION▮ , contexObject);" nil :system t)
-    ("map" "map(FUNCTION▮ , contexObject);" nil :system t)
+    ("forEach" "forEach( f▮ , contexObject);" nil :system t)
+    ("map" "map( f▮ , contexObject);" nil :system t)
     ("getElementById" "getElementById(\"▮\")" nil :system t)
 
     )
@@ -145,7 +148,6 @@
 "call"
 "isExtensible"
 "preventExtensions"
-"getOwnPropertyDescriptor"
 "isSealed"
 "isFrozen"
 "freeze"
@@ -236,6 +238,7 @@
 "prototype"
 
 "getOwnPropertyNames"
+"getOwnPropertyDescriptor"
 "hasOwnProperty"
 
 "apply"
@@ -247,6 +250,13 @@
 "JSON.stringify"
 "JSON.parse"
 "__proto__"
+
+"isSafeInteger"
+"isInteger"
+"isNaN"
+"EPSILON"
+"MIN_SAFE_INTEGER"
+"MAX_SAFE_INTEGER"
 ) )
 
 (defvar xah-js-js-array-methods nil "List of JavaScript array methods.")
@@ -710,6 +720,7 @@
               xah-js-dom-words
               xah-js-constants
               xah-js-js-vars-1
+              xah-js-dom-style-obj-words
               )
       )
 
