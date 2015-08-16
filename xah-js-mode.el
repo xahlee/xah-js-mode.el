@@ -100,6 +100,9 @@
 } catch(error) {
 ▮;
 }" nil :system t)
+("finally" "finally {
+▮;
+}" nil :system t)
     ("v" "var ▮ = ▮;" nil :system t)
     ("addEventListener" "addEventListener(\"click\", FUNCTION , false);" nil :system t)
     ("forEach" "forEach( f▮ , contexObject);" nil :system t)
