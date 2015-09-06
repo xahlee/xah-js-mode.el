@@ -3,7 +3,7 @@
 ;; Copyright © 2013 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.org/ )
-;; Version: 0.4.4
+;; Version: 0.4.5
 ;; Created: 23 March 2013
 ;; Keywords: lisp, languages, JavaScript
 ;; URL: http://ergoemacs.org/emacs/xah-js-mode.html
@@ -70,13 +70,13 @@
     ("do" "do { ▮; x++;} while (x != 5);" nil :system t)
 
     ("function" "function ▮ () { return 3; }" nil :system t)
-    ("for" "for (var i = 0; i < ▮.length; i++) { ▮; }" nil :system t)
-    ("while" "while (i<10) { ▮; i++; }" nil :system t)
+    ("for" "for (var i = 0; i < ▮.length; i++) { ▮; };" nil :system t)
+    ("while" "while (i<10) { ▮; i++; };" nil :system t)
     ("if" "if ( ▮ ) {
 ▮;
-}" nil :system t)
+};" nil :system t)
 
-    ("else" "else { ▮; }" nil :system t)
+    ("else" "else { ▮; };" nil :system t)
 
     ("elf" "else if (▮) { ▮; }" nil :system t)
 
@@ -91,7 +91,7 @@
         break;
     default:
         ▮;
-}" nil :system t)
+};" nil :system t)
 
     ("case" "case ▮: ▮; break;" nil :system t)
 
@@ -99,10 +99,10 @@
 ▮;
 } catch(error) {
 ▮;
-}" nil :system t)
+};" nil :system t)
 ("finally" "finally {
 ▮;
-}" nil :system t)
+};" nil :system t)
     ("v" "var ▮ = ▮;" nil :system t)
     ("addEventListener" "addEventListener(\"click\", FUNCTION , false);" nil :system t)
     ("forEach" "forEach( f▮ , contexObject);" nil :system t)
