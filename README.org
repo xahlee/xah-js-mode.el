@@ -1,0 +1,7 @@
+2015-09-17
+
+Xah's own experimental JavaScript mode for emacs.
+
+You probably don't want to use this.
+
+Home page: http://ergoemacs.org/emacs/xah-js-mode.html
