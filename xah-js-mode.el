@@ -3,7 +3,7 @@
 ;; Copyright © 2013 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.org/ )
-;; Version: 0.4.5
+;; Version: 0.4.6
 ;; Created: 23 March 2013
 ;; Keywords: lisp, languages, JavaScript
 ;; URL: http://ergoemacs.org/emacs/xah-js-mode.html
@@ -63,6 +63,12 @@
     ("pt" "prototype" nil :system t)
     ("us" "\"use strict\";" nil :system t)
     ("cmt" "/* ▮ */" nil :system t)
+    ("cm" "/**
+ * desc▮.
+ * @param {string} title The title of the book.
+ * @return {number} The circumference of the circle.
+ */" nil :system t)
+
     ;; ("ogopn" "Object.getOwnPropertyNames" nil :system t)
 
     ("cl" "console.log(▮);" nil :system t)
