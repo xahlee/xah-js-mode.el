@@ -3,7 +3,7 @@
 ;; Copyright © 2013 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.org/ )
-;; Version: 0.4.6
+;; Version: 0.4.8
 ;; Created: 23 March 2013
 ;; Keywords: lisp, languages, JavaScript
 ;; URL: http://ergoemacs.org/emacs/xah-js-mode.html
@@ -20,8 +20,6 @@
 
 ;;; HISTORY
 
-;; 2014-10-16 version are no longer logged here. just github latest.
-;; version 0.2, 2013-12-25 added array methods and string method highlighting
 ;; version 0.1, 2013-08-21 first version
 
 ;; TODO
@@ -156,6 +154,7 @@
 
 "call"
 "isExtensible"
+"seal"
 "preventExtensions"
 "isSealed"
 "isFrozen"
@@ -363,6 +362,8 @@
 (setq xah-js-dom-words '(
 
 "location"
+"href"
+"protocol"
 "body"
 "window"
 "children"
