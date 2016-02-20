@@ -3,7 +3,7 @@
 ;; Copyright © 2013 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.org/ )
-;; Version: 0.4.8
+;; Version: 0.4.9
 ;; Created: 23 March 2013
 ;; Keywords: lisp, languages, JavaScript
 ;; URL: http://ergoemacs.org/emacs/xah-js-mode.html
@@ -313,6 +313,10 @@
 "toLocaleLowerCase"
 "charAt"
 "charCodeAt"
+"codePointAt"
+
+"fromCharCode"
+"fromCodePoint"
 
 "toValueOf"
 "localeCompare"
