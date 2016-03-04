@@ -3,7 +3,7 @@
 ;; Copyright © 2013 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.org/ )
-;; Version: 0.4.9
+;; Version: 0.4.10
 ;; Created: 23 March 2013
 ;; Keywords: lisp, languages, JavaScript
 ;; URL: http://ergoemacs.org/emacs/xah-js-mode.html
@@ -514,6 +514,17 @@
 
 "getBoundingClientRect"
 
+"WebSocket"
+"onmessage"
+"onopen"
+"onclose"
+"onerror"
+"send"
+
+"close"
+"data"
+"attributes"
+
 ) )
 
 (defvar xah-js-dom-style-obj-words nil "List of constants")
@@ -745,7 +756,7 @@
       (let (
             (jsMathMethods (regexp-opt xah-js-js-math-methods 'symbols))
             (domStyle (regexp-opt xah-js-dom-style-obj-words))
-            (domWords (regexp-opt xah-js-dom-words))
+            (domWords (regexp-opt xah-js-dom-words 'symbols))
             (jsBuildins (regexp-opt xah-js-keyword-builtin 'symbols))
             (jsLangWords (regexp-opt xah-js-js-lang-words 'symbols))
             (jsVars1 (regexp-opt xah-js-js-vars-1 'symbols))
