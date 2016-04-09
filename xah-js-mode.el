@@ -3,7 +3,7 @@
 ;; Copyright © 2013 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.org/ )
-;; Version: 0.5.0
+;; Version: 0.6.0
 ;; Created: 23 March 2013
 ;; Keywords: lisp, languages, JavaScript
 ;; URL: http://ergoemacs.org/emacs/xah-js-mode.html
@@ -40,7 +40,7 @@
 
 (defface xah-js-function-param-face
   '(
-    (t :foreground "black" :background "LightYellow"))
+    (t :foreground "black" :background "aquamarine"))
   "face for function parameters."
   :group 'xah-js-mode )
 
@@ -391,7 +391,7 @@
 "setAttribute"
 "hasAttribute"
 "removeAttribute"
-".attributes"
+"attributes"
 
 "textContent"
 
@@ -427,61 +427,61 @@
 "classList.toggle"
 "classList.contains"
 
-".target"
+"target"
 
-".getTime"
-".getFullYear"
-".getYear"
-".getMonth"
-".getDate"
-".getDay"
-".getHours"
-".getMinutes"
-".getSeconds"
-".getMilliseconds"
+"getTime"
+"getFullYear"
+"getYear"
+"getMonth"
+"getDate"
+"getDay"
+"getHours"
+"getMinutes"
+"getSeconds"
+"getMilliseconds"
 
-".getUTCMonth"
-".getUTCDate"
-".getUTCDay"
-".getUTCHours"
-".getUTCMinutes"
-".getUTCSeconds"
-".getUTCMilliseconds"
+"getUTCMonth"
+"getUTCDate"
+"getUTCDay"
+"getUTCHours"
+"getUTCMinutes"
+"getUTCSeconds"
+"getUTCMilliseconds"
 
-".setTime"
-".setFullYear"
-".setYear"
-".setMonth"
-".setDate"
-".setHours"
-".setMinutes"
-".setSeconds"
-".setMilliseconds"
+"setTime"
+"setFullYear"
+"setYear"
+"setMonth"
+"setDate"
+"setHours"
+"setMinutes"
+"setSeconds"
+"setMilliseconds"
 
-".setUTCFullYear"
-".setUTCMonth"
-".setUTCDate"
-".setUTCHours"
-".setUTCMinutes"
-".setUTCSeconds"
-".setUTCMilliseconds"
+"setUTCFullYear"
+"setUTCMonth"
+"setUTCDate"
+"setUTCHours"
+"setUTCMinutes"
+"setUTCSeconds"
+"setUTCMilliseconds"
 
-".toLocaleString"
-".toLocaleDateString"
-".toLocaleTimeString"
-".toDateString"
-".toTimeString"
-".toISOString"
-".toUTCString"
-".toGMTString"
-".toJSON"
+"toLocaleString"
+"toLocaleDateString"
+"toLocaleTimeString"
+"toDateString"
+"toTimeString"
+"toISOString"
+"toUTCString"
+"toGMTString"
+"toJSON"
 
 "setTimeout"
 "setInterval"
 
-".innerHTML"
-".innerText"
-".textContent"
+"innerHTML"
+"innerText"
+"textContent"
 
 "console.log"
 "createElement"
@@ -505,11 +505,11 @@
 "clientWidth"
 "clientHeight"
 
-".pageXOffset"
-".pageYOffset"
+"pageXOffset"
+"pageYOffset"
 
-".innerWidth"
-".innerHeight"
+"innerWidth"
+"innerHeight"
 
 "appendChild"
 "cloneNode"
