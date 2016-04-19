@@ -54,11 +54,11 @@
 (setq xah-js-abbrev-table nil)
 (define-abbrev-table 'xah-js-abbrev-table
   '(
-    ("f" "function ▮ () { return 3; }" nil :system t)
-    ("d" "document" nil :system t)
+    ("f" "function ▮ () { }" nil :system t)
     ("r" "return" nil :system t)
-    ("w" "window" nil :system t)
-    ("pt" "prototype" nil :system t)
+    ("d" "document." nil :system t)
+    ("w" "window." nil :system t)
+    ("pt" "prototype." nil :system t)
     ("us" "\"use strict\";" nil :system t)
     ("cmt" "/* ▮ */" nil :system t)
     ("cm" "/**
@@ -74,10 +74,9 @@
     ("do" "do { ▮; x++;} while (x != 5);" nil :system t)
 
     ("function" "function ▮ () { return 3; }" nil :system t)
-    ("for" "for (var i = 0; i < ▮.length; i++) { ▮; }" nil :system t)
+    ("for" "for (var i = 0; i < ▮.length; i++) { }" nil :system t)
     ("while" "while (i<10) { ▮; i++; }" nil :system t)
     ("if" "if ( ▮ ) {
-▮;
 }" nil :system t)
 
     ("else" "else { ▮; }" nil :system t)
