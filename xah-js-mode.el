@@ -3,7 +3,7 @@
 ;; Copyright © 2013 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.org/ )
-;; Version: 0.6.1
+;; Version: 0.6.2
 ;; Created: 23 March 2013
 ;; Keywords: lisp, languages, JavaScript
 ;; URL: http://ergoemacs.org/emacs/xah-js-mode.html
@@ -39,14 +39,14 @@
 
 
 (defface xah-js-function-param-face
-  '(
-    (t :foreground "black" :background "aquamarine"))
+  '((t :foreground "DarkGreen" :weight bold))
   "face for function parameters."
   :group 'xah-js-mode )
 
 (defface xah-js-user-variable-face
-  '(
-    (t :foreground "magenta"))
+  '((t :foreground "magenta"
+      :weight bold
+      ))
   "face for user variables."
   :group 'xah-js-mode )
 
