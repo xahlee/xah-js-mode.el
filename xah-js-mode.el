@@ -3,7 +3,7 @@
 ;; Copyright © 2013 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.org/ )
-;; Version: 0.6.2
+;; Version: 0.7.0
 ;; Created: 23 March 2013
 ;; Keywords: lisp, languages, JavaScript
 ;; URL: http://ergoemacs.org/emacs/xah-js-mode.html
@@ -59,7 +59,7 @@
     ("d" "document." nil :system t)
     ("w" "window." nil :system t)
     ("pt" "prototype." nil :system t)
-    ("us" "\"use strict\";" nil :system t)
+    ("us" "\"use strict\"" nil :system t)
     ("cmt" "/* ▮ */" nil :system t)
     ("cm" "/**
  * desc▮.
@@ -69,48 +69,51 @@
 
     ;; ("ogopn" "Object.getOwnPropertyNames" nil :system t)
 
-    ("cl" "console.log(▮);" nil :system t)
+    ("cl" "console.log(▮)" nil :system t)
 
-    ("do" "do { ▮; x++;} while (x != 5);" nil :system t)
+    ("do" "do { ▮; x++} while (x != 5)" nil :system t)
 
-    ("function" "function ▮ () { return 3; }" nil :system t)
+    ("function" "function ▮ () { return 3 }" nil :system t)
     ("for" "for (var i = 0; i < ▮.length; i++) { }" nil :system t)
-    ("while" "while (i<10) { ▮; i++; }" nil :system t)
+    ("while" "while (i<10) { ▮; i++ }" nil :system t)
     ("if" "if ( ▮ ) {
 }" nil :system t)
 
-    ("else" "else { ▮; }" nil :system t)
+    ("else" "else { ▮ }" nil :system t)
 
-    ("elf" "else if (▮) { ▮; }" nil :system t)
+    ("elf" "else if (▮) { ▮ }" nil :system t)
 
     ("ife" "( test ? expr1 : expr2 )" nil :system t)
 
     ("switch" "switch(▮) {
     case ▮:
-▮;
-        break;
+▮
+        break
     case ▮:
-▮;
-        break;
+▮
+        break
     default:
-        ▮;
-};" nil :system t)
+        ▮
+}" nil :system t)
 
-    ("case" "case ▮: ▮; break;" nil :system t)
+    ("case" "case ▮: ▮; break" nil :system t)
 
     ("try" "try {
-▮;
+▮
 } catch (error) {
-▮;
+▮
 }" nil :system t)
 ("finally" "finally {
-▮;
+▮
 }" nil :system t)
-    ("v" "var ▮ = ▮;" nil :system t)
-    ("addEventListener" "addEventListener(\"click\", FUNCTION , false);" nil :system t)
-    ("forEach" "forEach( f▮ , contexObject);" nil :system t)
-    ("map" "map( f▮ , contexObject);" nil :system t)
+    ("v" "var ▮ = ▮" nil :system t)
+    ("addEventListener" "addEventListener(\"click\", FUNCTION , false)" nil :system t)
+    ("forEach" "forEach( f▮ , contexObject)" nil :system t)
+    ("map" "map( f▮ , contexObject)" nil :system t)
     ("getElementById" "getElementById(\"▮\")" nil :system t)
+
+    ("setInterval" "setInterval(func, delay, param1, param2)" nil :system t)
+    ("setTimeout" "setTimeout(func, delay, param1, param2)" nil :system t)
 
     )
 
@@ -150,6 +153,8 @@
 
 (defvar xah-js-js-lang-words nil "List of JavaScript keywords.")
 (setq xah-js-js-lang-words '(
+
+"prototype"
 
 "call"
 "isExtensible"
@@ -241,8 +246,6 @@
 "isPrototypeOf"
 "defineProperty"
 "value"
-
-"prototype"
 
 "getOwnPropertyNames"
 "getOwnPropertyDescriptor"
@@ -363,6 +366,8 @@
 
 (defvar xah-js-dom-words nil "List of keywords from DOM or browser.")
 (setq xah-js-dom-words '(
+
+"postMessage"
 
 "location"
 "href"
