@@ -3,7 +3,7 @@
 ;; Copyright © 2013 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.org/ )
-;; Version: 0.7.0
+;; Version: 0.7.2
 ;; Created: 23 March 2013
 ;; Keywords: lisp, languages, JavaScript
 ;; URL: http://ergoemacs.org/emacs/xah-js-mode.html
@@ -367,6 +367,7 @@
 (defvar xah-js-dom-words nil "List of keywords from DOM or browser.")
 (setq xah-js-dom-words '(
 
+"Worker"
 "postMessage"
 
 "location"
@@ -912,6 +913,9 @@ This uses `ido-mode' user interface style for completion."
   :syntax-table xah-js-syntax-table
 
   )
+
+;; (autoload 'xah-js-mode "xah-js-mode" "load xah-js-mode for JavaScript file" t)
+(add-to-list 'auto-mode-alist '("\\.js\\'" . xah-js-mode))
 
 (provide 'xah-js-mode)
 
