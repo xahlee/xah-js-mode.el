@@ -3,7 +3,7 @@
 ;; Copyright © 2013 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.org/ )
-;; Version: 0.7.2
+;; Version: 0.7.3
 ;; Created: 23 March 2013
 ;; Keywords: lisp, languages, JavaScript
 ;; URL: http://ergoemacs.org/emacs/xah-js-mode.html
@@ -33,26 +33,29 @@
 
 (require 'js) ; temp, to borrow its indentation function
 
+(require 'newcomment)
+(require 'ido)
+
 
 (defvar xah-js-mode-hook nil "Standard hook for `xah-js-mode'")
 
 
 
-(defface xah-js-function-param-face
+(defface xah-js-function-param-fc
   '((t :foreground "DarkGreen" :weight bold))
   "face for function parameters."
   :group 'xah-js-mode )
 
-(defface xah-js-user-variable-face
+(defface xah-js-user-variable-fc
   '((t :foreground "magenta"
       :weight bold
       ))
   "face for user variables."
   :group 'xah-js-mode )
 
-(defvar xah-js-abbrev-table nil "abbrev table for `xah-js-mode'")
-(setq xah-js-abbrev-table nil)
-(define-abbrev-table 'xah-js-abbrev-table
+(defvar xah-js-mode-abbrev-table nil "abbrev table for `xah-js-mode'")
+(setq xah-js-mode-abbrev-table nil)
+(define-abbrev-table 'xah-js-mode-abbrev-table
   '(
     ("f" "function ▮ () { }" nil :system t)
     ("r" "return" nil :system t)
@@ -367,6 +370,7 @@
 (defvar xah-js-dom-words nil "List of keywords from DOM or browser.")
 (setq xah-js-dom-words '(
 
+"write"
 "Worker"
 "postMessage"
 
@@ -774,8 +778,8 @@
             (jsStrMethods (regexp-opt xah-js-js-str-methods 'symbols))
             (jsConstants (regexp-opt xah-js-constants 'symbols)))
         `(
-          ("φ[$_0-9A-Za-z]+" . 'xah-js-function-param-face)
-          ("ξ[$_0-9A-Za-z]+" . 'xah-js-user-variable-face)
+          ("φ[$_0-9A-Za-z]+" . 'xah-js-function-param-fc)
+          ("ξ[$_0-9A-Za-z]+" . 'xah-js-user-variable-fc)
           ("\\(\\.replace\\|\\.search\\|\\.match\\)[ ]*([ ]*\\(/[^/]+/\\)" . (2 font-lock-string-face t)) ; regex
           (,jsMathMethods . font-lock-type-face)
           (,domStyle . font-lock-function-name-face)
@@ -790,18 +794,18 @@
 
 ;; keybinding
 
-(defvar xah-js-keymap nil "Keybinding for `xah-js-mode'")
+(defvar xah-js-mode-map nil "Keybinding for `xah-js-mode'")
 (progn
-  (setq xah-js-keymap (make-sparse-keymap))
-  (define-key xah-js-keymap (kbd "<menu> e TAB") 'xah-js-complete-symbol-ido)
+  (setq xah-js-mode-map (make-sparse-keymap))
+  (define-key xah-js-mode-map (kbd "<menu> e TAB") 'xah-js-complete-symbol-ido)
   )
 
 
 ;; syntax table
 
-(defvar xah-js-syntax-table nil "Syntax table for `xah-js-mode'.")
+(defvar xah-js-mode-syntax-table nil "Syntax table for `xah-js-mode'.")
 
-(setq xah-js-syntax-table
+(setq xah-js-mode-syntax-table
       (let ((synTable (make-syntax-table)))
 
         (modify-syntax-entry ?\! "." synTable)
@@ -863,37 +867,29 @@
 This uses `ido-mode' user interface style for completion."
   (interactive)
   (let* (
-         (bds (bounds-of-thing-at-point 'symbol))
-         (p1 (car bds) )
-         (p2 (cdr bds) )
-         (currentWord (buffer-substring-no-properties p1 p2) )
-
-         finalResult)
-    (when (not currentWord) (setq currentWord ""))
-    (setq finalResult
-          (ido-completing-read "" xah-js-all-js-keywords nil nil currentWord )
+         (-bds (bounds-of-thing-at-point 'symbol))
+         (-p1 (car -bds) )
+         (-p2 (cdr -bds) )
+         (-word (buffer-substring-no-properties -p1 -p2) )
+         -result)
+    (when (not -word) (setq -word ""))
+    (setq -result
+          (ido-completing-read "" xah-js-all-js-keywords nil nil -word )
           )
-    (delete-region p1 p2)
-    (insert finalResult)
+    (delete-region -p1 -p2)
+    (insert -result)
     ))
 
 
 
 ;;;###autoload
-(defun xah-js-mode ()
+
+(define-derived-mode xah-js-mode prog-mode "ξjs"
   "A major mode for JavaScript.
 
-\\{xah-js-keymap}"
-  (interactive)
-  (kill-all-local-variables)
-
-  (setq mode-name "∑js")
-  (setq major-mode 'xah-js-mode)
+\\{xah-js-mode-map}"
 
   (setq font-lock-defaults '((xah-js-font-lock-keywords)))
-
-  (set-syntax-table xah-js-syntax-table)
-  (use-local-map xah-js-keymap)
 
   (setq-local comment-start "// ")
   (setq-local comment-end "")
@@ -905,12 +901,6 @@ This uses `ido-mode' user interface style for completion."
 
   (setq indent-tabs-mode nil) ; don't mix space and tab
   (setq tab-width 1)
-
-  (setq local-abbrev-table xah-js-abbrev-table)
-
-  (run-mode-hooks 'xah-js-mode-hook)
-
-  :syntax-table xah-js-syntax-table
 
   )
 
