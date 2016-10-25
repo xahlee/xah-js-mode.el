@@ -3,9 +3,9 @@
 ;; Copyright © 2013 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.org/ )
-;; Version: 0.7.3
+;; Version: 0.8.0
 ;; Created: 23 March 2013
-;; Keywords: lisp, languages, JavaScript
+;; Keywords: languages, JavaScript
 ;; URL: http://ergoemacs.org/emacs/xah-js-mode.html
 
 ;; This file is not part of GNU Emacs.
@@ -33,8 +33,9 @@
 
 (require 'js) ; temp, to borrow its indentation function
 
-(require 'newcomment)
-(require 'ido)
+(require 'newcomment) ; in emacs
+(require 'ido)        ; in emacs
+;; (require 'lisp-mode) ; in emacs. for indent-sexp. temp hack. todo
 
 
 (defvar xah-js-mode-hook nil "Standard hook for `xah-js-mode'")
@@ -53,79 +54,159 @@
   "face for user variables."
   :group 'xah-js-mode )
 
-(defvar xah-js-mode-abbrev-table nil "abbrev table for `xah-js-mode'")
+(defface xah-js-identifier-ε
+  '((t :foreground "red"
+      :weight bold
+      ))
+  "face for user variables."
+  :group 'xah-js-mode )
+
+(face-spec-set
+ 'xah-js-identifier-ε
+ '((t :foreground "red"
+      :weight bold
+      ))
+ 'face-defface-spec
+ )
+
+(defface xah-js-identifier-ƒ
+  '((t :foreground "purple"
+      :weight bold
+      ))
+  "face for user variables."
+  :group 'xah-js-mode )
+
+(face-spec-set
+ 'xah-js-identifier-ƒ
+ '((t :foreground "purple"
+      :weight bold
+      ))
+ 'face-defface-spec
+ )
+
+(defface xah-js-identifier-γ
+  '((t :foreground "#104e8b"
+      :weight bold
+      ))
+  "face for user variables."
+  :group 'xah-js-mode )
+
+(face-spec-set
+ 'xah-js-identifier-γ
+ '((t :foreground "#104e8b"
+      :weight bold
+      ))
+ 'face-defface-spec
+ )
+
+(defface xah-js-cap-word
+  '(
+    (t :foreground "firebrick" :weight bold))
+  "Face for capitalized word."
+  :group 'xah-js-mode )
+
+
+;; abbrev
+
+(defun xah-js-abbrev-enable-function ()
+  "Return t if not in string or comment. Else nil.
+This is for abbrev table property `:enable-function'.
+Version 2016-10-24"
+  (let ((-syntax-state (syntax-ppss)))
+    (not (or (nth 3 -syntax-state) (nth 4 -syntax-state)))))
+
+(defun xah-js-expand-abbrev ()
+  "Expand the symbol before cursor,
+if cursor is not in string or comment.
+Returns the abbrev symbol if there's a expansion, else nil.
+Version 2016-10-24"
+  (interactive)
+  (when (xah-js-abbrev-enable-function) ; abbrev property :enable-function doesn't seem to work, so check here instead
+    (let (
+          -p1 -p2
+          -abrStr
+          -abrSymbol
+          )
+      (save-excursion
+        (forward-symbol -1)
+        (setq -p1 (point))
+        (forward-symbol 1)
+        (setq -p2 (point)))
+      (setq -abrStr (buffer-substring-no-properties -p1 -p2))
+      (setq -abrSymbol (abbrev-symbol -abrStr))
+      (if -abrSymbol
+          (progn
+            (abbrev-insert -abrSymbol -abrStr -p1 -p2 )
+            (xah-js--abbrev-position-cursor -p1)
+            -abrSymbol)
+        nil))))
+
+(defun xah-js--abbrev-position-cursor (&optional *pos)
+  "Move cursor back to ▮ if exist, else put at end.
+Return true if found, else false.
+Version 2016-10-24"
+  (interactive)
+  (message "pos is %s" *pos)
+  (let ((-found-p (search-backward "▮" (if *pos *pos (max (point-min) (- (point) 100))) t )))
+    (when -found-p (forward-char ))
+    -found-p
+    ))
+
+(defun xah-js--ahf ()
+  "Abbrev hook function, used for `define-abbrev'.
+ Our use is to prevent inserting the char that triggered expansion. Experimental.
+ the “ahf” stand for abbrev hook function.
+Version 2016-10-24"
+  t)
+
+(put 'xah-js--ahf 'no-self-insert t)
+
 (setq xah-js-mode-abbrev-table nil)
 (define-abbrev-table 'xah-js-mode-abbrev-table
   '(
-    ("f" "function ▮ () { }" nil :system t)
-    ("r" "return" nil :system t)
-    ("d" "document." nil :system t)
-    ("w" "window." nil :system t)
-    ("pt" "prototype." nil :system t)
-    ("us" "\"use strict\"" nil :system t)
-    ("cmt" "/* ▮ */" nil :system t)
-    ("cm" "/**
- * desc▮.
- * @param {string} title The title of the book.
- * @return {number} The circumference of the circle.
- */" nil :system t)
+    ("f" "function ▮ () { }" xah-js--ahf)
+    ("r" "return" xah-js--ahf)
+    ("d" "document." xah-js--ahf)
+    ("w" "window." xah-js--ahf)
+    ("pt" "prototype." xah-js--ahf)
+    ("us" "\"use strict\"" xah-js--ahf)
+    ("cm" "/* ▮ */" xah-js--ahf)
+    ("cmt" "/**/n * desc▮./n * @param {string} title The title of the book./n * @return {number} The circumference of the circle./n */" xah-js--ahf)
 
-    ;; ("ogopn" "Object.getOwnPropertyNames" nil :system t)
-
-    ("cl" "console.log(▮)" nil :system t)
-
-    ("do" "do { ▮; x++} while (x != 5)" nil :system t)
-
-    ("function" "function ▮ () { return 3 }" nil :system t)
-    ("for" "for (var i = 0; i < ▮.length; i++) { }" nil :system t)
-    ("while" "while (i<10) { ▮; i++ }" nil :system t)
-    ("if" "if ( ▮ ) {
-}" nil :system t)
-
-    ("else" "else { ▮ }" nil :system t)
-
-    ("elf" "else if (▮) { ▮ }" nil :system t)
-
-    ("ife" "( test ? expr1 : expr2 )" nil :system t)
-
-    ("switch" "switch(▮) {
-    case ▮:
-▮
-        break
-    case ▮:
-▮
-        break
-    default:
-        ▮
-}" nil :system t)
-
-    ("case" "case ▮: ▮; break" nil :system t)
-
-    ("try" "try {
-▮
-} catch (error) {
-▮
-}" nil :system t)
-("finally" "finally {
-▮
-}" nil :system t)
-    ("v" "var ▮ = ▮" nil :system t)
-    ("addEventListener" "addEventListener(\"click\", FUNCTION , false)" nil :system t)
-    ("forEach" "forEach( f▮ , contexObject)" nil :system t)
-    ("map" "map( f▮ , contexObject)" nil :system t)
-    ("getElementById" "getElementById(\"▮\")" nil :system t)
-
-    ("setInterval" "setInterval(func, delay, param1, param2)" nil :system t)
-    ("setTimeout" "setTimeout(func, delay, param1, param2)" nil :system t)
-
+    ;; ("ogopn" "Object.getOwnPropertyNames" xah-js--ahf)
+    ("cl" "console.log(▮)" xah-js--ahf)
+    ("do" "do { ▮; x++} while (x != 5)" xah-js--ahf)
+    ("function" "function ▮ () { return 3 }" xah-js--ahf)
+    ("for" "for (var i = 0; i < ▮.length; i++) { }" xah-js--ahf)
+    ("while" "while (i<10) { ▮; i++ }" xah-js--ahf)
+    ("if" "if ( ▮ ) {\n}" xah-js--ahf)
+    ("else" "else { ▮ }" xah-js--ahf)
+    ("elf" "else if (▮) { ▮ }" xah-js--ahf)
+    ("ife" "( test ? expr1 : expr2 )" xah-js--ahf)
+    ("switch" "switch(▮) {\n    case ▮:\n▮\n        break\n    case ▮:\n▮\n        break\n    default:\n        ▮\n}" xah-js--ahf)
+    ("case" "case ▮: ▮; break" xah-js--ahf)
+    ("try" "try {\n▮\n} catch (error) {\n▮\n}" xah-js--ahf)
+    ("finally" "finally {\n▮\n}" xah-js--ahf)
+    ("v" "var ▮ = ▮" xah-js--ahf)
+    ("addEventListener" "addEventListener(\"click\", FUNCTION , false)" xah-js--ahf)
+    ("forEach" "forEach( f▮ , contexObject)" xah-js--ahf)
+    ("map" "map( f▮ , contexObject)" xah-js--ahf)
+    ("getElementById" "getElementById(\"▮\" xah-js--ahf)" xah-js--ahf)
+    ("setInterval" "setInterval(func, delay, param1, param2)" xah-js--ahf)
+    ("setTimeout" "setTimeout(func, delay, param1, param2)" xah-js--ahf)
+    ;;
     )
 
   "abbrev table for `xah-js-mode'"
-  :case-fixed t
   )
 
+(abbrev-table-put xah-js-mode-abbrev-table :regexp "\\([_0-9A-Za-z$]+\\)")
+(abbrev-table-put xah-js-mode-abbrev-table :case-fixed t)
+(abbrev-table-put xah-js-mode-abbrev-table :system t)
+(abbrev-table-put xah-js-mode-abbrev-table :enable-function 'xah-js-abbrev-enable-function)
+
 
-(defvar xah-js-keyword-builtin nil "List of js  names")
+(defvar xah-js-keyword-builtin nil "List of js names")
 (setq xah-js-keyword-builtin '(
 "break"
 "case"
@@ -154,8 +235,8 @@
 "while"
 "with") )
 
-(defvar xah-js-js-lang-words nil "List of JavaScript keywords.")
-(setq xah-js-js-lang-words '(
+(defvar xah-js-lang-words nil "List of JavaScript keywords.")
+(setq xah-js-lang-words '(
 
 "prototype"
 
@@ -166,7 +247,7 @@
 "isSealed"
 "isFrozen"
 "freeze"
-
+"toFixed"
 "substring"
 
 "JSON"
@@ -234,8 +315,6 @@
 "volatile"
 "yield"
 
-"alert"
-
 "writable"
 "enumerable"
 "configurable"
@@ -272,8 +351,8 @@
 "MAX_SAFE_INTEGER"
 ) )
 
-(defvar xah-js-js-array-methods nil "List of JavaScript array methods.")
-(setq xah-js-js-array-methods '(
+(defvar xah-js-array-methods nil "List of JavaScript array methods.")
+(setq xah-js-array-methods '(
 "concat"
 "every"
 "filter"
@@ -298,8 +377,8 @@
 "unshift"
 ) )
 
-(defvar xah-js-js-str-methods nil "List of JavaScript string methods.")
-(setq xah-js-js-str-methods '(
+(defvar xah-js-str-methods nil "List of JavaScript string methods.")
+(setq xah-js-str-methods '(
 "length"
 "concat"
 "trim"
@@ -370,6 +449,8 @@
 (defvar xah-js-dom-words nil "List of keywords from DOM or browser.")
 (setq xah-js-dom-words '(
 
+"alert"
+
 "write"
 "Worker"
 "postMessage"
@@ -424,11 +505,16 @@
 "navigator.plugins"
 
 "cookie"
-"cookie.path" ; cookie
-"cookie.domain" ; cookie
-"cookie.max-age" ; cookie
-"cookie.expires" ; cookie
-"cookie.secure"  ; cookie
+"cookie.path"
+"cookie.domain"
+"cookie.max-age"
+"cookie.expires"
+"cookie.secure"
+
+"Image"
+"src"
+"open"
+"focus"
 
 "classList"
 "classList.add"
@@ -487,6 +573,7 @@
 
 "setTimeout"
 "setInterval"
+"clearInterval"
 
 "innerHTML"
 "innerText"
@@ -745,51 +832,42 @@
 "Math.SQRT2"
 ) )
 
-(defvar xah-js-js-vars-1 nil "List js variables names")
-(setq xah-js-js-vars-1 '(
-) )
-
 (defvar xah-js-all-js-keywords nil "List all js words.")
 (setq xah-js-all-js-keywords
       (append xah-js-keyword-builtin
-              xah-js-js-lang-words
-              xah-js-js-array-methods
-              xah-js-js-str-methods
+              xah-js-lang-words
+              xah-js-array-methods
+              xah-js-str-methods
               xah-js-js-math-methods
               xah-js-dom-words
               xah-js-constants
-              xah-js-js-vars-1
               xah-js-dom-style-obj-words
-              )
-      )
+              ))
 
 
 ;; syntax coloring related
 
 (setq xah-js-font-lock-keywords
       (let (
-            (jsMathMethods (regexp-opt xah-js-js-math-methods 'symbols))
-            (domStyle (regexp-opt xah-js-dom-style-obj-words))
-            (domWords (regexp-opt xah-js-dom-words 'symbols))
-            (jsBuildins (regexp-opt xah-js-keyword-builtin 'symbols))
-            (jsLangWords (regexp-opt xah-js-js-lang-words 'symbols))
-            (jsVars1 (regexp-opt xah-js-js-vars-1 'symbols))
-            (jsArrayMethods (regexp-opt xah-js-js-array-methods 'symbols))
-            (jsStrMethods (regexp-opt xah-js-js-str-methods 'symbols))
-            (jsConstants (regexp-opt xah-js-constants 'symbols)))
+            (capVars "\\_<[A-Z][-_?0-9A-Za-z]+" ))
         `(
           ("φ[$_0-9A-Za-z]+" . 'xah-js-function-param-fc)
           ("ξ[$_0-9A-Za-z]+" . 'xah-js-user-variable-fc)
+          ("ε[$_0-9A-Za-z]+" . 'xah-js-identifier-ε)
+          ("ƒ[$_0-9A-Za-z]+" . 'xah-js-identifier-ƒ)
+          ("γ[$_0-9A-Za-z]+" . 'xah-js-identifier-γ)
           ("\\(\\.replace\\|\\.search\\|\\.match\\)[ ]*([ ]*\\(/[^/]+/\\)" . (2 font-lock-string-face t)) ; regex
-          (,jsMathMethods . font-lock-type-face)
-          (,domStyle . font-lock-function-name-face)
-          (,jsConstants . font-lock-constant-face)
-          (,domWords . font-lock-function-name-face)
-          (,jsBuildins . font-lock-keyword-face)
-          (,jsLangWords . font-lock-keyword-face)
-          (,jsArrayMethods . font-lock-keyword-face)
-          (,jsStrMethods . font-lock-keyword-face)
-          (,jsVars1 . font-lock-variable-name-face))))
+          (,(regexp-opt xah-js-js-math-methods 'symbols) . font-lock-type-face)
+          (,(regexp-opt xah-js-dom-style-obj-words) . font-lock-function-name-face)
+          (,(regexp-opt xah-js-constants 'symbols) . font-lock-constant-face)
+          (,(regexp-opt xah-js-dom-words 'symbols) . font-lock-function-name-face)
+          (,(regexp-opt xah-js-keyword-builtin 'symbols) . font-lock-keyword-face)
+          (,(regexp-opt xah-js-lang-words 'symbols) . font-lock-keyword-face)
+          (,(regexp-opt xah-js-array-methods 'symbols) . font-lock-keyword-face)
+          (,(regexp-opt xah-js-str-methods 'symbols) . font-lock-keyword-face)
+          ;; font-lock-variable-name-face
+          (,capVars . 'xah-js-cap-word)
+          )))
 
 
 ;; keybinding
@@ -797,7 +875,10 @@
 (defvar xah-js-mode-map nil "Keybinding for `xah-js-mode'")
 (progn
   (setq xah-js-mode-map (make-sparse-keymap))
+
   (define-key xah-js-mode-map (kbd "<menu> e TAB") 'xah-js-complete-symbol-ido)
+  (define-key xah-js-mode-map (kbd "TAB") 'xah-js-complete-or-indent)
+
   )
 
 
@@ -855,37 +936,98 @@
 
 ;; indent
 
-(defun xah-js-complete-or-indent ()
-  ""
+(defun xah-js-goto-outer-bracket (&optional pos)
+  "Move cursor to the beginning of left {}, starting at pos.
+Version 2016-10-18"
   (interactive)
-  (js-indent-line)
-)
+  (let (
+        (-p0 (if (number-or-marker-p pos) pos (point)))
+        (-p1 -p0))
+    (goto-char -p1)
+    (search-backward "{" nil t)
+    ;; (while
+    ;;     ;; (setq -p1 (point))
+    ;;     )
+    ))
+
+(defun xah-js-indent-root-block ()
+  "Prettify format current root sexp group.
+Root sexp group is the outmost sexp unit."
+  (interactive)
+  (save-excursion
+    (let (-p1 -p2)
+      (xah-js-goto-outer-bracket)
+      (setq -p1 (point))
+      (setq -p2 (forward-sexp 1))
+      (progn
+        (goto-char -p1)
+        ;; (indent-sexp)
+        (message "xah-js-indent-root-block called " )
+        ;; (js-indent-line)
+        ;; (indent-region -p1 -p2)
+        ;; (c-indent-region -p1 -p2)
+        ))))
+
+(defun xah-js-complete-or-indent ()
+  "Do keyword completion or indent/prettify-format.
+
+If char before point is letters and char after point is whitespace or punctuation, then do completion, except when in string or comment. In these cases, do `xah-js-indent-root-block'.
+Version 2016-10-24"
+  (interactive)
+  (let ( (-syntax-state (syntax-ppss)))
+    (if (or (nth 3 -syntax-state) (nth 4 -syntax-state))
+        (progn
+          (insert "★")
+          (message "tried indent")
+          ;; (xah-js-indent-root-block)
+          )
+      (if
+          (and (looking-back "[[:graph:]]" 1)
+               ;; (or (eobp) (looking-at "[\n[:blank:][:punct:]]"))
+               )
+          (progn
+            ;; (xah-js-complete-symbol-ido)
+            (insert "CC"))
+        (progn
+          (insert "★")
+          (message "tried indent")
+          ;; (xah-js-indent-root-block)
+          )))))
 
 (defun xah-js-complete-symbol-ido ()
   "Perform keyword completion on current word.
 
-This uses `ido-mode' user interface style for completion."
+This uses `ido-mode' user interface style for completion.
+Version 2016-10-24"
   (interactive)
   (let* (
          (-bds (bounds-of-thing-at-point 'symbol))
-         (-p1 (car -bds) )
-         (-p2 (cdr -bds) )
-         (-word (buffer-substring-no-properties -p1 -p2) )
+         -p1
+         -p2
+         -word
          -result)
-    (when (not -word) (setq -word ""))
+    (if (and (not (null (car -bds)))
+             (not (null (cdr -bds))))
+        (progn
+          (setq -p1 (car -bds))
+          (setq -p2 (cdr -bds))
+          (setq -word (buffer-substring-no-properties -p1 -p2)))
+      (progn
+        (setq -p1 (point))
+        (setq -p2 (point))
+        (setq -word "")))
     (setq -result
-          (ido-completing-read "" xah-js-all-js-keywords nil nil -word )
-          )
+          (ido-completing-read "" xah-js-all-js-keywords nil nil -word ))
     (delete-region -p1 -p2)
-    (insert -result)
-    ))
+    (insert -result)))
 
 
 
 ;;;###autoload
-
 (define-derived-mode xah-js-mode prog-mode "ξjs"
   "A major mode for JavaScript.
+
+URL `http://ergoemacs.org/emacs/xah-js-mode.html'
 
 \\{xah-js-mode-map}"
 
@@ -895,12 +1037,22 @@ This uses `ido-mode' user interface style for completion."
   (setq-local comment-end "")
   (setq-local comment-column 2)
 
-  (setq-local indent-line-function 'xah-js-complete-or-indent)
-  (setq-local tab-always-indent 'complete)
-  (add-hook 'completion-at-point-functions 'xah-js-complete-symbol-ido nil 'local)
+  (make-local-variable 'abbrev-expand-function)
+  (if (or
+       (and (>= emacs-major-version 24)
+            (>= emacs-minor-version 4))
+       (>= emacs-major-version 25))
+      (progn
+        (setq abbrev-expand-function 'xah-js-expand-abbrev))
+    (progn (add-hook 'abbrev-expand-functions 'xah-js-expand-abbrev nil t)))
+
+  ;; (setq-local indent-line-function 'xah-js-complete-or-indent)
+  ;; (setq-local tab-always-indent t)
+  ;; (add-hook 'completion-at-point-functions 'xah-js-complete-symbol-ido nil 'local)
 
   (setq indent-tabs-mode nil) ; don't mix space and tab
-  (setq tab-width 1)
+
+  :group 'xah-js-mode
 
   )
 
