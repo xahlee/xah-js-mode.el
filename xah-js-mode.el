@@ -31,7 +31,7 @@
 
 ;;; Code:
 
-(require 'js) ; temp, to borrow its indentation function
+(require 'js) ; temp, borrow js-indent-line
 
 (require 'newcomment) ; in emacs
 (require 'ido)        ; in emacs
@@ -167,11 +167,15 @@ Version 2016-10-24"
     ("f" "function ▮ () { }" xah-js--ahf)
     ("r" "return" xah-js--ahf)
     ("d" "document." xah-js--ahf)
+    ("v" "var ▮ = ▮" xah-js--ahf)
     ("w" "window." xah-js--ahf)
+
     ("pt" "prototype." xah-js--ahf)
     ("us" "\"use strict\"" xah-js--ahf)
     ("cm" "/* ▮ */" xah-js--ahf)
     ("cmt" "/**/n * desc▮./n * @param {string} title The title of the book./n * @return {number} The circumference of the circle./n */" xah-js--ahf)
+    ("fe" "forEach" xah-js--ahf)
+    ("ael" "addEventListener" xah-js--ahf)
 
     ;; ("ogopn" "Object.getOwnPropertyNames" xah-js--ahf)
     ("cl" "console.log(▮)" xah-js--ahf)
@@ -182,13 +186,12 @@ Version 2016-10-24"
     ("if" "if ( ▮ ) {\n}" xah-js--ahf)
     ("else" "else { ▮ }" xah-js--ahf)
     ("elf" "else if (▮) { ▮ }" xah-js--ahf)
-    ("ife" "( test ? expr1 : expr2 )" xah-js--ahf)
+    ("ife" "( test▮ ? expr1 : expr2 )" xah-js--ahf)
     ("switch" "switch(▮) {\n    case ▮:\n▮\n        break\n    case ▮:\n▮\n        break\n    default:\n        ▮\n}" xah-js--ahf)
     ("case" "case ▮: ▮; break" xah-js--ahf)
     ("try" "try {\n▮\n} catch (error) {\n▮\n}" xah-js--ahf)
     ("finally" "finally {\n▮\n}" xah-js--ahf)
-    ("v" "var ▮ = ▮" xah-js--ahf)
-    ("addEventListener" "addEventListener(\"click\", FUNCTION , false)" xah-js--ahf)
+    ("addEventListener" "addEventListener(\"click\", ▮ , false)" xah-js--ahf)
     ("forEach" "forEach( f▮ , contexObject)" xah-js--ahf)
     ("map" "map( f▮ , contexObject)" xah-js--ahf)
     ("getElementById" "getElementById(\"▮\" xah-js--ahf)" xah-js--ahf)
@@ -977,8 +980,9 @@ Version 2016-10-24"
   (let ( (-syntax-state (syntax-ppss)))
     (if (or (nth 3 -syntax-state) (nth 4 -syntax-state))
         (progn
-          (insert "★")
+          ;; (insert "★")
           (message "tried indent")
+          (js-indent-line)
           ;; (xah-js-indent-root-block)
           )
       (if
@@ -986,10 +990,10 @@ Version 2016-10-24"
                ;; (or (eobp) (looking-at "[\n[:blank:][:punct:]]"))
                )
           (progn
-            ;; (xah-js-complete-symbol-ido)
-            (insert "CC"))
+            (xah-js-complete-symbol-ido))
         (progn
-          (insert "★")
+          ;; (insert "★")
+          (js-indent-line)
           (message "tried indent")
           ;; (xah-js-indent-root-block)
           )))))
@@ -1046,7 +1050,9 @@ URL `http://ergoemacs.org/emacs/xah-js-mode.html'
         (setq abbrev-expand-function 'xah-js-expand-abbrev))
     (progn (add-hook 'abbrev-expand-functions 'xah-js-expand-abbrev nil t)))
 
-  ;; (setq-local indent-line-function 'xah-js-complete-or-indent)
+  (abbrev-mode 1)
+
+  (setq-local indent-line-function 'js-indent-line)
   ;; (setq-local tab-always-indent t)
   ;; (add-hook 'completion-at-point-functions 'xah-js-complete-symbol-ido nil 'local)
 
