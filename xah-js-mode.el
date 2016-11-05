@@ -2,8 +2,8 @@
 
 ;; Copyright © 2013 by Xah Lee
 
-;; Author: Xah Lee ( http://xahlee.org/ )
-;; Version: 0.8.0
+;; Author: Xah Lee ( http://xahlee.info/ )
+;; Version: 0.8.1
 ;; Created: 23 March 2013
 ;; Keywords: languages, JavaScript
 ;; URL: http://ergoemacs.org/emacs/xah-js-mode.html
@@ -146,9 +146,8 @@ Version 2016-10-24"
 Return true if found, else false.
 Version 2016-10-24"
   (interactive)
-  (message "pos is %s" *pos)
   (let ((-found-p (search-backward "▮" (if *pos *pos (max (point-min) (- (point) 100))) t )))
-    (when -found-p (forward-char ))
+    (when -found-p (delete-char 1) )
     -found-p
     ))
 
@@ -164,31 +163,43 @@ Version 2016-10-24"
 (setq xah-js-mode-abbrev-table nil)
 (define-abbrev-table 'xah-js-mode-abbrev-table
   '(
-    ("f" "function ▮ () { }" xah-js--ahf)
-    ("r" "return" xah-js--ahf)
+
+    ("f" "function ▮ () { 3 }" xah-js--ahf :system t)
+    ("gf" "function* ▮ () { yield 3;}" xah-js--ahf :system t)
+
+    ("r" "return ▮;" xah-js--ahf)
+    ("y" "yield ▮;" xah-js--ahf)
     ("d" "document." xah-js--ahf)
-    ("v" "var ▮ = ▮" xah-js--ahf)
+    ("v" "var ▮ = 3" xah-js--ahf)
+    ("l" "let ▮ = 3" xah-js--ahf)
+    ("c" "const ▮ = 3" xah-js--ahf)
     ("w" "window." xah-js--ahf)
+    ("af" "(x▮ => { 3; })" xah-js--ahf)
+    ("af2" "((x▮, x2) => ({ 3 }))" xah-js--ahf)
 
     ("pt" "prototype." xah-js--ahf)
     ("us" "\"use strict\"" xah-js--ahf)
     ("cm" "/* ▮ */" xah-js--ahf)
     ("cmt" "/**/n * desc▮./n * @param {string} title The title of the book./n * @return {number} The circumference of the circle./n */" xah-js--ahf)
     ("fe" "forEach" xah-js--ahf)
+    ("fi" "for (let p▮ in obj) { }" xah-js--ahf)
+    ("fo" "for (let p▮ of obj) { }" xah-js--ahf)
+
+    ("ei" "else if (▮) { 3 }" xah-js--ahf)
+    ("te" "( test▮ ? expr1 : expr2 )" xah-js--ahf)
+
     ("ael" "addEventListener" xah-js--ahf)
 
     ;; ("ogopn" "Object.getOwnPropertyNames" xah-js--ahf)
     ("cl" "console.log(▮)" xah-js--ahf)
     ("do" "do { ▮; x++} while (x != 5)" xah-js--ahf)
     ("function" "function ▮ () { return 3 }" xah-js--ahf)
-    ("for" "for (var i = 0; i < ▮.length; i++) { }" xah-js--ahf)
+    ("for" "for (let i = 0; i < ▮.length; i++) { }" xah-js--ahf)
     ("while" "while (i<10) { ▮; i++ }" xah-js--ahf)
     ("if" "if ( ▮ ) {\n}" xah-js--ahf)
     ("else" "else { ▮ }" xah-js--ahf)
-    ("elf" "else if (▮) { ▮ }" xah-js--ahf)
-    ("ife" "( test▮ ? expr1 : expr2 )" xah-js--ahf)
-    ("switch" "switch(▮) {\n    case ▮:\n▮\n        break\n    case ▮:\n▮\n        break\n    default:\n        ▮\n}" xah-js--ahf)
-    ("case" "case ▮: ▮; break" xah-js--ahf)
+    ("switch" "switch(▮) {\n    case 3:\n3\n        break\n    case 3:\n3\n        break\n    default:\n        3\n}" xah-js--ahf)
+    ("case" "case ▮: x; break" xah-js--ahf)
     ("try" "try {\n▮\n} catch (error) {\n▮\n}" xah-js--ahf)
     ("finally" "finally {\n▮\n}" xah-js--ahf)
     ("addEventListener" "addEventListener(\"click\", ▮ , false)" xah-js--ahf)
@@ -222,7 +233,9 @@ Version 2016-10-24"
 "else"
 "finally"
 "for"
+"of"
 "function"
+"function*"
 "if"
 "in"
 "instanceof"
@@ -236,12 +249,20 @@ Version 2016-10-24"
 "var"
 "void"
 "while"
-"with") )
+"with"
+
+"done"
+"next"
+
+) )
 
 (defvar xah-js-lang-words nil "List of JavaScript keywords.")
 (setq xah-js-lang-words '(
 
 "prototype"
+
+"Symbol"
+"iterator"
 
 "call"
 "isExtensible"
@@ -897,7 +918,6 @@ Version 2016-10-24"
         (modify-syntax-entry ?\$ "." synTable)
         (modify-syntax-entry ?\% "." synTable)
         (modify-syntax-entry ?\& "." synTable)
-        (modify-syntax-entry ?\* "." synTable)
         (modify-syntax-entry ?\+ "." synTable)
         (modify-syntax-entry ?\, "." synTable)
         (modify-syntax-entry ?\- "." synTable)
@@ -917,7 +937,7 @@ Version 2016-10-24"
         (modify-syntax-entry ?\\ "\\" synTable)
 
         (modify-syntax-entry ?\/ ". 124" synTable)
-        (modify-syntax-entry ?* ". 23b" synTable)
+        (modify-syntax-entry ?* "w 23b" synTable)
         (modify-syntax-entry ?\n ">" synTable)
 
         (modify-syntax-entry ?\" "\"" synTable)
