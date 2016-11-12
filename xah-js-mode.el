@@ -164,34 +164,36 @@ Version 2016-10-24"
 (define-abbrev-table 'xah-js-mode-abbrev-table
   '(
 
-    ("f" "function ▮ () { 3 }" xah-js--ahf :system t)
-    ("gf" "function* ▮ () { yield 3;}" xah-js--ahf :system t)
-
-    ("r" "return ▮;" xah-js--ahf)
-    ("y" "yield ▮;" xah-js--ahf)
-    ("d" "document." xah-js--ahf)
-    ("v" "var ▮ = 3" xah-js--ahf)
-    ("l" "let ▮ = 3" xah-js--ahf)
-    ("c" "const ▮ = 3" xah-js--ahf)
-    ("w" "window." xah-js--ahf)
+    ("ael" "addEventListener" xah-js--ahf)
     ("af" "(x▮ => { 3; })" xah-js--ahf)
     ("af2" "((x▮, x2) => ({ 3 }))" xah-js--ahf)
-
-    ("pt" "prototype." xah-js--ahf)
-    ("us" "\"use strict\"" xah-js--ahf)
+    ("c" "const ▮ = 3" xah-js--ahf)
+    ("cl" "console.log(▮)" xah-js--ahf)
     ("cm" "/* ▮ */" xah-js--ahf)
     ("cmt" "/**/n * desc▮./n * @param {string} title The title of the book./n * @return {number} The circumference of the circle./n */" xah-js--ahf)
+    ("d" "document." xah-js--ahf)
+    ("ei" "else if (▮) { 3 }" xah-js--ahf)
+    ("eq" "=== " xah-js--ahf)
+    ("f" "function ▮ () { 3 }" xah-js--ahf :system t)
     ("fe" "forEach" xah-js--ahf)
     ("fi" "for (let p▮ in obj) { }" xah-js--ahf)
     ("fo" "for (let p▮ of obj) { }" xah-js--ahf)
-
-    ("ei" "else if (▮) { 3 }" xah-js--ahf)
+    ("gf" "function* ▮ () { yield 3;}" xah-js--ahf :system t)
+    ("l" "let ▮ = 3" xah-js--ahf)
+    ("o" "Object" xah-js--ahf)
+    ("ogopn" "Object.getOwnPropertyNames(▮)" xah-js--ahf)
+    ("pt" "prototype." xah-js--ahf)
+    ("r" "return ▮;" xah-js--ahf)
+    ("s" "Symbol" xah-js--ahf)
+    ("si" "setInterval(func, delay, param1, param2)" xah-js--ahf)
+    ("st" "setTimeout(func, delay, param1, param2)" xah-js--ahf)
+    ("t" "typeof " xah-js--ahf)
     ("te" "( test▮ ? expr1 : expr2 )" xah-js--ahf)
+    ("us" "\"use strict\"" xah-js--ahf)
+    ("v" "var ▮ = 3" xah-js--ahf)
+    ("w" "window." xah-js--ahf)
+    ("y" "yield ▮;" xah-js--ahf)
 
-    ("ael" "addEventListener" xah-js--ahf)
-
-    ;; ("ogopn" "Object.getOwnPropertyNames" xah-js--ahf)
-    ("cl" "console.log(▮)" xah-js--ahf)
     ("do" "do { ▮; x++} while (x != 5)" xah-js--ahf)
     ("function" "function ▮ () { return 3 }" xah-js--ahf)
     ("for" "for (let i = 0; i < ▮.length; i++) { }" xah-js--ahf)
@@ -261,9 +263,6 @@ Version 2016-10-24"
 
 "prototype"
 
-"Symbol"
-"iterator"
-
 "call"
 "isExtensible"
 "seal"
@@ -283,6 +282,16 @@ Version 2016-10-24"
 "Date"
 "Error"
 "Function"
+
+"Set"
+"Map"
+"WeakMap"
+"WeakSet"
+"Proxy"
+"Symbol"
+"iterator"
+
+"add" ; Set
 
 "Object.keys" ; hack. todo
 "insertBefore" ; hack. todo
@@ -356,6 +365,7 @@ Version 2016-10-24"
 "getOwnPropertyNames"
 "getOwnPropertyDescriptor"
 "hasOwnProperty"
+"getOwnPropertySymbols"
 
 "apply"
 "arguments"
