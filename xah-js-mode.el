@@ -3,7 +3,7 @@
 ;; Copyright © 2013 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 0.8.1
+;; Version: 0.9
 ;; Created: 23 March 2013
 ;; Keywords: languages, JavaScript
 ;; URL: http://ergoemacs.org/emacs/xah-js-mode.html
@@ -151,67 +151,124 @@ Version 2016-10-24"
     -found-p
     ))
 
-(defun xah-js--ahf ()
+(defun xah-js--abbrev-hook-f ()
   "Abbrev hook function, used for `define-abbrev'.
  Our use is to prevent inserting the char that triggered expansion. Experimental.
  the “ahf” stand for abbrev hook function.
 Version 2016-10-24"
   t)
 
-(put 'xah-js--ahf 'no-self-insert t)
+(put 'xah-js--abbrev-hook-f 'no-self-insert t)
 
 (setq xah-js-mode-abbrev-table nil)
 (define-abbrev-table 'xah-js-mode-abbrev-table
   '(
 
-    ("ael" "addEventListener" xah-js--ahf)
-    ("af" "(x▮ => { 3; })" xah-js--ahf)
-    ("af2" "((x▮, x2) => ({ 3 }))" xah-js--ahf)
-    ("c" "const ▮ = 3" xah-js--ahf)
-    ("cl" "console.log(▮)" xah-js--ahf)
-    ("cm" "/* ▮ */" xah-js--ahf)
-    ("cmt" "/**/n * desc▮./n * @param {string} title The title of the book./n * @return {number} The circumference of the circle./n */" xah-js--ahf)
-    ("d" "document." xah-js--ahf)
-    ("ei" "else if (▮) { 3 }" xah-js--ahf)
-    ("eq" "=== " xah-js--ahf)
-    ("f" "function ▮ () { 3 }" xah-js--ahf :system t)
-    ("fe" "forEach" xah-js--ahf)
-    ("fi" "for (let p▮ in obj) { }" xah-js--ahf)
-    ("fo" "for (let p▮ of obj) { }" xah-js--ahf)
-    ("gf" "function* ▮ () { yield 3;}" xah-js--ahf :system t)
-    ("l" "let ▮ = 3" xah-js--ahf)
-    ("o" "Object" xah-js--ahf)
-    ("ogopn" "Object.getOwnPropertyNames(▮)" xah-js--ahf)
-    ("pt" "prototype." xah-js--ahf)
-    ("r" "return ▮;" xah-js--ahf)
-    ("s" "Symbol" xah-js--ahf)
-    ("si" "setInterval(func, delay, param1, param2)" xah-js--ahf)
-    ("st" "setTimeout(func, delay, param1, param2)" xah-js--ahf)
-    ("t" "typeof " xah-js--ahf)
-    ("te" "( test▮ ? expr1 : expr2 )" xah-js--ahf)
-    ("us" "\"use strict\"" xah-js--ahf)
-    ("v" "var ▮ = 3" xah-js--ahf)
-    ("w" "window." xah-js--ahf)
-    ("y" "yield ▮;" xah-js--ahf)
+ ("Oa" "Object.assign ( target▮, source1, source2, etc )" xah-js--abbrev-hook-f)
+ ("assign" "assign ( target▮, source1, source2, etc )" xah-js--abbrev-hook-f)
+ ("Oc" "Object.create (▮, {pname, { value : 3, writable: true, enumerable: false, configurable: true, set: function, get: function }}, etc)" xah-js--abbrev-hook-f)
+ ("create" "create (▮, {pname, { value : 3, writable: true, enumerable: false, configurable: true, set: function, get: function }}, etc)" xah-js--abbrev-hook-f)
+ ("Odps" "Object.defineProperties (▮, {pname, { value : 3, writable: true, enumerable: false, configurable: true, set: function, get: function }}, etc)" xah-js--abbrev-hook-f)
+ ("defineProperties" "Object.defineProperties (▮, {pname, { value : 3, writable: true, enumerable: false, configurable: true, set: function, get: function }}, etc)" xah-js--abbrev-hook-f)
+ ("defineProperties" "defineProperties(▮, {pname, { value : 3, writable: true, enumerable: false, configurable: true, set: function, get: function }}, etc)" xah-js--abbrev-hook-f)
+ ("Odp" "Object.defineProperty(▮, pname, { value : 3, writable: true, enumerable: false, configurable: true, set: function, get: function })" xah-js--abbrev-hook-f)
+ ("defineProperty" "defineProperty(▮, pname, { value : 3, writable: true, enumerable: false, configurable: true, set: function, get: function })" xah-js--abbrev-hook-f)
+ ("dp" "defineProperty(▮, pname, { value : 3, writable: true, enumerable: false, configurable: true, set: function, get: function })" xah-js--abbrev-hook-f)
+ ("Of" "Object.freeze ( ▮ )" xah-js--abbrev-hook-f)
+ ("Ogopd" "Object.getOwnPropertyDescriptor ( ▮, P )" xah-js--abbrev-hook-f)
+ ("Ogopn" "Object.getOwnPropertyNames ( ▮ )" xah-js--abbrev-hook-f)
+ ("Ogops" "Object.getOwnPropertySymbols ( ▮ )" xah-js--abbrev-hook-f)
+ ("Ogpo" "Object.getPrototypeOf ( ▮ )" xah-js--abbrev-hook-f)
+ ("Oi" "Object.is ( value1▮, value2 )" xah-js--abbrev-hook-f)
+ ("Oie" "Object.isExtensible ( ▮ )" xah-js--abbrev-hook-f)
+ ("Oif" "Object.isFrozen ( ▮ )" xah-js--abbrev-hook-f)
+ ("Ois" "Object.isSealed ( ▮ )" xah-js--abbrev-hook-f)
+ ("Ok" "Object.keys ( ▮ )" xah-js--abbrev-hook-f)
+ ("Ope" "Object.preventExtensions ( ▮ )" xah-js--abbrev-hook-f)
+ ("Op" "Object.prototype" xah-js--abbrev-hook-f)
+ ("Os" "Object.seal ( ▮ )" xah-js--abbrev-hook-f)
+ ("Ospo" "Object.setPrototypeOf ( ▮, proto )" xah-js--abbrev-hook-f)
 
-    ("do" "do { ▮; x++} while (x != 5)" xah-js--ahf)
-    ("function" "function ▮ () { return 3 }" xah-js--ahf)
-    ("for" "for (let i = 0; i < ▮.length; i++) { }" xah-js--ahf)
-    ("while" "while (i<10) { ▮; i++ }" xah-js--ahf)
-    ("if" "if ( ▮ ) {\n}" xah-js--ahf)
-    ("else" "else { ▮ }" xah-js--ahf)
-    ("switch" "switch(▮) {\n    case 3:\n3\n        break\n    case 3:\n3\n        break\n    default:\n        3\n}" xah-js--ahf)
-    ("case" "case ▮: x; break" xah-js--ahf)
-    ("try" "try {\n▮\n} catch (error) {\n▮\n}" xah-js--ahf)
-    ("finally" "finally {\n▮\n}" xah-js--ahf)
-    ("addEventListener" "addEventListener(\"click\", ▮ , false)" xah-js--ahf)
-    ("forEach" "forEach( f▮ , contexObject)" xah-js--ahf)
-    ("map" "map( f▮ , contexObject)" xah-js--ahf)
-    ("getElementById" "getElementById(\"▮\" xah-js--ahf)" xah-js--ahf)
-    ("setInterval" "setInterval(func, delay, param1, param2)" xah-js--ahf)
-    ("setTimeout" "setTimeout(func, delay, param1, param2)" xah-js--ahf)
-    ;;
-    )
+;; Object.prototype
+("hop" "hasOwnProperty ( ▮ )" xah-js--abbrev-hook-f)
+("hasOwnProperty" "hasOwnProperty (▮)" xah-js--abbrev-hook-f)
+("ipo" "isPrototypeOf ( V▮ )" xah-js--abbrev-hook-f)
+("pie" "propertyIsEnumerable ( V▮ )" xah-js--abbrev-hook-f)
+("tls" "toLocaleString (▮)" xah-js--abbrev-hook-f)
+("ts" "toString ( ▮ )" xah-js--abbrev-hook-f)
+("vo" "valueOf ( ▮ )" xah-js--abbrev-hook-f)
+
+ ("Ap" "Array.prototype" xah-js--abbrev-hook-f)
+ ("Aia" "Array.isArray ( ▮ )" xah-js--abbrev-hook-f)
+ ("Afm" "Array.from ( items▮ , mapfn, thisArg )" xah-js--abbrev-hook-f)
+ ("A" "Array" xah-js--abbrev-hook-f)
+
+ ("addEventListener" "addEventListener(\"click\", ▮ , false)" xah-js--abbrev-hook-f)
+ ("ael" "addEventListener" xah-js--abbrev-hook-f)
+ ("af" "(x▮ => { 3; })" xah-js--abbrev-hook-f)
+ ("af2" "((x▮, x2) => ({ 3 }))" xah-js--abbrev-hook-f)
+ ("c" "const ▮ = 3" xah-js--abbrev-hook-f)
+ ("case" "case ▮: x; break" xah-js--abbrev-hook-f)
+ ("cst" "constructor" xah-js--abbrev-hook-f)
+ ("cl" "console.log(▮)" xah-js--abbrev-hook-f)
+ ("class" "class A▮ {\n  constructor(x) {\n    this.p = x;\n  }\n}" xah-js--abbrev-hook-f :system t)
+ ("cls" "class A▮ {\n  constructor(x) {\n    this.p = x;\n  }\n}" xah-js--abbrev-hook-f :system t)
+ ("cm" "/* ▮ */" xah-js--abbrev-hook-f)
+ ("cmt" "/**/n * desc▮./n * @param {string} title The title of the book./n * @return {number} The circumference of the circle./n */" xah-js--abbrev-hook-f)
+ ("d" "document." xah-js--abbrev-hook-f)
+
+ ("do" "do { ▮; x++} while (x != 5)" xah-js--abbrev-hook-f)
+ ("ei" "else if (▮) { 3 }" xah-js--abbrev-hook-f)
+ ("else" "else { ▮ }" xah-js--abbrev-hook-f)
+ ("eq" "=== " xah-js--abbrev-hook-f)
+ ("f" "function ▮ () { 3 }" xah-js--abbrev-hook-f :system t)
+ ("fe" "forEach" xah-js--abbrev-hook-f)
+ ("fi" "for (let p▮ in obj) { }" xah-js--abbrev-hook-f)
+ ("finally" "finally {\n▮\n}" xah-js--abbrev-hook-f)
+ ("fo" "for (let p▮ of obj) { }" xah-js--abbrev-hook-f)
+ ("for" "for (let i = 0; i < ▮.length; i++) { }" xah-js--abbrev-hook-f)
+ ("forEach" "forEach( f▮ , thisBinding)" xah-js--abbrev-hook-f)
+ ("function" "function ▮ () { return 3 }" xah-js--abbrev-hook-f)
+ ("getElementById" "getElementById(\"▮\" xah-js--abbrev-hook-f)" xah-js--abbrev-hook-f)
+ ("getOwnPropertyDescriptor" "Object.getOwnPropertyDescriptor (▮)" xah-js--abbrev-hook-f)
+ ("getOwnPropertyNames" "Object.getOwnPropertyNames (▮)" xah-js--abbrev-hook-f)
+ ("getOwnPropertySymbols" "Object.getOwnPropertySymbols (▮)" xah-js--abbrev-hook-f)
+ ("getPrototypeOf" "Object.getPrototypeOf (▮)" xah-js--abbrev-hook-f)
+ ("gf" "function* ▮ () { yield 3;}" xah-js--abbrev-hook-f :system t)
+ ("gopd" "Object.getOwnPropertyDescriptor (▮)" xah-js--abbrev-hook-f)
+ ("gopn" "Object.getOwnPropertyNames (▮)" xah-js--abbrev-hook-f)
+ ("gops" "Object.getOwnPropertySymbols (▮)" xah-js--abbrev-hook-f)
+ ("gpto" "Object.getPrototypeOf (▮)" xah-js--abbrev-hook-f)
+ ("if" "if ( ▮ ) {\n}" xah-js--abbrev-hook-f)
+ ("l" "let ▮ = 3" xah-js--abbrev-hook-f)
+ ("map" "map( f▮ , thisBinding)" xah-js--abbrev-hook-f)
+ ("o" "Object." xah-js--abbrev-hook-f)
+ ("ogopn" "Object.getOwnPropertyNames(▮)" xah-js--abbrev-hook-f)
+ ("ok" "Object.keys (▮)" xah-js--abbrev-hook-f)
+ ("p" "+" xah-js--abbrev-hook-f)
+ ("pt" "prototype." xah-js--abbrev-hook-f)
+ ("r" "return ▮;" xah-js--abbrev-hook-f)
+ ("rok" "Reflect.ownKeys ()" xah-js--abbrev-hook-f)
+ ("reduce" "reduce(f▮, first_value)" xah-js--abbrev-hook-f)
+ ("reduceRight" "reduceRight(f▮, first_value)" xah-js--abbrev-hook-f)
+ ("setInterval" "setInterval(func, delay, param1, param2)" xah-js--abbrev-hook-f)
+ ("setTimeout" "setTimeout(func, delay, param1, param2)" xah-js--abbrev-hook-f) ;
+ ("si" "setInterval(func, delay, param1, param2)" xah-js--abbrev-hook-f)
+ ("st" "setTimeout(func, delay, param1, param2)" xah-js--abbrev-hook-f)
+ ("switch" "switch(▮) {\n    case 3:\n3\n        break\n    case 3:\n3\n        break\n    default:\n        3\n}" xah-js--abbrev-hook-f)
+ ("sy" "Symbol" xah-js--abbrev-hook-f)
+ ("te" "( test▮ ? expr1 : expr2 )" xah-js--abbrev-hook-f)
+ ("to" "typeof " xah-js--abbrev-hook-f)
+ ("try" "try {\n▮\n} catch (error) {\n▮\n}" xah-js--abbrev-hook-f)
+ ("u" "undefined" xah-js--abbrev-hook-f)
+ ("us" "\"use strict\"" xah-js--abbrev-hook-f)
+ ("v" "var ▮ = 3" xah-js--abbrev-hook-f)
+ ("w" "window." xah-js--abbrev-hook-f)
+ ("while" "while (i<10) { ▮; i++ }" xah-js--abbrev-hook-f)
+ ("yi" "yield ▮;" xah-js--abbrev-hook-f)
+
+ ;;
+ )
 
   "abbrev table for `xah-js-mode'"
   )
@@ -261,18 +318,6 @@ Version 2016-10-24"
 (defvar xah-js-lang-words nil "List of JavaScript keywords.")
 (setq xah-js-lang-words '(
 
-"prototype"
-
-"call"
-"isExtensible"
-"seal"
-"preventExtensions"
-"isSealed"
-"isFrozen"
-"freeze"
-"toFixed"
-"substring"
-
 "JSON"
 "Number"
 "Object"
@@ -282,7 +327,7 @@ Version 2016-10-24"
 "Date"
 "Error"
 "Function"
-
+"Reflect"
 "Set"
 "Map"
 "WeakMap"
@@ -291,9 +336,17 @@ Version 2016-10-24"
 "Symbol"
 "iterator"
 
+"size" ; Set.prototype.size
+"has" ; Set.prototype.has
+"clear" ; Set.prototype.clear
+
+"set" ; Map.prototype.set
+"get" ; Map.prototype.get
+"values" ; Map.prototype.values
+
+"ownKeys" ; Reflect
 "add" ; Set
 
-"Object.keys" ; hack. todo
 "insertBefore" ; hack. todo
 
 "EvalError"
@@ -354,24 +407,21 @@ Version 2016-10-24"
 
 ;; --------------------
 
+ ;; todo remove when all js object and properties are classified properly
+"constructor"
+"length"
+"prototype"
+"call"
+"freeze"
+"toFixed"
+
+"substring"
 "toString"
 
-"create"
-"getPrototypeOf"
-"isPrototypeOf"
-"defineProperty"
 "value"
-
-"getOwnPropertyNames"
-"getOwnPropertyDescriptor"
-"hasOwnProperty"
-"getOwnPropertySymbols"
 
 "apply"
 "arguments"
-
-"constructor"
-"length"
 
 "JSON.stringify"
 "JSON.parse"
@@ -385,16 +435,65 @@ Version 2016-10-24"
 "MAX_SAFE_INTEGER"
 ) )
 
-(defvar xah-js-array-methods nil "List of JavaScript array methods.")
-(setq xah-js-array-methods '(
+(defvar xah-js-Object-properties nil "List of Object properties.")
+(setq xah-js-Object-properties '(
+"assign"
+"create"
+"defineProperties"
+"defineProperty"
+"freeze"
+"getOwnPropertyDescriptor"
+"getOwnPropertyNames"
+"getOwnPropertySymbols"
+"getPrototypeOf"
+"is"
+"isExtensible"
+"isFrozen"
+"isSealed"
+"keys"
+"preventExtensions"
+"prototype"
+"seal"
+"setPrototypeOf"
+ ))
+
+(defvar xah-js-Object-prototype-properties nil "List of Object.prototype properties.")
+(setq xah-js-Object-prototype-properties '(
+"constructor"
+"hasOwnProperty"
+"isPrototypeOf"
+"propertyIsEnumerable"
+"toLocaleString"
+"toString"
+"valueOf"
+) )
+
+(defvar xah-js-Array-properties nil "List of Array properties.")
+(setq xah-js-Array-properties '(
+ ;; 2016-11-30 complete
+ "from"
+ "isArray"
+ "length"
+ "of"
+ "prototype"
+ ))
+
+(defvar xah-js-Array-prototype-properties nil "List of Array.prototype properties.")
+(setq xah-js-Array-prototype-properties '(
 "concat"
+"constructor"
+"copyWithin"
+"entries"
 "every"
+"fill"
 "filter"
+"find"
+"findIndex"
 "forEach"
 "indexOf"
 "join"
+"keys"
 "lastIndexOf"
-"length"
 "map"
 "pop"
 "push"
@@ -406,9 +505,10 @@ Version 2016-10-24"
 "some"
 "sort"
 "splice"
-"toLocalString"
-"isArray"
+"toLocaleString"
+"toString"
 "unshift"
+"values"
 ) )
 
 (defvar xah-js-str-methods nil "List of JavaScript string methods.")
@@ -440,44 +540,52 @@ Version 2016-10-24"
 "localeCompare"
 ) )
 
-(defvar xah-js-js-math-methods nil "List of JavaScript Math methods.")
-(setq xah-js-js-math-methods '(
-"Math.abs"
-"Math.acos"
-"Math.acosh"
-"Math.asin"
-"Math.asinh"
-"Math.atan"
-"Math.atanh"
-"Math.atan2"
-"Math.cbrt"
-"Math.ceil"
-"Math.clz32"
-"Math.cos"
-"Math.cosh"
-"Math.exp"
-"Math.expm1"
-"Math.floor"
-"Math.fround"
-"Math.hypot"
-"Math.imul"
-"Math.log"
-"Math.log1p"
-"Math.log10"
-"Math.log2"
-"Math.max"
-"Math.min"
-"Math.pow"
-"Math.random"
-"Math.round"
-"Math.sign"
-"Math.sin"
-"Math.sinh"
-"Math.sqrt"
-"Math.tan"
-"Math.tanh"
-"Math.toSource"
-"Math.trunc"
+(defvar xah-js-Math-properties nil "List of JavaScript Math properties.")
+(setq xah-js-Math-properties '(
+"E"
+"LN10"
+"LN2"
+"LOG10E"
+"LOG2E"
+"PI"
+"SQRT1_2"
+"SQRT2"
+"abs"
+"acos"
+"acosh"
+"asin"
+"asinh"
+"atan"
+"atan2"
+"atanh"
+"cbrt"
+"ceil"
+"clz32"
+"cos"
+"cosh"
+"exp"
+"expm1"
+"floor"
+"fround"
+"hypot"
+"imul"
+"log"
+"log10"
+"log1p"
+"log2"
+"max"
+"min"
+"pow"
+"random"
+"round"
+"sign"
+"sin"
+"sinh"
+"sqrt"
+"tan"
+"tanh"
+"toSource"
+"trunc"
 ) )
 
 (defvar xah-js-dom-words nil "List of keywords from DOM or browser.")
@@ -595,6 +703,7 @@ Version 2016-10-24"
 "setUTCSeconds"
 "setUTCMilliseconds"
 
+;; Date stuff
 "toLocaleString"
 "toLocaleDateString"
 "toLocaleTimeString"
@@ -613,7 +722,8 @@ Version 2016-10-24"
 "innerText"
 "textContent"
 
-"console.log"
+"console"
+"console.dir"
 "createElement"
 "createElementNS"
 "createDocumentFragment"
@@ -664,7 +774,6 @@ Version 2016-10-24"
 
 (defvar xah-js-dom-style-obj-words nil "List of constants")
 (setq xah-js-dom-style-obj-words '(
-
 "style.alignContent"
 "style.alignItems"
 "style.alignSelf"
@@ -856,23 +965,19 @@ Version 2016-10-24"
 "undefined"
 "true"
 "false"
-"Math.E"
-"Math.LN2"
-"Math.LN10"
-"Math.LOG2E"
-"Math.LOG10E"
-"Math.PI"
-"Math.SQRT1_2"
-"Math.SQRT2"
+
 ) )
 
 (defvar xah-js-all-js-keywords nil "List all js words.")
 (setq xah-js-all-js-keywords
       (append xah-js-keyword-builtin
               xah-js-lang-words
-              xah-js-array-methods
+              xah-js-Object-properties
+              xah-js-Array-properties
+              xah-js-Object-prototype-properties
+              xah-js-Array-prototype-properties
               xah-js-str-methods
-              xah-js-js-math-methods
+              xah-js-Math-properties
               xah-js-dom-words
               xah-js-constants
               xah-js-dom-style-obj-words
@@ -883,7 +988,7 @@ Version 2016-10-24"
 
 (setq xah-js-font-lock-keywords
       (let (
-            (capVars "\\_<[A-Z][-_?0-9A-Za-z]+" ))
+            (capVars "\\_<[A-Z][-_?0-9A-Za-z]*" ))
         `(
           ("φ[$_0-9A-Za-z]+" . 'xah-js-function-param-fc)
           ("ξ[$_0-9A-Za-z]+" . 'xah-js-user-variable-fc)
@@ -891,14 +996,17 @@ Version 2016-10-24"
           ("ƒ[$_0-9A-Za-z]+" . 'xah-js-identifier-ƒ)
           ("γ[$_0-9A-Za-z]+" . 'xah-js-identifier-γ)
           ("\\(\\.replace\\|\\.search\\|\\.match\\)[ ]*([ ]*\\(/[^/]+/\\)" . (2 font-lock-string-face t)) ; regex
-          (,(regexp-opt xah-js-js-math-methods 'symbols) . font-lock-type-face)
-          (,(regexp-opt xah-js-dom-style-obj-words) . font-lock-function-name-face)
           (,(regexp-opt xah-js-constants 'symbols) . font-lock-constant-face)
           (,(regexp-opt xah-js-dom-words 'symbols) . font-lock-function-name-face)
           (,(regexp-opt xah-js-keyword-builtin 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-lang-words 'symbols) . font-lock-keyword-face)
-          (,(regexp-opt xah-js-array-methods 'symbols) . font-lock-keyword-face)
+          (,(regexp-opt xah-js-Object-properties 'symbols) . font-lock-keyword-face)
+          (,(regexp-opt xah-js-Array-properties 'symbols) . font-lock-keyword-face)
+          (,(regexp-opt xah-js-Object-prototype-properties 'symbols) . font-lock-keyword-face)
+          (,(regexp-opt xah-js-Array-prototype-properties 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-str-methods 'symbols) . font-lock-keyword-face)
+          (,(regexp-opt xah-js-Math-properties 'symbols) . font-lock-function-name-face)
+          (,(regexp-opt xah-js-dom-style-obj-words) . font-lock-function-name-face)
           ;; font-lock-variable-name-face
           (,capVars . 'xah-js-cap-word)
           )))
