@@ -31,8 +31,8 @@
 
 ;;; Code:
 
-(require 'js) ; temp, borrow js-indent-line
-
+(require 'js) ; in emacs. temp, borrow js-indent-line
+(provide 'thingatpt)  ; in emacs
 (require 'newcomment) ; in emacs
 (require 'ido)        ; in emacs
 ;; (require 'lisp-mode) ; in emacs. for indent-sexp. temp hack. todo
@@ -144,38 +144,10 @@
 
 (defvar xah-js-lang-words nil "List of JavaScript keywords.")
 (setq xah-js-lang-words '(
-
-"JSON"
-"Number"
-"Object"
-"Math"
-"Array"
-"Boolean"
-"Date"
-"Error"
-"Function"
-"Reflect"
-"Set"
-"Map"
-"WeakMap"
-"WeakSet"
-"Proxy"
-"Symbol"
-"String"
-
 "iterator"
-
-;; Map.prototype
-"set"
-"get"
-"values"
-
-"insertBefore" ; hack. todo
-
 "EvalError"
 "RangeError"
 "ReferenceError"
-"RegExp"
 "SyntaxError"
 "TypeError"
 "URIError"
@@ -246,111 +218,92 @@
 "MAX_SAFE_INTEGER"
 ) )
 
-(defvar xah-js-Object-properties nil "List of Object properties.")
-(setq xah-js-Object-properties '(
-"assign"
-"create"
-"defineProperties"
-"defineProperty"
-"freeze"
-"getOwnPropertyDescriptor"
-"getOwnPropertyNames"
-"getOwnPropertySymbols"
-"getPrototypeOf"
-"is"
-"isExtensible"
-"isFrozen"
-"isSealed"
-"keys"
-"preventExtensions"
-"prototype"
-"seal"
-"setPrototypeOf"
- ))
+(defvar xah-js-big-obj-names nil "List of standard object names. e.g. Object, Array Math, Date, JSON,")
+(setq
+ xah-js-big-obj-names
+ '(
+   "Array"
+   "Boolean"
+   "Date"
+   "Error"
+   "Function"
+   "JSON"
+   "Map"
+   "Math"
+   "Number"
+   "Object"
+   "Proxy"
+   "Reflect"
+   "RegExp"
+   "Set"
+   "String"
+   "Symbol"
+   "WeakMap"
+   "WeakSet"
+   ))
 
-(defvar xah-js-Object-properties-fullword nil "List of Object properties full words, e.g. \"Object.create\".")
-(setq xah-js-Object-properties-fullword (mapcar (lambda (x)  (concat "Object." x)) xah-js-Object-properties))
+(defvar xah-js-Object-props nil "List of Object properties.")
+(setq xah-js-Object-props '( "assign" "create" "defineProperties" "defineProperty" "freeze" "getOwnPropertyDescriptor" "getOwnPropertyNames" "getOwnPropertySymbols" "getPrototypeOf" "is" "isExtensible" "isFrozen" "isSealed" "keys" "preventExtensions" "prototype" "seal" "setPrototypeOf" ))
 
-(defvar xah-js-Reflect-properties nil "List of Reflect properties.")
-(setq xah-js-Reflect-properties '(
-"apply"
-"construct"
-"defineProperty"
-"deleteProperty"
-"get"
-"getOwnPropertyDescriptor"
-"getPrototypeOf"
-"has"
-"isExtensible"
-"ownKeys"
-"preventExtensions"
-"set"
-"setPrototypeOf"
-) )
+(defvar xah-js-Object-props-fullword nil "List of Object properties full words, e.g. \"Object.create\".")
+(setq xah-js-Object-props-fullword (mapcar (lambda (x)  (concat "Object." x)) xah-js-Object-props))
 
-(defvar xah-js-Reflect-properties-fullword nil "List of Reflect properties full words, e.g. \"Reflect.apply\".")
-(setq xah-js-Reflect-properties-fullword (mapcar (lambda (x)  (concat "Reflect." x)) xah-js-Reflect-properties))
+(defvar xah-js-Reflect-props nil "List of Reflect properties.")
+(setq xah-js-Reflect-props '( "apply" "construct" "defineProperty" "deleteProperty" "get" "getOwnPropertyDescriptor" "getPrototypeOf" "has" "isExtensible" "ownKeys" "preventExtensions" "set" "setPrototypeOf" ) )
 
-(defvar xah-js-Set-properties nil "List of Set properties.")
-(setq xah-js-Set-properties '(
-"length"
-) )
+(defvar xah-js-Reflect-props-fullword nil "List of Reflect properties full words, e.g. \"Reflect.apply\".")
+(setq xah-js-Reflect-props-fullword (mapcar (lambda (x)  (concat "Reflect." x)) xah-js-Reflect-props))
 
-(defvar xah-js-Set-properties-fullword nil "List of Set properties full words, e.g. \"Set.length\".")
-(setq xah-js-Set-properties-fullword (mapcar (lambda (x)  (concat "Set." x)) xah-js-Set-properties))
+(defvar xah-js-Set-props nil "List of Set properties.")
+(setq xah-js-Set-props '( "length" ) )
 
-(defvar xah-js-Array-properties nil "List of Array properties.")
-(setq xah-js-Array-properties '(
- ;; 2016-11-30 complete
- "from"
- "isArray"
- "length"
- "of"
- "prototype"
- ))
+(defvar xah-js-Set-props-fullword nil "List of Set properties full words, e.g. \"Set.length\".")
+(setq xah-js-Set-props-fullword (mapcar (lambda (x)  (concat "Set." x)) xah-js-Set-props))
 
-(defvar xah-js-Array-properties-fullword nil "List of Array properties full words, e.g. \"Array.prototype\".")
-(setq xah-js-Array-properties-fullword (mapcar (lambda (x)  (concat "Array." x)) xah-js-Array-properties))
+(defvar xah-js-Array-props nil "List of Array properties.")
+(setq xah-js-Array-props '( "from" "isArray" "length" "of" "prototype" ))
 
-(defvar xah-js-Function-properties nil "List of Function properties.")
-(setq xah-js-Function-properties '(
- "length"
- "prototype"
- ))
+(defvar xah-js-Array-props-fullword nil "List of Array properties full words, e.g. \"Array.prototype\".")
+(setq xah-js-Array-props-fullword (mapcar (lambda (x)  (concat "Array." x)) xah-js-Array-props))
 
-(defvar xah-js-Function-properties-fullword nil "List of Function properties full words, e.g. \"Function.create\".")
-(setq xah-js-Function-properties-fullword (mapcar (lambda (x)  (concat "Function." x)) xah-js-Function-properties))
+(defvar xah-js-Function-props nil "List of Function properties.")
+(setq xah-js-Function-props '( "length" "prototype" ))
 
-(defvar xah-js-RegExp-properties nil "List of RegExp properties.")
-(setq xah-js-RegExp-properties '(
- "prototype"
- ))
+(defvar xah-js-Function-props-fullword nil "List of Function properties full words, e.g. \"Function.create\".")
+(setq xah-js-Function-props-fullword (mapcar (lambda (x)  (concat "Function." x)) xah-js-Function-props))
 
-(defvar xah-js-RegExp-properties-fullword nil "List of RegExp properties full words, e.g. \"RegExp.prototype\".")
-(setq xah-js-RegExp-properties-fullword (mapcar (lambda (x)  (concat "RegExp." x)) xah-js-RegExp-properties))
+(defvar xah-js-RegExp-props nil "List of RegExp properties.")
+(setq xah-js-RegExp-props '( "prototype" ))
 
-(defvar xah-js-String-properties nil "List of Array properties.")
-(setq xah-js-String-properties '(
-"prototype"
-"fromCodePoint"
-"fromCharCode"
-"raw"
- ))
+(defvar xah-js-RegExp-props-fullword nil "List of RegExp properties full words, e.g. \"RegExp.prototype\".")
+(setq xah-js-RegExp-props-fullword (mapcar (lambda (x)  (concat "RegExp." x)) xah-js-RegExp-props))
 
-(defvar xah-js-String-properties-fullword nil "List of String properties full words, e.g. \"String.fromCodePoint\".")
-(setq xah-js-String-properties-fullword (mapcar (lambda (x)  (concat "String." x)) xah-js-String-properties))
+(defvar xah-js-String-props nil "List of String properties.")
+(setq xah-js-String-props '( "prototype" "fromCodePoint" "fromCharCode" "raw" ))
 
-(defvar xah-js-JSON-properties nil "List of Array properties.")
-(setq xah-js-JSON-properties '(
-"stringify"
-"parse"
- ))
+(defvar xah-js-String-props-fullword nil "List of String properties full words, e.g. \"String.fromCodePoint\".")
+(setq xah-js-String-props-fullword (mapcar (lambda (x)  (concat "String." x)) xah-js-String-props))
 
-(defvar xah-js-JSON-properties-fullword nil "List of JSON properties full words, e.g. \"JSON.parse\".")
-(setq xah-js-JSON-properties-fullword (mapcar (lambda (x)  (concat "JSON." x)) xah-js-JSON-properties))
+(defvar xah-js-JSON-props nil "List of Array properties.")
+(setq xah-js-JSON-props '( "stringify" "parse" ))
 
-(defvar xah-js-Object-prototype-properties nil "List of Object.prototype properties.")
-(setq xah-js-Object-prototype-properties '(
+(defvar xah-js-JSON-props-fullword nil "List of JSON properties full words, e.g. \"JSON.parse\".")
+(setq xah-js-JSON-props-fullword (mapcar (lambda (x)  (concat "JSON." x)) xah-js-JSON-props))
+
+(defvar xah-js-Math-props nil "List of JavaScript Math properties.")
+(setq xah-js-Math-props '( "E" "LN10" "LN2" "LOG10E" "LOG2E" "PI" "SQRT1_2" "SQRT2" "abs" "acos" "acosh" "asin" "asinh" "atan" "atan2" "atanh" "cbrt" "ceil" "clz32" "cos" "cosh" "exp" "expm1" "floor" "fround" "hypot" "imul" "log" "log10" "log1p" "log2" "max" "min" "pow" "random" "round" "sign" "sin" "sinh" "sqrt" "tan" "tanh" "toSource" "trunc" ) )
+
+(defvar xah-js-Math-props-fullword nil "List of Math properties full words, e.g. \"Math.parse\".")
+(setq xah-js-Math-props-fullword (mapcar (lambda (x)  (concat "Math." x)) xah-js-Math-props))
+
+(defvar xah-js-Date-props nil "List of Date properties.")
+(setq xah-js-Date-props '( "now" "parse" "UTC" "prototype" ) )
+
+(defvar xah-js-Date-props-fullword nil "List of Date properties full words, e.g. \"Date.parse\".")
+(setq xah-js-Date-props-fullword (mapcar (lambda (x)  (concat "Date." x)) xah-js-Date-props))
+
+(defvar xah-js-Object-proto-props nil "List of Object.prototype properties.")
+(setq xah-js-Object-proto-props '(
 "constructor"
 "hasOwnProperty"
 "isPrototypeOf"
@@ -360,8 +313,8 @@
 "valueOf"
 ) )
 
-(defvar xah-js-Function-prototype-properties nil "List of Function.prototype properties.")
-(setq xah-js-Function-prototype-properties '(
+(defvar xah-js-Function-proto-props nil "List of Function.prototype properties.")
+(setq xah-js-Function-proto-props '(
 "apply"
 "bind"
 "call"
@@ -369,8 +322,8 @@
 "constructor"
 ) )
 
-(defvar xah-js-Array-prototype-properties nil "List of Array.prototype properties.")
-(setq xah-js-Array-prototype-properties '(
+(defvar xah-js-Array-proto-props nil "List of Array.prototype properties.")
+(setq xah-js-Array-proto-props '(
 "concat"
 "constructor"
 "copyWithin"
@@ -402,8 +355,8 @@
 "values"
 ) )
 
-(defvar xah-js-Set-prototype-properties nil "List of Set.prototype properties.")
-(setq xah-js-Set-prototype-properties '(
+(defvar xah-js-Set-proto-props nil "List of Set.prototype properties.")
+(setq xah-js-Set-proto-props '(
 "add"
 "clear"
 "constructor"
@@ -416,8 +369,11 @@
 "values"
 ) )
 
-(defvar xah-js-str-methods nil "List of JavaScript string methods.")
-(setq xah-js-str-methods '(
+(defvar xah-js-Map-proto-props nil "List of Map.prototype properties.")
+(setq xah-js-Map-proto-props '( "set" "get" "values" ) ) ; 2016-12-10 incomplete
+
+(defvar xah-js-String-proto-props nil "List of JavaScript string methods.")
+(setq xah-js-String-proto-props '(
 "length"
 "concat"
 "trim"
@@ -437,64 +393,64 @@
 "charAt"
 "charCodeAt"
 "codePointAt"
-
 "toValueOf"
 "localeCompare"
 ) )
 
-(defvar xah-js-Math-properties nil "List of JavaScript Math properties.")
-(setq xah-js-Math-properties '(
-"E"
-"LN10"
-"LN2"
-"LOG10E"
-"LOG2E"
-"PI"
-"SQRT1_2"
-"SQRT2"
-"abs"
-"acos"
-"acosh"
-"asin"
-"asinh"
-"atan"
-"atan2"
-"atanh"
-"cbrt"
-"ceil"
-"clz32"
-"cos"
-"cosh"
-"exp"
-"expm1"
-"floor"
-"fround"
-"hypot"
-"imul"
-"log"
-"log10"
-"log1p"
-"log2"
-"max"
-"min"
-"pow"
-"random"
-"round"
-"sign"
-"sin"
-"sinh"
-"sqrt"
-"tan"
-"tanh"
-"toSource"
-"trunc"
+(defvar xah-js-Date-proto-props nil "List of Date.prototype properties.")
+(setq xah-js-Date-proto-props '(
+"constructor"
+"getDate"
+"getDay"
+"getFullYear"
+"getHours"
+"getMilliseconds"
+"getMinutes"
+"getMonth"
+"getSeconds"
+"getTime"
+"getTimezoneOffset"
+"getUTCDate"
+"getUTCDay"
+"getUTCFullYear"
+"getUTCHours"
+"getUTCMilliseconds"
+"getUTCMinutes"
+"getUTCMonth"
+"getUTCSeconds"
+"setDate"
+"setFullYear"
+"setHours"
+"setMilliseconds"
+"setMinutes"
+"setMonth"
+"setSeconds"
+"setTime"
+"setUTCDate"
+"setUTCFullYear"
+"setUTCHours"
+"setUTCMilliseconds"
+"setUTCMinutes"
+"setUTCMonth"
+"setUTCSeconds"
+"toDateString"
+"toISOString"
+"toJSON"
+"toLocaleDateString"
+"toLocaleString"
+"toLocaleTimeString"
+"toString"
+"toTimeString"
+"toUTCString"
+"valueOf"
+"[Symbol.toPrimitive]"
 ) )
 
 (defvar xah-js-dom-words nil "List of keywords from DOM or browser.")
 (setq xah-js-dom-words '(
 
 "alert"
-
+"insertBefore" ; hack. todo
 "write"
 "Worker"
 "postMessage"
@@ -567,54 +523,6 @@
 
 "target"
 
-"getTime"
-"getFullYear"
-"getYear"
-"getMonth"
-"getDate"
-"getDay"
-"getHours"
-"getMinutes"
-"getSeconds"
-"getMilliseconds"
-
-"getUTCMonth"
-"getUTCDate"
-"getUTCDay"
-"getUTCHours"
-"getUTCMinutes"
-"getUTCSeconds"
-"getUTCMilliseconds"
-
-"setTime"
-"setFullYear"
-"setYear"
-"setMonth"
-"setDate"
-"setHours"
-"setMinutes"
-"setSeconds"
-"setMilliseconds"
-
-"setUTCFullYear"
-"setUTCMonth"
-"setUTCDate"
-"setUTCHours"
-"setUTCMinutes"
-"setUTCSeconds"
-"setUTCMilliseconds"
-
-;; Date stuff
-"toLocaleString"
-"toLocaleDateString"
-"toLocaleTimeString"
-"toDateString"
-"toTimeString"
-"toISOString"
-"toUTCString"
-"toGMTString"
-"toJSON"
-
 "setTimeout"
 "setInterval"
 "clearInterval"
@@ -624,7 +532,6 @@
 "textContent"
 
 "console"
-"console.log"
 "console.dir"
 "createElement"
 "createElementNS"
@@ -870,40 +777,44 @@
 
 ) )
 
+(defvar xah-js-fullwords nil "List all js fully qualified static function names. e.g. Object.create, Object.getPrototypeOf, Array.isArray, Math.abs.")
+(setq xah-js-fullwords
+      (append
+       xah-js-Object-props-fullword
+       xah-js-Reflect-props-fullword
+       xah-js-Set-props-fullword
+       xah-js-Array-props-fullword
+       xah-js-Function-props-fullword
+       xah-js-RegExp-props-fullword
+       xah-js-String-props-fullword
+       xah-js-JSON-props-fullword
+       xah-js-Math-props-fullword
+       xah-js-Date-props-fullword
+       ))
+
 (defvar xah-js-all-js-keywords nil "List all js words.")
 (setq xah-js-all-js-keywords
-      (append xah-js-keyword-builtin
-              xah-js-lang-words
-              xah-js-Object-properties
-              xah-js-Object-properties-fullword
-              xah-js-Reflect-properties
-              xah-js-Reflect-properties-fullword
-              xah-js-Set-properties
-              xah-js-Set-properties-fullword
-              xah-js-Array-properties
-              xah-js-Array-properties-fullword
-              xah-js-Function-properties
-              xah-js-Function-properties-fullword
-              xah-js-RegExp-properties
-              xah-js-RegExp-properties-fullword
-              xah-js-String-properties
-              xah-js-String-properties-fullword
-              xah-js-JSON-properties
-              xah-js-JSON-properties-fullword
-              xah-js-Object-prototype-properties
-              xah-js-Array-prototype-properties
-              xah-js-Set-prototype-properties
-              xah-js-Function-prototype-properties
-              xah-js-str-methods
-              xah-js-Math-properties
-              xah-js-dom-words
-              xah-js-constants
-              xah-js-dom-style-obj-words
-              ))
+      (append
+       xah-js-fullwords
+       xah-js-keyword-builtin
+       xah-js-lang-words
+       xah-js-big-obj-names
+       xah-js-Object-proto-props
+       xah-js-Array-proto-props
+       xah-js-Set-proto-props
+       xah-js-Map-proto-props
+       xah-js-Function-proto-props
+       xah-js-String-proto-props
+       xah-js-Date-proto-props
+       xah-js-dom-words
+       xah-js-constants
+       xah-js-dom-style-obj-words
+       ))
 
 
 ;; syntax coloring related
 
+(defvar xah-js-font-lock-keywords nil "gist for `font-lock-defaults'")
 (setq xah-js-font-lock-keywords
       (let (
             (capVars "\\_<[A-Z][-_?0-9A-Za-z]*" ))
@@ -915,36 +826,43 @@
           ("γ[$_0-9A-Za-z]+" . 'xah-js-identifier-γ)
           ("\\(\\.replace\\|\\.search\\|\\.match\\)[ ]*([ ]*\\(/[^/]+/\\)" . (2 font-lock-string-face t)) ; regex
 
-          (,(regexp-opt xah-js-Object-properties-fullword 'symbols) . font-lock-keyword-face)
-          (,(regexp-opt xah-js-Reflect-properties-fullword 'symbols) . font-lock-keyword-face)
-          (,(regexp-opt xah-js-Set-properties-fullword 'symbols) . font-lock-keyword-face)
-          (,(regexp-opt xah-js-Array-properties-fullword 'symbols) . font-lock-keyword-face)
-          (,(regexp-opt xah-js-Function-properties-fullword 'symbols) . font-lock-keyword-face)
-          (,(regexp-opt xah-js-RegExp-properties-fullword 'symbols) . font-lock-keyword-face)
-          (,(regexp-opt xah-js-String-properties-fullword 'symbols) . font-lock-keyword-face)
-          (,(regexp-opt xah-js-JSON-properties-fullword 'symbols) . font-lock-keyword-face)
+          (,(regexp-opt xah-js-Object-props-fullword 'symbols) . font-lock-keyword-face)
+          (,(regexp-opt xah-js-Reflect-props-fullword 'symbols) . font-lock-keyword-face)
+          (,(regexp-opt xah-js-Array-props-fullword 'symbols) . font-lock-keyword-face)
+          (,(regexp-opt xah-js-Function-props-fullword 'symbols) . font-lock-keyword-face)
+          (,(regexp-opt xah-js-RegExp-props-fullword 'symbols) . font-lock-keyword-face)
+          (,(regexp-opt xah-js-String-props-fullword 'symbols) . font-lock-keyword-face)
+          (,(regexp-opt xah-js-JSON-props-fullword 'symbols) . font-lock-keyword-face)
+          (,(regexp-opt xah-js-Math-props-fullword 'symbols) . font-lock-function-name-face)
+          (,(regexp-opt xah-js-Date-props-fullword 'symbols) . font-lock-function-name-face)
+          (,(regexp-opt xah-js-Set-props-fullword 'symbols) . font-lock-keyword-face)
 
-          (,(regexp-opt xah-js-Object-properties 'symbols) . font-lock-keyword-face)
-          (,(regexp-opt xah-js-Array-properties 'symbols) . font-lock-keyword-face)
-          (,(regexp-opt xah-js-Function-properties 'symbols) . font-lock-keyword-face)
-          (,(regexp-opt xah-js-RegExp-properties 'symbols) . font-lock-keyword-face)
-          (,(regexp-opt xah-js-String-properties 'symbols) . font-lock-keyword-face)
-          (,(regexp-opt xah-js-JSON-properties 'symbols) . font-lock-keyword-face)
-          (,(regexp-opt xah-js-Reflect-properties 'symbols) . font-lock-keyword-face)
-          (,(regexp-opt xah-js-Set-properties 'symbols) . font-lock-keyword-face)
+          (,(regexp-opt xah-js-big-obj-names 'symbols) . font-lock-keyword-face)
 
-          (,(regexp-opt xah-js-Object-prototype-properties 'symbols) . font-lock-keyword-face)
-          (,(regexp-opt xah-js-Array-prototype-properties 'symbols) . font-lock-keyword-face)
-          (,(regexp-opt xah-js-Set-prototype-properties 'symbols) . font-lock-keyword-face)
-          (,(regexp-opt xah-js-Function-prototype-properties 'symbols) . font-lock-keyword-face)
-          (,(regexp-opt xah-js-str-methods 'symbols) . font-lock-keyword-face)
-          (,(regexp-opt xah-js-Math-properties 'symbols) . font-lock-function-name-face)
-          (,(regexp-opt xah-js-dom-style-obj-words) . font-lock-function-name-face)
+          (,(regexp-opt xah-js-Object-props 'symbols) . font-lock-keyword-face)
+          (,(regexp-opt xah-js-Reflect-props 'symbols) . font-lock-keyword-face)
+          (,(regexp-opt xah-js-Array-props 'symbols) . font-lock-keyword-face)
+          (,(regexp-opt xah-js-Function-props 'symbols) . font-lock-keyword-face)
+          (,(regexp-opt xah-js-RegExp-props 'symbols) . font-lock-keyword-face)
+          (,(regexp-opt xah-js-String-props 'symbols) . font-lock-keyword-face)
+          (,(regexp-opt xah-js-JSON-props 'symbols) . font-lock-keyword-face)
+          (,(regexp-opt xah-js-Math-props 'symbols) . font-lock-function-name-face)
+          (,(regexp-opt xah-js-Date-props 'symbols) . font-lock-function-name-face)
+          (,(regexp-opt xah-js-Set-props 'symbols) . font-lock-keyword-face)
+
+          (,(regexp-opt xah-js-Object-proto-props 'symbols) . font-lock-keyword-face)
+          (,(regexp-opt xah-js-Array-proto-props 'symbols) . font-lock-keyword-face)
+          (,(regexp-opt xah-js-Function-proto-props 'symbols) . font-lock-keyword-face)
+          (,(regexp-opt xah-js-String-proto-props 'symbols) . font-lock-keyword-face)
+          (,(regexp-opt xah-js-Date-proto-props 'symbols) . font-lock-keyword-face)
+          (,(regexp-opt xah-js-dom-style-obj-words 'symbols) . font-lock-function-name-face)
+          (,(regexp-opt xah-js-Set-proto-props 'symbols) . font-lock-keyword-face)
+          (,(regexp-opt xah-js-Map-proto-props 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-keyword-builtin 'symbols) . font-lock-keyword-face)
 
-          (,(regexp-opt xah-js-constants ) . font-lock-constant-face)
-          (,(regexp-opt xah-js-dom-words ) . font-lock-function-name-face)
-          (,(regexp-opt xah-js-lang-words ) . font-lock-keyword-face)
+          (,(regexp-opt xah-js-constants  'symbols) . font-lock-constant-face)
+          (,(regexp-opt xah-js-dom-words  'symbols) . font-lock-function-name-face)
+          (,(regexp-opt xah-js-lang-words  'symbols) . font-lock-keyword-face)
 
           ;; font-lock-variable-name-face
           (,capVars . 'xah-js-cap-word)
@@ -970,10 +888,16 @@
 (setq xah-js-mode-syntax-table
       (let ((synTable (make-syntax-table)))
 
-        (modify-syntax-entry ?\. "_" synTable)
+        (modify-syntax-entry '(?0 . ?9) "w" synTable)
+        (modify-syntax-entry '(?A . ?Z) "w" synTable)
+        (modify-syntax-entry '(?a . ?z) "w" synTable)
+
+        (modify-syntax-entry ?\_ "_" synTable)
+        (modify-syntax-entry ?\$ "_" synTable)
+
+        (modify-syntax-entry ?\. "." synTable)
         (modify-syntax-entry ?\! "." synTable)
         (modify-syntax-entry ?\# "." synTable)
-        (modify-syntax-entry ?\$ "." synTable)
         (modify-syntax-entry ?\% "." synTable)
         (modify-syntax-entry ?\& "." synTable)
         (modify-syntax-entry ?\+ "." synTable)
@@ -987,7 +911,6 @@
         (modify-syntax-entry ?\? "." synTable)
         (modify-syntax-entry ?\@ "." synTable)
         (modify-syntax-entry ?^ "." synTable) ; can't use blackslash, because it became control
-        (modify-syntax-entry ?\_ "_" synTable)
         (modify-syntax-entry ?\` "." synTable)
         (modify-syntax-entry ?\| "." synTable)
         (modify-syntax-entry ?\~ "." synTable)
@@ -1007,10 +930,6 @@
         (modify-syntax-entry ?\{ "(}" synTable)
         (modify-syntax-entry ?\} "){" synTable)
 
-        (modify-syntax-entry '(?0 . ?9) "w" synTable)
-        (modify-syntax-entry '(?A . ?Z) "w" synTable)
-        (modify-syntax-entry '(?a . ?z) "w" synTable)
-
         synTable))
 
 
@@ -1020,7 +939,7 @@
   "Move cursor to the beginning of left {}, starting at pos.
 Version 2016-10-18"
   (interactive)
-  (let (
+  (let* (
         (-p0 (if (number-or-marker-p pos) pos (point)))
         (-p1 -p0))
     (goto-char -p1)
@@ -1115,6 +1034,61 @@ Version 2016-10-24"
     (delete-region -p1 -p2)
     (insert -result)))
 
+(defun xah-js-complete-symbol-ido ()
+  "Perform keyword completion on current word.
+
+This uses `ido-mode' user interface style for completion.
+Version 2016-12-11"
+  (interactive)
+  (let* (
+         (-bds (xah-js--get-bounds-of-glyph))
+         -p1
+         -p2
+         -input
+         -inputPrefixStr
+         -word
+         (-matchedIndex nil)
+         (-isObjectName-p nil)
+         -result)
+    (if (or (null (car -bds)) (null (cdr -bds)))
+        (progn
+          (setq -p1 (point) -p2 (point))
+          (setq -input ""))
+      (progn
+        (setq -p1 (car -bds) -p2 (cdr -bds))
+        (setq -input (buffer-substring-no-properties -p1 -p2))))
+
+    ;; 2016-12-10 todo
+    ;; if the input word contains at least one dot,
+    ;; then, if it match at the beginning to one of the big object prefix such as Object, Array, Date
+    ;; then, do completion with the pool of fullwords (fully qualified words eg Object.create)
+    ;; else, set input word to not contain the string after the last dot, do completion with that
+
+    (setq -matchedIndex (string-match "\\." -input))
+    (when -matchedIndex
+      (progn
+        (setq -inputPrefixStr (substring -input 0 -matchedIndex))
+        (message "-inputPrefixStr is %s" -inputPrefixStr)
+        (setq -isObjectName-p
+              (catch 'TAG
+                (dolist ( -objName xah-js-big-obj-names nil) (when (equal -objName -inputPrefixStr) (throw 'TAG -objName)))))))
+    (message "-isObjectName-p is %s" -isObjectName-p)
+    (if -isObjectName-p
+        (progn ; input start with Object or Array etc.
+          (setq -result (ido-completing-read "" xah-js-fullwords nil nil -input ))
+          (message "1case input is %s" -input)
+          (delete-region -p1 -p2)
+          (insert -result))
+      (progn ; input does not start with Object or Array etc.
+        (let* ((-bounds (bounds-of-thing-at-point 'symbol))
+               (-p3 (car -bounds))
+               (-p4 (cdr -bounds))
+               (-input2 (buffer-substring-no-properties -p3 -p4 )))
+          (message "2case input is %s" -input2)
+          (setq -result (ido-completing-read "" xah-js-all-js-keywords nil nil -input2 ))
+          (delete-region -p3 -p4)
+          (insert -result))))))
+
 
 ;; abbrev
 
@@ -1123,24 +1097,32 @@ Version 2016-10-24"
 This is for abbrev table property `:enable-function'.
 Version 2016-10-24"
   (let ((-syntax-state (syntax-ppss)))
-    (not (or (nth 3 -syntax-state) (nth 4 -syntax-state)))))
+    (if (or (nth 3 -syntax-state) (nth 4 -syntax-state))
+        nil
+      (if (looking-at " \\|\n\\|\t")
+          t
+        nil))))
 
 (defun xah-js-expand-abbrev ()
   "Expand the symbol before cursor,
 if cursor is not in string or comment.
+
+Note: emacs tries to expand abbrev on every insertion of chars that's not word or symbol syntax. So, when return is pressed, normally it also tries to expand, and this function will be called if `abbrev-expand-functions' is set to it.
 Returns the abbrev symbol if there's a expansion, else nil.
-Version 2016-10-24"
+Version 2016-12-11"
   (interactive)
-  (when (xah-js-abbrev-enable-function) ; abbrev property :enable-function doesn't seem to work, so check here instead
+  (when (xah-js-abbrev-enable-function)
     (let (
+          (-p0 (point))
           -p1 -p2
           -abrStr
           -abrSymbol
           )
-      (save-excursion
-        (forward-symbol -1)
+      (progn
+        ;; first try expansion with char sequence including the dot
+        (skip-chars-backward "[._0-9A-Za-z]+" (min (- (point) 100) (point-min)))
         (setq -p1 (point))
-        (forward-symbol 1)
+        (goto-char -p0)
         (setq -p2 (point)))
       (setq -abrStr (buffer-substring-no-properties -p1 -p2))
       (setq -abrSymbol (abbrev-symbol -abrStr))
@@ -1149,7 +1131,23 @@ Version 2016-10-24"
             (abbrev-insert -abrSymbol -abrStr -p1 -p2 )
             (xah-js--abbrev-position-cursor -p1)
             -abrSymbol)
-        nil))))
+        (progn
+          ;; if expansion with char sequence including the dot come out no result, try without the dot
+          (progn
+            (goto-char -p0)
+            (skip-chars-backward "[_0-9A-Za-z]+" (min (- (point) 100) (point-min)))
+            (setq -p1 (point))
+            (goto-char -p0)
+            (setq -p2 (point)))
+          (setq -abrStr (buffer-substring-no-properties -p1 -p2))
+          (setq -abrSymbol (abbrev-symbol -abrStr))
+          (if -abrSymbol
+              (progn
+                (abbrev-insert -abrSymbol -abrStr -p1 -p2 )
+                (xah-js--abbrev-position-cursor -p1)
+                -abrSymbol)
+            nil
+            ))))))
 
 (defun xah-js--abbrev-position-cursor (&optional *pos)
   "Move cursor back to ▮ if exist, else put at end.
@@ -1171,6 +1169,8 @@ Version 2016-10-24"
 (put 'xah-js--abbrev-hook-f 'no-self-insert t)
 
 (setq xah-js-mode-abbrev-table nil)
+;; (define-abbrev-table 'xah-js-mode-abbrev-table '( ("w" "window." ) ) "abbrev table for `xah-js-mode'" )
+;; (clear-abbrev-table xah-js-mode-abbrev-table)
 (define-abbrev-table 'xah-js-mode-abbrev-table
   '(
 
@@ -1181,7 +1181,7 @@ Version 2016-10-24"
     ("Object.setPrototypeOf" "Object.setPrototypeOf ( ▮, proto )" xah-js--abbrev-hook-f)
     ("Object.getOwnPropertyDescriptor" "Object.getOwnPropertyDescriptor ( ▮, P )" xah-js--abbrev-hook-f)
     ("Object.defineProperty" "Object.defineProperty ( ▮, pname, { value : 3, writable: true, enumerable: false, configurable: true, 〔set: function, get: function〕 })" xah-js--abbrev-hook-f)
-    ("Object.defineProperties" "Object.defineProperties ( ▮, {pname, { value : 3, writable: true, enumerable: false, configurable: true, set: function, get: function }}, etc)" xah-js--abbrev-hook-f)
+    ("Object.defineProperties" "Object.defineProperties ( ▮, {pname, { value : 3, writable: true, enumerable: false, configurable: true, 〔set: function, get: function〕 }}, etc)" xah-js--abbrev-hook-f)
     ("Object.getOwnPropertyNames" "Object.getOwnPropertyNames ( ▮ )" xah-js--abbrev-hook-f)
     ("Object.getOwnPropertySymbols" "Object.getOwnPropertySymbols ( ▮ )" xah-js--abbrev-hook-f)
     ("Object.keys" "Object.keys ( ▮ )" xah-js--abbrev-hook-f)
@@ -1273,19 +1273,32 @@ Version 2016-10-24"
     ("Reflect.set" "Reflect.set ( ▮ , key, V [ , receiver ] )" xah-js--abbrev-hook-f)
     ("Reflect.setPrototypeOf" "Reflect.setPrototypeOf ( ▮ , proto )" xah-js--abbrev-hook-f)
 
+    ;; Date
+
+    ("Date.prototype" "Date.prototype▮" xah-js--abbrev-hook-f)
+    ("Date.UTC" "Date.UTC ( year▮, month , date , hours , minutes , seconds , ms )" xah-js--abbrev-hook-f)
+    ("Date.parse" "Date.parse ( string▮ )" xah-js--abbrev-hook-f)
+    ("Date.now" "Date.now ()" xah-js--abbrev-hook-f)
+
+    ("dp" "Date.prototype▮" xah-js--abbrev-hook-f)
+    ("du" "Date.UTC ( year▮, month , date , hours , minutes , seconds , ms )" xah-js--abbrev-hook-f)
+    ("dp" "Date.parse ( string▮ )" xah-js--abbrev-hook-f)
+    ("dn" "Date.now ()" xah-js--abbrev-hook-f)
+
     ;; Object.prototype
-    ("hop" "hasOwnProperty ( ▮ )" xah-js--abbrev-hook-f)
     ("hasOwnProperty" "hasOwnProperty (▮)" xah-js--abbrev-hook-f)
-    ("ipo" "isPrototypeOf ( ▮ )" xah-js--abbrev-hook-f)
     ("isPrototypeOf" "isPrototypeOf ( ▮ )" xah-js--abbrev-hook-f)
-    ("pie" "propertyIsEnumerable ( ▮ )" xah-js--abbrev-hook-f)
     ("propertyIsEnumerable" "propertyIsEnumerable ( ▮ )" xah-js--abbrev-hook-f)
-    ("tls" "toLocaleString (▮)" xah-js--abbrev-hook-f)
     ("toLocaleString" "toLocaleString (▮)" xah-js--abbrev-hook-f)
-    ("ts" "toString ()" xah-js--abbrev-hook-f)
     ("toString" "toString ()" xah-js--abbrev-hook-f)
-    ("vo" "valueOf ( ▮ )" xah-js--abbrev-hook-f)
     ("valueOf" "valueOf ( ▮ )" xah-js--abbrev-hook-f)
+
+    ("hop" "hasOwnProperty ( ▮ )" xah-js--abbrev-hook-f)
+    ("ipo" "isPrototypeOf ( ▮ )" xah-js--abbrev-hook-f)
+    ("pie" "propertyIsEnumerable ( ▮ )" xah-js--abbrev-hook-f)
+    ("tls" "toLocaleString (▮)" xah-js--abbrev-hook-f)
+    ("ts" "toString ()" xah-js--abbrev-hook-f)
+    ("vo" "valueOf ( ▮ )" xah-js--abbrev-hook-f)
 
     ;; Array.prototype
     ("concat" "concat ( args1▮, args2, etc )" xah-js--abbrev-hook-f)
@@ -1323,6 +1336,53 @@ Version 2016-10-24"
     ("unshift" "unshift ( items▮ … )" xah-js--abbrev-hook-f)
     ("values" "values ( )" xah-js--abbrev-hook-f)
 
+    ;; Date.prototype
+    ("x" "constructor" xah-js--abbrev-hook-f)
+    ("getDate" "getDate ( ▮ )" xah-js--abbrev-hook-f)
+    ("getDay" "getDay ( ▮ )" xah-js--abbrev-hook-f)
+    ("getFullYear" "getFullYear ( ▮ )" xah-js--abbrev-hook-f)
+    ("getHours" "getHours ( ▮ )" xah-js--abbrev-hook-f)
+    ("getMilliseconds" "getMilliseconds ( ▮ )" xah-js--abbrev-hook-f)
+    ("getMinutes" "getMinutes ( ▮ )" xah-js--abbrev-hook-f)
+    ("getMonth" "getMonth ( ▮ )" xah-js--abbrev-hook-f)
+    ("getSeconds" "getSeconds ( ▮ )" xah-js--abbrev-hook-f)
+    ("getTime" "getTime ( ▮ )" xah-js--abbrev-hook-f)
+    ("getTimezoneOffset" "getTimezoneOffset ( ▮ )" xah-js--abbrev-hook-f)
+    ("getUTCDate" "getUTCDate ( ▮ )" xah-js--abbrev-hook-f)
+    ("getUTCDay" "getUTCDay ( ▮ )" xah-js--abbrev-hook-f)
+    ("getUTCFullYear" "getUTCFullYear ( ▮ )" xah-js--abbrev-hook-f)
+    ("getUTCHours" "getUTCHours ( ▮ )" xah-js--abbrev-hook-f)
+    ("getUTCMilliseconds" "getUTCMilliseconds ( ▮ )" xah-js--abbrev-hook-f)
+    ("getUTCMinutes" "getUTCMinutes ( ▮ )" xah-js--abbrev-hook-f)
+    ("getUTCMonth" "getUTCMonth ( ▮ )" xah-js--abbrev-hook-f)
+    ("getUTCSeconds" "getUTCSeconds ( ▮ )" xah-js--abbrev-hook-f)
+    ("setDate" "setDate ( date▮ )" xah-js--abbrev-hook-f)
+    ("setFullYear" "setFullYear ( year▮ [ , month [ , date ] ] )" xah-js--abbrev-hook-f)
+    ("setHours" "setHours ( hour▮ [ , min [ , sec [ , ms ] ] ] )" xah-js--abbrev-hook-f)
+    ("setMilliseconds" "setMilliseconds ( ms▮ )" xah-js--abbrev-hook-f)
+    ("setMinutes" "setMinutes ( min▮ [ , sec [ , ms ] ] )" xah-js--abbrev-hook-f)
+    ("setMonth" "setMonth ( month▮ [ , date ] )" xah-js--abbrev-hook-f)
+    ("setSeconds" "setSeconds ( sec▮ [ , ms ] )" xah-js--abbrev-hook-f)
+    ("setTime" "setTime ( time▮ )" xah-js--abbrev-hook-f)
+    ("setUTCDate" "setUTCDate ( date▮ )" xah-js--abbrev-hook-f)
+    ("setUTCFullYear" "setUTCFullYear ( year▮ [ , month [ , date ] ] )" xah-js--abbrev-hook-f)
+    ("setUTCHours" "setUTCHours ( hour▮ [ , min [ , sec [ , ms ] ] ] )" xah-js--abbrev-hook-f)
+    ("setUTCMilliseconds" "setUTCMilliseconds ( ms▮ )" xah-js--abbrev-hook-f)
+    ("setUTCMinutes" "setUTCMinutes ( min▮ [ , sec [, ms ] ] )" xah-js--abbrev-hook-f)
+    ("setUTCMonth" "setUTCMonth ( month▮ [ , date ] )" xah-js--abbrev-hook-f)
+    ("setUTCSeconds" "setUTCSeconds ( sec▮ [ , ms ] )" xah-js--abbrev-hook-f)
+    ("toDateString" "toDateString ( ▮ )" xah-js--abbrev-hook-f)
+    ("toISOString" "toISOString ( ▮ )" xah-js--abbrev-hook-f)
+    ("toJSON" "toJSON ( key▮ )" xah-js--abbrev-hook-f)
+    ("toLocaleDateString" "toLocaleDateString ( [ reserved1 [ , reserved2 ] ] )" xah-js--abbrev-hook-f)
+    ("toLocaleString" "toLocaleString ( [ reserved1 [ , reserved2 ] ] )" xah-js--abbrev-hook-f)
+    ("toLocaleTimeString" "toLocaleTimeString ( [ reserved1 [ , reserved2 ] ] )" xah-js--abbrev-hook-f)
+    ("toString" "toString ( ▮ )" xah-js--abbrev-hook-f)
+    ("toTimeString" "toTimeString ( ▮ )" xah-js--abbrev-hook-f)
+    ("toUTCString" "toUTCString ( ▮ )" xah-js--abbrev-hook-f)
+    ("valueOf" "valueOf ( ▮ )" xah-js--abbrev-hook-f)
+    ("[Symbol.toPrimitive]" "[Symbol.toPrimitive] ( hint▮ )" xah-js--abbrev-hook-f)
+
     ;; lang syntax
     ("af" "(x▮ => { 3; })" xah-js--abbrev-hook-f)
     ("af2" "((x▮, x2) => ({ 3 }))" xah-js--abbrev-hook-f)
@@ -1330,8 +1390,8 @@ Version 2016-10-24"
     ("case" "case ▮: x; break" xah-js--abbrev-hook-f)
     ("con" "constructor" xah-js--abbrev-hook-f)
     ("cl" "console.log ( ▮ );" xah-js--abbrev-hook-f)
-    ("class" "class A▮ {\n  constructor(x) {\n    this.p = x;\n  }\n}" xah-js--abbrev-hook-f :system t)
-    ("cls" "class A▮ {\n  constructor(x) {\n    this.p = x;\n  }\n}" xah-js--abbrev-hook-f :system t)
+    ("class" "class A▮ {\n  constructor(x) {\n    this.p = x;\n  }\n}"  :system t)
+    ("cls" "class A▮ {\n  constructor(x) {\n    this.p = x;\n  }\n}"  :system t)
     ("cm" "/* ▮ */" xah-js--abbrev-hook-f)
     ("cmt" "/**/n * desc▮./n * @param {string} title The title of the book./n * @return {number} The circumference of the circle./n */" xah-js--abbrev-hook-f)
     ("do" "do { ▮; x++} while (x != 5)" xah-js--abbrev-hook-f)
@@ -1343,8 +1403,8 @@ Version 2016-10-24"
     ("fo" "for (let p▮ of obj) { }" xah-js--abbrev-hook-f)
     ("for" "for (let i = 0; i < ▮.length; i++) { }" xah-js--abbrev-hook-f)
     ("function" "function ▮ () { return 3 }" xah-js--abbrev-hook-f)
-    ("f" "function ▮ () { 3 }" xah-js--abbrev-hook-f :system t)
-    ("gf" "function* ▮ () { yield 3;}" xah-js--abbrev-hook-f :system t)
+    ("f" "function ▮ () { 3 }"  :system t)
+    ("gf" "function* ▮ () { yield 3;}"  :system t)
     ("switch" "switch(▮) {\n    case 3:\n3\n        break\n    case 3:\n3\n        break\n    default:\n        3\n}" xah-js--abbrev-hook-f)
     ("te" "( test▮ ? expr1 : expr2 )" xah-js--abbrev-hook-f)
     ("to" "typeof " xah-js--abbrev-hook-f)
@@ -1383,12 +1443,13 @@ Version 2016-10-24"
     )
 
   "abbrev table for `xah-js-mode'"
+
   )
 
-(abbrev-table-put xah-js-mode-abbrev-table :regexp "\\([\\._0-9A-Za-z$]+\\)")
+;; (abbrev-table-put xah-js-mode-abbrev-table :regexp "\\([._0-9A-Za-z]+\\)") ; override by xah-js-expand-abbrev
 (abbrev-table-put xah-js-mode-abbrev-table :case-fixed t)
 (abbrev-table-put xah-js-mode-abbrev-table :system t)
-(abbrev-table-put xah-js-mode-abbrev-table :enable-function 'xah-js-abbrev-enable-function)
+;; (abbrev-table-put xah-js-mode-abbrev-table :enable-function 'xah-js-abbrev-enable-function) ; override by xah-js-expand-abbrev
 
 
 
@@ -1407,13 +1468,9 @@ URL `http://ergoemacs.org/emacs/xah-js-mode.html'
   (setq-local comment-column 2)
 
   (make-local-variable 'abbrev-expand-function)
-  (if (or
-       (and (>= emacs-major-version 24)
-            (>= emacs-minor-version 4))
-       (>= emacs-major-version 25))
-      (progn
-        (setq abbrev-expand-function 'xah-js-expand-abbrev))
-    (progn (add-hook 'abbrev-expand-functions 'xah-js-expand-abbrev nil t)))
+  (if (version< emacs-version "24.4")
+      (add-hook 'abbrev-expand-functions 'xah-js-expand-abbrev nil t)
+    (setq abbrev-expand-function 'xah-js-expand-abbrev))
 
   (abbrev-mode 1)
 
