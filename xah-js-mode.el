@@ -1,9 +1,9 @@
 ;;; xah-js-mode.el --- Major mode for editing JavaScript.
 
-;; Copyright © 2013 by Xah Lee
+;; Copyright © 2013 - 2016 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 0.9.2
+;; Version: 0.9.3
 ;; Created: 23 March 2013
 ;; Keywords: languages, JavaScript
 ;; URL: http://ergoemacs.org/emacs/xah-js-mode.html
@@ -895,6 +895,17 @@
         (modify-syntax-entry ?\_ "_" synTable)
         (modify-syntax-entry ?\$ "_" synTable)
 
+        (modify-syntax-entry ?\\ "\\" synTable)
+        (modify-syntax-entry ?\" "\"" synTable)
+        (modify-syntax-entry ?\' "\"" synTable)
+
+        (modify-syntax-entry ?\( "()" synTable)
+        (modify-syntax-entry ?\) ")(" synTable)
+        (modify-syntax-entry ?\[ "(]" synTable)
+        (modify-syntax-entry ?\] ")[" synTable)
+        (modify-syntax-entry ?\{ "(}" synTable)
+        (modify-syntax-entry ?\} "){" synTable)
+
         (modify-syntax-entry ?\. "." synTable)
         (modify-syntax-entry ?\! "." synTable)
         (modify-syntax-entry ?\# "." synTable)
@@ -914,21 +925,10 @@
         (modify-syntax-entry ?\` "." synTable)
         (modify-syntax-entry ?\| "." synTable)
         (modify-syntax-entry ?\~ "." synTable)
-        (modify-syntax-entry ?\\ "\\" synTable)
 
         (modify-syntax-entry ?\/ ". 124" synTable)
         (modify-syntax-entry ?* "w 23b" synTable)
         (modify-syntax-entry ?\n ">" synTable)
-
-        (modify-syntax-entry ?\" "\"" synTable)
-        (modify-syntax-entry ?\' "." synTable)
-
-        (modify-syntax-entry ?\( "()" synTable)
-        (modify-syntax-entry ?\) ")(" synTable)
-        (modify-syntax-entry ?\[ "(]" synTable)
-        (modify-syntax-entry ?\] ")[" synTable)
-        (modify-syntax-entry ?\{ "(}" synTable)
-        (modify-syntax-entry ?\} "){" synTable)
 
         synTable))
 
@@ -1099,7 +1099,7 @@ Version 2016-10-24"
   (let ((-syntax-state (syntax-ppss)))
     (if (or (nth 3 -syntax-state) (nth 4 -syntax-state))
         nil
-      (if (looking-at " \\|\n\\|\t")
+      (if (or (looking-at " \\|\n\\|\t") (eobp))
           t
         nil))))
 
@@ -1115,20 +1115,19 @@ Version 2016-12-11"
     (let (
           (-p0 (point))
           -p1 -p2
-          -abrStr
+          -inputStr
           -abrSymbol
           )
       (progn
         ;; first try expansion with char sequence including the dot
         (skip-chars-backward "[._0-9A-Za-z]+" (min (- (point) 100) (point-min)))
-        (setq -p1 (point))
-        (goto-char -p0)
-        (setq -p2 (point)))
-      (setq -abrStr (buffer-substring-no-properties -p1 -p2))
-      (setq -abrSymbol (abbrev-symbol -abrStr))
+        (setq -p1 (point) -p2 -p0)
+        (goto-char -p0))
+      (setq -inputStr (buffer-substring-no-properties -p1 -p2))
+      (setq -abrSymbol (abbrev-symbol -inputStr))
       (if -abrSymbol
           (progn
-            (abbrev-insert -abrSymbol -abrStr -p1 -p2 )
+            (abbrev-insert -abrSymbol -inputStr -p1 -p2 )
             (xah-js--abbrev-position-cursor -p1)
             -abrSymbol)
         (progn
@@ -1136,14 +1135,13 @@ Version 2016-12-11"
           (progn
             (goto-char -p0)
             (skip-chars-backward "[_0-9A-Za-z]+" (min (- (point) 100) (point-min)))
-            (setq -p1 (point))
-            (goto-char -p0)
-            (setq -p2 (point)))
-          (setq -abrStr (buffer-substring-no-properties -p1 -p2))
-          (setq -abrSymbol (abbrev-symbol -abrStr))
+            (setq -p1 (point) -p2 -p0)
+            (goto-char -p0))
+          (setq -inputStr (buffer-substring-no-properties -p1 -p2))
+          (setq -abrSymbol (abbrev-symbol -inputStr))
           (if -abrSymbol
               (progn
-                (abbrev-insert -abrSymbol -abrStr -p1 -p2 )
+                (abbrev-insert -abrSymbol -inputStr -p1 -p2 )
                 (xah-js--abbrev-position-cursor -p1)
                 -abrSymbol)
             nil
@@ -1337,7 +1335,6 @@ Version 2016-10-24"
     ("values" "values ( )" xah-js--abbrev-hook-f)
 
     ;; Date.prototype
-    ("x" "constructor" xah-js--abbrev-hook-f)
     ("getDate" "getDate ( ▮ )" xah-js--abbrev-hook-f)
     ("getDay" "getDay ( ▮ )" xah-js--abbrev-hook-f)
     ("getFullYear" "getFullYear ( ▮ )" xah-js--abbrev-hook-f)
@@ -1428,7 +1425,7 @@ Version 2016-10-24"
     ("pt" "prototype." xah-js--abbrev-hook-f)
 
     ;; dom
-    ("d" "document." xah-js--abbrev-hook-f)
+    ("doc" "document." xah-js--abbrev-hook-f)
     ("addEventListener" "addEventListener(\"click\", ▮ , false)" xah-js--abbrev-hook-f)
     ("ael" "addEventListener" xah-js--abbrev-hook-f)
     ("gebi" "getElementById(\"▮\" xah-js--abbrev-hook-f)" xah-js--abbrev-hook-f)
