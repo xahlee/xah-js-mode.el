@@ -1,10 +1,11 @@
-;;; xah-js-mode.el --- Major mode for editing JavaScript.
+;;; xah-js-mode.el --- Major mode for editing JavaScript. -*- coding: utf-8; lexical-binding: t; -*-
 
-;; Copyright © 2013 - 2016 by Xah Lee
+;; Copyright © 2013-2016 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 0.9.3
+;; Version: 0.9.4
 ;; Created: 23 March 2013
+;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
 ;; URL: http://ergoemacs.org/emacs/xah-js-mode.html
 
@@ -954,10 +955,10 @@ Version 2016-10-18"
 Root sexp group is the outmost sexp unit."
   (interactive)
   (save-excursion
-    (let (-p1 -p2)
+    (let (-p1 )
       (xah-js-goto-outer-bracket)
       (setq -p1 (point))
-      (setq -p2 (forward-sexp 1))
+      (forward-sexp 1)
       (progn
         (goto-char -p1)
         ;; (indent-sexp)
@@ -1011,33 +1012,6 @@ Version 2016-12-09"
   "Perform keyword completion on current word.
 
 This uses `ido-mode' user interface style for completion.
-Version 2016-10-24"
-  (interactive)
-  (let* (
-         (-bds (xah-js--get-bounds-of-glyph))
-         -p1
-         -p2
-         -word
-         -result)
-    (if (and (not (null (car -bds)))
-             (not (null (cdr -bds))))
-        (progn
-          (setq -p1 (car -bds))
-          (setq -p2 (cdr -bds))
-          (setq -word (buffer-substring-no-properties -p1 -p2)))
-      (progn
-        (setq -p1 (point))
-        (setq -p2 (point))
-        (setq -word "")))
-    (setq -result
-          (ido-completing-read "" xah-js-all-js-keywords nil nil -word ))
-    (delete-region -p1 -p2)
-    (insert -result)))
-
-(defun xah-js-complete-symbol-ido ()
-  "Perform keyword completion on current word.
-
-This uses `ido-mode' user interface style for completion.
 Version 2016-12-11"
   (interactive)
   (let* (
@@ -1046,7 +1020,6 @@ Version 2016-12-11"
          -p2
          -input
          -inputPrefixStr
-         -word
          (-matchedIndex nil)
          (-isObjectName-p nil)
          -result)
@@ -1058,7 +1031,7 @@ Version 2016-12-11"
         (setq -p1 (car -bds) -p2 (cdr -bds))
         (setq -input (buffer-substring-no-properties -p1 -p2))))
 
-    ;; 2016-12-10 todo
+    ;; 2016-12-10
     ;; if the input word contains at least one dot,
     ;; then, if it match at the beginning to one of the big object prefix such as Object, Array, Date
     ;; then, do completion with the pool of fullwords (fully qualified words eg Object.create)
@@ -1068,15 +1041,12 @@ Version 2016-12-11"
     (when -matchedIndex
       (progn
         (setq -inputPrefixStr (substring -input 0 -matchedIndex))
-        (message "-inputPrefixStr is %s" -inputPrefixStr)
         (setq -isObjectName-p
               (catch 'TAG
                 (dolist ( -objName xah-js-big-obj-names nil) (when (equal -objName -inputPrefixStr) (throw 'TAG -objName)))))))
-    (message "-isObjectName-p is %s" -isObjectName-p)
     (if -isObjectName-p
         (progn ; input start with Object or Array etc.
           (setq -result (ido-completing-read "" xah-js-fullwords nil nil -input ))
-          (message "1case input is %s" -input)
           (delete-region -p1 -p2)
           (insert -result))
       (progn ; input does not start with Object or Array etc.
@@ -1084,7 +1054,6 @@ Version 2016-12-11"
                (-p3 (car -bounds))
                (-p4 (cdr -bounds))
                (-input2 (buffer-substring-no-properties -p3 -p4 )))
-          (message "2case input is %s" -input2)
           (setq -result (ido-completing-read "" xah-js-all-js-keywords nil nil -input2 ))
           (delete-region -p3 -p4)
           (insert -result))))))
@@ -1485,9 +1454,5 @@ URL `http://ergoemacs.org/emacs/xah-js-mode.html'
 (add-to-list 'auto-mode-alist '("\\.js\\'" . xah-js-mode))
 
 (provide 'xah-js-mode)
-
-;; Local Variables:
-;; coding: utf-8
-;; End:
 
 ;;; xah-js-mode.el ends here
