@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2016 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 0.9.4
+;; Version: 0.9.5
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -219,7 +219,7 @@
 "MAX_SAFE_INTEGER"
 ) )
 
-(defvar xah-js-big-obj-names nil "List of standard object names. e.g. Object, Array Math, Date, JSON,")
+(defvar xah-js-big-obj-names nil "List of standard object names. e.g. Object, Array Math, Date, JSON, etc.")
 (setq
  xah-js-big-obj-names
  '(
@@ -374,29 +374,37 @@
 (setq xah-js-Map-proto-props '( "set" "get" "values" ) ) ; 2016-12-10 incomplete
 
 (defvar xah-js-String-proto-props nil "List of JavaScript string methods.")
-(setq xah-js-String-proto-props '(
-"length"
-"concat"
-"trim"
-"slice"
-"substr"
-"substring"
-"indexOf"
-"lastIndexOf"
-"search"
-"replace"
-"match"
-"split"
-"toUpperCase"
-"toLowerCase"
-"toLocaleUpperCase"
-"toLocaleLowerCase"
-"charAt"
-"charCodeAt"
-"codePointAt"
-"toValueOf"
-"localeCompare"
-) )
+(setq
+ xah-js-String-proto-props
+ '(
+   "charAt"
+   "charCodeAt"
+   "codePointAt"
+   "concat"
+   "endsWith"
+   "includes"
+   "indexOf"
+   "lastIndexOf"
+   "length"
+   "localeCompare"
+   "localeCompare"
+   "match"
+   "normalize"
+   "repeat"
+   "replace"
+   "search"
+   "slice"
+   "split"
+   "startsWith"
+   "substr"
+   "substring"
+   "toLocaleLowerCase"
+   "toLocaleUpperCase"
+   "toLowerCase"
+   "toUpperCase"
+   "toValueOf"
+   "trim"
+   ))
 
 (defvar xah-js-Date-proto-props nil "List of Date.prototype properties.")
 (setq xah-js-Date-proto-props '(
@@ -1012,7 +1020,7 @@ Version 2016-12-09"
   "Perform keyword completion on current word.
 
 This uses `ido-mode' user interface style for completion.
-Version 2016-12-11"
+Version 2017-01-27"
   (interactive)
   (let* (
          (-bds (xah-js--get-bounds-of-glyph))
@@ -1023,7 +1031,7 @@ Version 2016-12-11"
          (-matchedIndex nil)
          (-isObjectName-p nil)
          -result)
-    (if (or (null (car -bds)) (null (cdr -bds)))
+    (if (or (not (car -bds)) (not (cdr -bds)))
         (progn
           (setq -p1 (point) -p2 (point))
           (setq -input ""))
@@ -1195,7 +1203,6 @@ Version 2016-10-24"
     ("rep" "RegExp.prototype" xah-js--abbrev-hook-f)
 
     ;; String
-    ("String.prototype" "String.prototype" xah-js--abbrev-hook-f)
     ("String.raw" "String.raw ( template▮ , …substitutions )" xah-js--abbrev-hook-f)
     ("String.fromCharCode" "String.fromCharCode ( int▮, etc )" xah-js--abbrev-hook-f)
     ("String.fromCodePoint" "String.fromCodePoint ( int▮, etc )" xah-js--abbrev-hook-f)
@@ -1252,6 +1259,44 @@ Version 2016-10-24"
     ("dp" "Date.parse ( string▮ )" xah-js--abbrev-hook-f)
     ("dn" "Date.now ()" xah-js--abbrev-hook-f)
 
+    ;; Math
+    ("Math.abs" "Math.abs (▮)" xah-js--abbrev-hook-f)
+    ("Math.acos" "Math.acos (▮)" xah-js--abbrev-hook-f)
+    ("Math.acosh" "Math.acosh (▮)" xah-js--abbrev-hook-f)
+    ("Math.asin" "Math.asin (▮)" xah-js--abbrev-hook-f)
+    ("Math.asinh" "Math.asinh (▮)" xah-js--abbrev-hook-f)
+    ("Math.atan" "Math.atan (▮)" xah-js--abbrev-hook-f)
+    ("Math.atan2" "Math.atan2 (▮)" xah-js--abbrev-hook-f)
+    ("Math.atanh" "Math.atanh (▮, y)" xah-js--abbrev-hook-f)
+    ("Math.cbrt" "Math.cbrt (▮)" xah-js--abbrev-hook-f)
+    ("Math.ceil" "Math.ceil (▮)" xah-js--abbrev-hook-f)
+    ("Math.clz32" "Math.clz32 (▮)" xah-js--abbrev-hook-f)
+    ("Math.cos" "Math.cos (▮)" xah-js--abbrev-hook-f)
+    ("Math.cosh" "Math.cosh (▮)" xah-js--abbrev-hook-f)
+    ("Math.exp" "Math.exp (▮)" xah-js--abbrev-hook-f)
+    ("Math.expm1" "Math.expm1 (▮)" xah-js--abbrev-hook-f)
+    ("Math.floor" "Math.floor (▮)" xah-js--abbrev-hook-f)
+    ("Math.fround" "Math.fround (▮)" xah-js--abbrev-hook-f)
+    ("Math.hypot" "Math.hypot (v1▮, v2, etc)" xah-js--abbrev-hook-f)
+    ("Math.imul" "Math.imul (▮, v2)" xah-js--abbrev-hook-f)
+    ("Math.log" "Math.log (▮)" xah-js--abbrev-hook-f)
+    ("Math.log10" "Math.log10 (▮)" xah-js--abbrev-hook-f)
+    ("Math.log1p" "Math.log1p (▮)" xah-js--abbrev-hook-f)
+    ("Math.log2" "Math.log2 (▮)" xah-js--abbrev-hook-f)
+    ("Math.max" "Math.max (▮)" xah-js--abbrev-hook-f)
+    ("Math.min" "Math.min (▮)" xah-js--abbrev-hook-f)
+    ("Math.pow" "Math.pow (▮, y)" xah-js--abbrev-hook-f)
+    ("Math.random" "Math.random ()" xah-js--abbrev-hook-f)
+    ("Math.round" "Math.round (▮)" xah-js--abbrev-hook-f)
+    ("Math.sign" "Math.sign (▮)" xah-js--abbrev-hook-f)
+    ("Math.sin" "Math.sin (▮)" xah-js--abbrev-hook-f)
+    ("Math.sinh" "Math.sinh (▮)" xah-js--abbrev-hook-f)
+    ("Math.sqrt" "Math.sqrt (▮)" xah-js--abbrev-hook-f)
+    ("Math.tan" "Math.tan (▮)" xah-js--abbrev-hook-f)
+    ("Math.tanh" "Math.tanh (▮)" xah-js--abbrev-hook-f)
+    ("Math.toSource" "Math.toSource (▮)" xah-js--abbrev-hook-f)
+    ("Math.trunc" "Math.trunc (▮)" xah-js--abbrev-hook-f)
+
     ;; Object.prototype
     ("hasOwnProperty" "hasOwnProperty (▮)" xah-js--abbrev-hook-f)
     ("isPrototypeOf" "isPrototypeOf ( ▮ )" xah-js--abbrev-hook-f)
@@ -1266,6 +1311,10 @@ Version 2016-10-24"
     ("tls" "toLocaleString (▮)" xah-js--abbrev-hook-f)
     ("ts" "toString ()" xah-js--abbrev-hook-f)
     ("vo" "valueOf ( ▮ )" xah-js--abbrev-hook-f)
+
+
+    ;; String.prototype
+    ("charAt" "charAt ( ▮ )" xah-js--abbrev-hook-f)
 
     ;; Array.prototype
     ("concat" "concat ( args1▮, args2, etc )" xah-js--abbrev-hook-f)
@@ -1302,6 +1351,12 @@ Version 2016-10-24"
     ("toString" "toString ()" xah-js--abbrev-hook-f)
     ("unshift" "unshift ( items▮ … )" xah-js--abbrev-hook-f)
     ("values" "values ( )" xah-js--abbrev-hook-f)
+
+    ;; Set.prototype
+    ("add" "add ( value▮ )" xah-js--abbrev-hook-f)
+    ("delete" "delete ( value▮ )" xah-js--abbrev-hook-f)
+    ("has" "has ( value▮ )" xah-js--abbrev-hook-f)
+    ("clear" "clear ( )" xah-js--abbrev-hook-f)
 
     ;; Date.prototype
     ("getDate" "getDate ( ▮ )" xah-js--abbrev-hook-f)
@@ -1397,8 +1452,8 @@ Version 2016-10-24"
     ("doc" "document." xah-js--abbrev-hook-f)
     ("addEventListener" "addEventListener(\"click\", ▮ , false)" xah-js--abbrev-hook-f)
     ("ael" "addEventListener" xah-js--abbrev-hook-f)
-    ("gebi" "getElementById(\"▮\" xah-js--abbrev-hook-f)" xah-js--abbrev-hook-f)
-    ("getElementById" "getElementById(\"▮\" xah-js--abbrev-hook-f)" xah-js--abbrev-hook-f)
+    ("gebi" "getElementById(\"▮\")" xah-js--abbrev-hook-f)
+    ("getElementById" "getElementById(\"▮\")" xah-js--abbrev-hook-f)
     ("setInterval" "setInterval(func, delay, param1, param2)" xah-js--abbrev-hook-f)
     ("setTimeout" "setTimeout(func, delay, param1, param2)" xah-js--abbrev-hook-f) ;
     ("si" "setInterval(func, delay, param1, param2)" xah-js--abbrev-hook-f)
