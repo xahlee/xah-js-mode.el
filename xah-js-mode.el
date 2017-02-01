@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2016 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 0.9.5
+;; Version: 0.9.7
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -296,6 +296,28 @@
 
 (defvar xah-js-Math-props-fullword nil "List of Math properties full words, e.g. \"Math.parse\".")
 (setq xah-js-Math-props-fullword (mapcar (lambda (x)  (concat "Math." x)) xah-js-Math-props))
+
+(defvar xah-js-Symbol-props nil "List of JavaScript Symbol properties.")
+(setq
+ xah-js-Symbol-props
+ '(
+   "for"
+   "hasInstance"
+   "isConcatSpreadable"
+   "iterator"
+   "match"
+   "prototype"
+   "replace"
+   "search"
+   "species"
+   "split"
+   "toPrimitive"
+   "toStringTag"
+   "unscopables"
+   ))
+
+(defvar xah-js-Symbol-props-fullword nil "List of Symbol properties full words, e.g. \"Symbol.for\".")
+(setq xah-js-Symbol-props-fullword (mapcar (lambda (x)  (concat "Symbol." x)) xah-js-Symbol-props))
 
 (defvar xah-js-Date-props nil "List of Date properties.")
 (setq xah-js-Date-props '( "now" "parse" "UTC" "prototype" ) )
@@ -798,6 +820,7 @@
        xah-js-String-props-fullword
        xah-js-JSON-props-fullword
        xah-js-Math-props-fullword
+       xah-js-Symbol-props-fullword
        xah-js-Date-props-fullword
        ))
 
@@ -843,6 +866,7 @@
           (,(regexp-opt xah-js-String-props-fullword 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-JSON-props-fullword 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-Math-props-fullword 'symbols) . font-lock-function-name-face)
+          (,(regexp-opt xah-js-Symbol-props-fullword 'symbols) . font-lock-function-name-face)
           (,(regexp-opt xah-js-Date-props-fullword 'symbols) . font-lock-function-name-face)
           (,(regexp-opt xah-js-Set-props-fullword 'symbols) . font-lock-keyword-face)
 
@@ -856,6 +880,7 @@
           (,(regexp-opt xah-js-String-props 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-JSON-props 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-Math-props 'symbols) . font-lock-function-name-face)
+          (,(regexp-opt xah-js-Symbol-props 'symbols) . font-lock-function-name-face)
           (,(regexp-opt xah-js-Date-props 'symbols) . font-lock-function-name-face)
           (,(regexp-opt xah-js-Set-props 'symbols) . font-lock-keyword-face)
 
@@ -1312,7 +1337,6 @@ Version 2016-10-24"
     ("ts" "toString ()" xah-js--abbrev-hook-f)
     ("vo" "valueOf ( ▮ )" xah-js--abbrev-hook-f)
 
-
     ;; String.prototype
     ("charAt" "charAt ( ▮ )" xah-js--abbrev-hook-f)
 
@@ -1424,7 +1448,7 @@ Version 2016-10-24"
     ("fo" "for (let p▮ of obj) { }" xah-js--abbrev-hook-f)
     ("for" "for (let i = 0; i < ▮.length; i++) { }" xah-js--abbrev-hook-f)
     ("function" "function ▮ () { return 3 }" xah-js--abbrev-hook-f)
-    ("f" "function ▮ () { 3 }"  :system t)
+    ("fu" "function ▮ () { 3 }"  :system t)
     ("gf" "function* ▮ () { yield 3;}"  :system t)
     ("switch" "switch(▮) {\n    case 3:\n3\n        break\n    case 3:\n3\n        break\n    default:\n        3\n}" xah-js--abbrev-hook-f)
     ("te" "( test▮ ? expr1 : expr2 )" xah-js--abbrev-hook-f)
