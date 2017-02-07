@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2016 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 0.9.7
+;; Version: 0.9.8
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -1097,13 +1097,13 @@ Version 2017-01-27"
 (defun xah-js-abbrev-enable-function ()
   "Return t if not in string or comment. Else nil.
 This is for abbrev table property `:enable-function'.
-Version 2016-10-24"
+Version 2017-02-05"
   (let ((-syntax-state (syntax-ppss)))
     (if (or (nth 3 -syntax-state) (nth 4 -syntax-state))
         nil
-      (if (or (looking-at " \\|\n\\|\t") (eobp))
-          t
-        nil))))
+      t)))
+
+;; (if (or (looking-at " \\|\n\\|\t") (eobp)) t nil)
 
 (defun xah-js-expand-abbrev ()
   "Expand the symbol before cursor,
@@ -1111,7 +1111,7 @@ if cursor is not in string or comment.
 
 Note: emacs tries to expand abbrev on every insertion of chars that's not word or symbol syntax. So, when return is pressed, normally it also tries to expand, and this function will be called if `abbrev-expand-functions' is set to it.
 Returns the abbrev symbol if there's a expansion, else nil.
-Version 2016-12-11"
+Version 2017-02-05"
   (interactive)
   (when (xah-js-abbrev-enable-function)
     (let (
@@ -1126,6 +1126,7 @@ Version 2016-12-11"
         (setq -p1 (point) -p2 -p0)
         (goto-char -p0))
       (setq -inputStr (buffer-substring-no-properties -p1 -p2))
+      ;; (message "first -inputStr is %s" -inputStr)
       (setq -abrSymbol (abbrev-symbol -inputStr))
       (if -abrSymbol
           (progn
@@ -1140,6 +1141,7 @@ Version 2016-12-11"
             (setq -p1 (point) -p2 -p0)
             (goto-char -p0))
           (setq -inputStr (buffer-substring-no-properties -p1 -p2))
+          ;; (message "2nd -inputStr is %s" -inputStr)
           (setq -abrSymbol (abbrev-symbol -inputStr))
           (if -abrSymbol
               (progn
@@ -1445,7 +1447,7 @@ Version 2016-10-24"
     ("eq" "=== " xah-js--abbrev-hook-f)
     ("fi" "for (let p▮ in obj) { }" xah-js--abbrev-hook-f)
     ("finally" "finally {\n▮\n}" xah-js--abbrev-hook-f)
-    ("fo" "for (let p▮ of obj) { }" xah-js--abbrev-hook-f)
+    ("fo" "for (let p▮ of iterable) { }" xah-js--abbrev-hook-f)
     ("for" "for (let i = 0; i < ▮.length; i++) { }" xah-js--abbrev-hook-f)
     ("function" "function ▮ () { return 3 }" xah-js--abbrev-hook-f)
     ("fu" "function ▮ () { 3 }"  :system t)
@@ -1464,8 +1466,8 @@ Version 2016-10-24"
     ("ps" "+" xah-js--abbrev-hook-f)
     ("r" "return ▮;" xah-js--abbrev-hook-f)
 
-    ("get" "get keyname▮ () {body};" xah-js--abbrev-hook-f)
-    ("set" "get keyname▮ (x) {body};" xah-js--abbrev-hook-f)
+    ("getter" "get keyname▮ () {body};" xah-js--abbrev-hook-f)
+    ("setter" "get keyname▮ (x) {body};" xah-js--abbrev-hook-f)
 
     ("ob" "Object." xah-js--abbrev-hook-f)
     ("ar" "Array" xah-js--abbrev-hook-f)
