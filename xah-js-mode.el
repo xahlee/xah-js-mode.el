@@ -301,10 +301,12 @@
 (setq
  xah-js-Symbol-props
  '(
+
    "for"
    "hasInstance"
    "isConcatSpreadable"
    "iterator"
+   "keyFor"
    "match"
    "prototype"
    "replace"
@@ -314,6 +316,7 @@
    "toPrimitive"
    "toStringTag"
    "unscopables"
+
    ))
 
 (defvar xah-js-Symbol-props-fullword nil "List of Symbol properties full words, e.g. \"Symbol.for\".")
@@ -344,6 +347,17 @@
 "toString"
 "constructor"
 ) )
+
+(defvar xah-js-Symbol-proto-props nil "List of Symbol.prototype properties.")
+(setq
+ xah-js-Symbol-proto-props
+ '(
+   "constructor"
+   "toString"
+   "valueOf"
+   "[ Symbol.toPrimitive ]"
+   "[ Symbol.toStringTag ]"
+   ))
 
 (defvar xah-js-Array-proto-props nil "List of Array.prototype properties.")
 (setq xah-js-Array-proto-props '(
@@ -836,6 +850,7 @@
        xah-js-Set-proto-props
        xah-js-Map-proto-props
        xah-js-Function-proto-props
+       xah-js-Symbol-proto-props
        xah-js-String-proto-props
        xah-js-Date-proto-props
        xah-js-dom-words
@@ -887,6 +902,7 @@
           (,(regexp-opt xah-js-Object-proto-props 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-Array-proto-props 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-Function-proto-props 'symbols) . font-lock-keyword-face)
+          (,(regexp-opt xah-js-Symbol-proto-props 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-String-proto-props 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-Date-proto-props 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-dom-style-obj-words 'symbols) . font-lock-function-name-face)
