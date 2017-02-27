@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2016 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 0.9.8
+;; Version: 0.10.0
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -409,7 +409,7 @@
 (defvar xah-js-Map-proto-props nil "List of Map.prototype properties.")
 (setq xah-js-Map-proto-props '( "set" "get" "values" ) ) ; 2016-12-10 incomplete
 
-(defvar xah-js-String-proto-props nil "List of JavaScript string methods.")
+(defvar xah-js-String-proto-props nil "List of JavaScript String.prototype properties.")
 (setq
  xah-js-String-proto-props
  '(
@@ -440,6 +440,22 @@
    "toUpperCase"
    "toValueOf"
    "trim"
+   ))
+
+(defvar xah-js-RegExp-proto-props nil "List of JavaScript RegExp.prototype methods.")
+(setq
+ xah-js-RegExp-proto-props
+ '(
+   "test"
+   "exec"
+   "source"
+   "global"
+   "ignoreCase"
+   "multiline"
+   "lastIndex"
+   "flags"
+   "sticky"
+   "unicode"
    ))
 
 (defvar xah-js-Date-proto-props nil "List of Date.prototype properties.")
@@ -852,6 +868,7 @@
        xah-js-Function-proto-props
        xah-js-Symbol-proto-props
        xah-js-String-proto-props
+       xah-js-RegExp-proto-props
        xah-js-Date-proto-props
        xah-js-dom-words
        xah-js-constants
@@ -904,6 +921,7 @@
           (,(regexp-opt xah-js-Function-proto-props 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-Symbol-proto-props 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-String-proto-props 'symbols) . font-lock-keyword-face)
+          (,(regexp-opt xah-js-RegExp-proto-props 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-Date-proto-props 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-dom-style-obj-words 'symbols) . font-lock-function-name-face)
           (,(regexp-opt xah-js-Set-proto-props 'symbols) . font-lock-keyword-face)
