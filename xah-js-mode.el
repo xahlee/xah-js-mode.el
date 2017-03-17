@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2016 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 0.10.0
+;; Version: 0.11.0
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -437,6 +437,7 @@
    "toLocaleLowerCase"
    "toLocaleUpperCase"
    "toLowerCase"
+   "toString"
    "toUpperCase"
    "toValueOf"
    "trim"
@@ -1374,7 +1375,35 @@ Version 2016-10-24"
     ("vo" "valueOf ( ▮ )" xah-js--abbrev-hook-f)
 
     ;; String.prototype
-    ("charAt" "charAt ( ▮ )" xah-js--abbrev-hook-f)
+
+    ("charAt" "charAt (pos▮)" xah-js--abbrev-hook-f)
+    ("charCodeAt" "charCodeAt (pos▮)" xah-js--abbrev-hook-f)
+    ("codePointAt" "codePointAt (pos▮)" xah-js--abbrev-hook-f)
+    ("concat" "concat (arg1▮, arg2, etc)" xah-js--abbrev-hook-f) ; clash with array
+    ("endsWith" "endsWith (str▮, pos)" xah-js--abbrev-hook-f)
+    ("includes" "includes (str▮, pos)" xah-js--abbrev-hook-f)
+    ("indexOf" "indexOf (str▮, pos)" xah-js--abbrev-hook-f)
+    ("lastIndexOf" "lastIndexOf (str▮, pos)" xah-js--abbrev-hook-f)
+    ("length" "length (▮)" xah-js--abbrev-hook-f)
+    ("localeCompare" "localeCompare (▮)" xah-js--abbrev-hook-f)
+    ("localeCompare" "localeCompare (▮)" xah-js--abbrev-hook-f)
+    ("match" "match (/regex▮/g)" xah-js--abbrev-hook-f)
+    ("normalize" "normalize (▮)" xah-js--abbrev-hook-f)
+    ("repeat" "repeat (n▮)" xah-js--abbrev-hook-f)
+    ("replace" "replace (stringOrRegex▮, replaceStrOrFunc)" xah-js--abbrev-hook-f)
+    ("search" "search (regex▮)" xah-js--abbrev-hook-f)
+    ("slice" "slice (pos1▮, pos2)" xah-js--abbrev-hook-f)
+    ("split" "split (\"seperator▮\", limit)" xah-js--abbrev-hook-f)
+    ("startsWith" "startsWith (str▮, endpos)" xah-js--abbrev-hook-f)
+    ("substr" "substr (pos1▮, pos2)" xah-js--abbrev-hook-f)
+    ("substring" "substring (pos1▮, pos2)" xah-js--abbrev-hook-f)
+    ("toLocaleLowerCase" "toLocaleLowerCase ()" xah-js--abbrev-hook-f)
+    ("toLocaleUpperCase" "toLocaleUpperCase ()" xah-js--abbrev-hook-f)
+    ("toLowerCase" "toLowerCase ()" xah-js--abbrev-hook-f)
+    ("toString" "toString ()" xah-js--abbrev-hook-f)
+    ("toUpperCase" "toUpperCase ()" xah-js--abbrev-hook-f)
+    ("toValueOf" "toValueOf ()" xah-js--abbrev-hook-f)
+    ("trim" "trim ()" xah-js--abbrev-hook-f)
 
     ;; Array.prototype
     ("concat" "concat ( args1▮, args2, etc )" xah-js--abbrev-hook-f)
