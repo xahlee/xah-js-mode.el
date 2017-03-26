@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2016 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 0.11.0
+;; Version: 0.12.0
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -284,6 +284,28 @@
 
 (defvar xah-js-String-props-fullword nil "List of String properties full words, e.g. \"String.fromCodePoint\".")
 (setq xah-js-String-props-fullword (mapcar (lambda (x)  (concat "String." x)) xah-js-String-props))
+
+(defvar xah-js-Number-props nil "List of Number properties.")
+(setq xah-js-Number-props '(
+    "EPSILON"
+    "MAX_SAFE_INTEGER"
+    "MAX_VALUE"
+    "MIN_SAFE_INTEGER"
+    "MIN_VALUE"
+    "NEGATIVE_INFINITY"
+    "NaN"
+    "POSITIVE_INFINITY"
+    "isFinite"
+    "isInteger"
+    "isNaN"
+    "isSafeInteger"
+    "parseFloat"
+    "parseInt"
+    "prototype"
+))
+
+(defvar xah-js-Number-props-fullword nil "List of Number properties full words, e.g. \"Number.parseIntPoint\".")
+(setq xah-js-Number-props-fullword (mapcar (lambda (x)  (concat "Number." x)) xah-js-Number-props))
 
 (defvar xah-js-JSON-props nil "List of Array properties.")
 (setq xah-js-JSON-props '( "stringify" "parse" ))
@@ -849,6 +871,7 @@
        xah-js-Function-props-fullword
        xah-js-RegExp-props-fullword
        xah-js-String-props-fullword
+       xah-js-Number-props-fullword
        xah-js-JSON-props-fullword
        xah-js-Math-props-fullword
        xah-js-Symbol-props-fullword
@@ -897,6 +920,7 @@
           (,(regexp-opt xah-js-Function-props-fullword 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-RegExp-props-fullword 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-String-props-fullword 'symbols) . font-lock-keyword-face)
+          (,(regexp-opt xah-js-Number-props-fullword 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-JSON-props-fullword 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-Math-props-fullword 'symbols) . font-lock-function-name-face)
           (,(regexp-opt xah-js-Symbol-props-fullword 'symbols) . font-lock-function-name-face)
@@ -911,6 +935,7 @@
           (,(regexp-opt xah-js-Function-props 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-RegExp-props 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-String-props 'symbols) . font-lock-keyword-face)
+          (,(regexp-opt xah-js-Number-props 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-JSON-props 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-Math-props 'symbols) . font-lock-function-name-face)
           (,(regexp-opt xah-js-Symbol-props 'symbols) . font-lock-function-name-face)
@@ -1247,15 +1272,16 @@ Version 2016-10-24"
     ("op" "Object.prototype" xah-js--abbrev-hook-f)
 
     ;; Array
-    ("ap" "Array.prototype" xah-js--abbrev-hook-f)
+    ("Array.isArray" "Array.isArray ( ▮ )" xah-js--abbrev-hook-f)
     ("aia" "Array.isArray ( ▮ )" xah-js--abbrev-hook-f)
-    ("afm" "Array.from ( items▮ , mapfn, thisArg )" xah-js--abbrev-hook-f)
-    ("map" "map( f▮ , thisBinding)" xah-js--abbrev-hook-f)
+    ("Array.from" "Array.from ( items▮ , ?mapfn, ?thisArg )" xah-js--abbrev-hook-f)
+
+    ("Array.of" "Array.of ( e1▮ , e2, etc )" xah-js--abbrev-hook-f)
+    ("ao" "Array.of ( e1▮ , e2, etc )" xah-js--abbrev-hook-f)
+
+    ("ap" "Array.prototype" xah-js--abbrev-hook-f)
 
     ;; Function
-    ("Function.prototype" "Function.prototype" xah-js--abbrev-hook-f)
-    ("Function.length" "Function.length" xah-js--abbrev-hook-f)
-
     ("fp" "Function.prototype" xah-js--abbrev-hook-f)
     ("fl" "Function.length" xah-js--abbrev-hook-f)
 
@@ -1273,6 +1299,21 @@ Version 2016-10-24"
     ("sr" "String.raw ( template▮ , …substitutions )" xah-js--abbrev-hook-f)
     ("sfcc" "String.fromCharCode ( int▮, etc )" xah-js--abbrev-hook-f)
     ("sfcp" "String.fromCodePoint ( int▮, etc )" xah-js--abbrev-hook-f)
+
+    ;; Number
+    ("np" "Number.prototype" xah-js--abbrev-hook-f)
+    ("Number.isFinite" "Number.isFinite ( num▮ )" xah-js--abbrev-hook-f)
+    ("nif" "Number.isFinite ( num▮ )" xah-js--abbrev-hook-f)
+    ("Number.isInteger" "Number.isInteger ( num▮ )" xah-js--abbrev-hook-f)
+    ("nii" "Number.isInteger ( num▮ )" xah-js--abbrev-hook-f)
+    ("Number.isNaN" "Number.isNaN ( num▮ )" xah-js--abbrev-hook-f)
+    ("nin" "Number.isNaN ( num▮ )" xah-js--abbrev-hook-f)
+    ("Number.isSafeInteger" "Number.isSafeInteger ( num▮ )" xah-js--abbrev-hook-f)
+    ("nisi" "Number.isSafeInteger ( num▮ )" xah-js--abbrev-hook-f)
+    ("Number.parseFloat" "Number.parseFloat ( num▮ )" xah-js--abbrev-hook-f)
+    ("npf" "Number.parseFloat ( num▮ )" xah-js--abbrev-hook-f)
+    ("Number.parseInt" "Number.parseInt ( num▮, ?base )" xah-js--abbrev-hook-f)
+    ("npi" "Number.parseInt ( num▮, ?base )" xah-js--abbrev-hook-f)
 
     ;; JSON
     ("JSON.stringify" "JSON.stringify ( ▮ )" xah-js--abbrev-hook-f)
@@ -1508,6 +1549,7 @@ Version 2016-10-24"
     ("ei" "else if (▮) { 3 }" xah-js--abbrev-hook-f)
     ("else" "else { ▮ }" xah-js--abbrev-hook-f)
     ("eq" "=== " xah-js--abbrev-hook-f)
+    ("ne" "!== " xah-js--abbrev-hook-f)
     ("fi" "for (let p▮ in obj) { }" xah-js--abbrev-hook-f)
     ("finally" "finally {\n▮\n}" xah-js--abbrev-hook-f)
     ("fo" "for (let p▮ of iterable) { }" xah-js--abbrev-hook-f)
@@ -1529,6 +1571,7 @@ Version 2016-10-24"
     ("ps" "+" xah-js--abbrev-hook-f)
     ("r" "return ▮;" xah-js--abbrev-hook-f)
 
+
     ("getter" "get keyname▮ () {body};" xah-js--abbrev-hook-f)
     ("setter" "get keyname▮ (x) {body};" xah-js--abbrev-hook-f)
 
@@ -1536,6 +1579,10 @@ Version 2016-10-24"
     ("ar" "Array" xah-js--abbrev-hook-f)
     ("sy" "Symbol" xah-js--abbrev-hook-f)
     ("pt" "prototype." xah-js--abbrev-hook-f)
+
+    ("nan" "NaN" xah-js--abbrev-hook-f)
+    ("inf" "Infinity" xah-js--abbrev-hook-f)
+    ("ud" "undefined" xah-js--abbrev-hook-f)
 
     ;; dom
     ("doc" "document." xah-js--abbrev-hook-f)
