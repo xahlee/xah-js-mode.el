@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2016 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 0.12.0
+;; Version: 0.13.0
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -293,7 +293,7 @@
     "MIN_SAFE_INTEGER"
     "MIN_VALUE"
     "NEGATIVE_INFINITY"
-    "NaN"
+    ;; "NaN"
     "POSITIVE_INFINITY"
     "isFinite"
     "isInteger"
@@ -463,6 +463,21 @@
    "toUpperCase"
    "toValueOf"
    "trim"
+   ))
+
+(defvar xah-js-Number-proto-props nil "List of JavaScript Number.prototype properties.")
+(setq
+ xah-js-Number-proto-props
+ '(
+
+"constructor"
+"toFixed"
+"toPrecision"
+"toExponential"
+"valueOf"
+"toString"
+"toLocaleString"
+
    ))
 
 (defvar xah-js-RegExp-proto-props nil "List of JavaScript RegExp.prototype methods.")
@@ -892,6 +907,7 @@
        xah-js-Function-proto-props
        xah-js-Symbol-proto-props
        xah-js-String-proto-props
+       xah-js-Number-proto-props
        xah-js-RegExp-proto-props
        xah-js-Date-proto-props
        xah-js-dom-words
@@ -947,6 +963,7 @@
           (,(regexp-opt xah-js-Function-proto-props 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-Symbol-proto-props 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-String-proto-props 'symbols) . font-lock-keyword-face)
+          (,(regexp-opt xah-js-Number-proto-props 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-RegExp-proto-props 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-Date-proto-props 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-dom-style-obj-words 'symbols) . font-lock-function-name-face)
@@ -1416,7 +1433,6 @@ Version 2016-10-24"
     ("vo" "valueOf ( ▮ )" xah-js--abbrev-hook-f)
 
     ;; String.prototype
-
     ("charAt" "charAt (pos▮)" xah-js--abbrev-hook-f)
     ("charCodeAt" "charCodeAt (pos▮)" xah-js--abbrev-hook-f)
     ("codePointAt" "codePointAt (pos▮)" xah-js--abbrev-hook-f)
@@ -1443,8 +1459,16 @@ Version 2016-10-24"
     ("toLowerCase" "toLowerCase ()" xah-js--abbrev-hook-f)
     ("toString" "toString ()" xah-js--abbrev-hook-f)
     ("toUpperCase" "toUpperCase ()" xah-js--abbrev-hook-f)
-    ("toValueOf" "toValueOf ()" xah-js--abbrev-hook-f)
     ("trim" "trim ()" xah-js--abbrev-hook-f)
+
+    ;; Number.prototype
+    ("toFixed" "toFixed ( n▮ )" xah-js--abbrev-hook-f)
+    ("tf" "toFixed ( n▮ )" xah-js--abbrev-hook-f)
+    ("toPrecision" "toPrecision ( n▮ )" xah-js--abbrev-hook-f)
+    ("tp" "toPrecision ( n▮ )" xah-js--abbrev-hook-f)
+    ("toExponential" "toExponential ( n▮ )" xah-js--abbrev-hook-f)
+    ("toString" "toString ( ?radix▮ )" xah-js--abbrev-hook-f)
+    ("toLocaleString" "toLocaleString ( ?reserved )" xah-js--abbrev-hook-f)
 
     ;; Array.prototype
     ("concat" "concat ( args1▮, args2, etc )" xah-js--abbrev-hook-f)
@@ -1531,7 +1555,6 @@ Version 2016-10-24"
     ("toString" "toString ( ▮ )" xah-js--abbrev-hook-f)
     ("toTimeString" "toTimeString ( ▮ )" xah-js--abbrev-hook-f)
     ("toUTCString" "toUTCString ( ▮ )" xah-js--abbrev-hook-f)
-    ("valueOf" "valueOf ( ▮ )" xah-js--abbrev-hook-f)
     ("[Symbol.toPrimitive]" "[Symbol.toPrimitive] ( hint▮ )" xah-js--abbrev-hook-f)
 
     ;; lang syntax
@@ -1570,7 +1593,6 @@ Version 2016-10-24"
     ("l" "let ▮ = 3" xah-js--abbrev-hook-f)
     ("ps" "+" xah-js--abbrev-hook-f)
     ("r" "return ▮;" xah-js--abbrev-hook-f)
-
 
     ("getter" "get keyname▮ () {body};" xah-js--abbrev-hook-f)
     ("setter" "get keyname▮ (x) {body};" xah-js--abbrev-hook-f)
