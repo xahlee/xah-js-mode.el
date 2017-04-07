@@ -309,7 +309,7 @@
 (setq xah-js-Number-props-fullword (mapcar (lambda (x)  (concat "Number." x)) xah-js-Number-props))
 
 (defvar xah-js-Promise-props nil "List of Promise constructor properties.")
-(setq xah-js-Promise-props '( "prototype" "race" "reject" "resolve" ))
+(setq xah-js-Promise-props '( "all" "prototype" "race" "reject" "resolve" ))
 
 (defvar xah-js-Promise-props-fullword nil "List of Promise constructor properties full words, e.g. \"Promise.reject\".")
 (setq xah-js-Promise-props-fullword (mapcar (lambda (x)  (concat "Promise." x)) xah-js-Promise-props))
@@ -1318,9 +1318,10 @@ Version 2016-10-24"
 
     ;; Promise
     ("pp" "Promise.prototype" xah-js--abbrev-hook-f)
-    ("Promise.race" "Promise.race" xah-js--abbrev-hook-f)
-    ("Promise.reject" "Promise.reject" xah-js--abbrev-hook-f)
-    ("Promise.resolve" "Promise.resolve" xah-js--abbrev-hook-f)
+    ("Promise.all" "Promise.all (iterable▮)" xah-js--abbrev-hook-f)
+    ("Promise.race" "Promise.race (iterable▮)" xah-js--abbrev-hook-f)
+    ("Promise.reject" "Promise.reject (r▮)" xah-js--abbrev-hook-f)
+    ("Promise.resolve" "Promise.resolve (x▮)" xah-js--abbrev-hook-f)
 
     ;; RegExp
     ("RegExp.prototype" "RegExp.prototype" xah-js--abbrev-hook-f)
@@ -1480,6 +1481,13 @@ Version 2016-10-24"
     ("toString" "toString ()" xah-js--abbrev-hook-f)
     ("toUpperCase" "toUpperCase ()" xah-js--abbrev-hook-f)
     ("trim" "trim ()" xah-js--abbrev-hook-f)
+
+    ;; Promise.prototype
+    ("Promise.prototype.constructor" "Promise.prototype.constructor" xah-js--abbrev-hook-f)
+    ("Promise.prototype.catch" "Promise.prototype.catch (onrejected▮)" xah-js--abbrev-hook-f)
+    ("ppc" "Promise.prototype.catch (onrejected▮)" xah-js--abbrev-hook-f)
+    ("Promise.prototype.then" "Promise.prototype.then (onfullfilled▮, onrejected)" xah-js--abbrev-hook-f)
+    ("ppt" "Promise.prototype.then (onfullfilled▮, onrejected)" xah-js--abbrev-hook-f)
 
     ;; Number.prototype
     ("toFixed" "toFixed ( n▮ )" xah-js--abbrev-hook-f)
