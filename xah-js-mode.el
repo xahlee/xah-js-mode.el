@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2016 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 0.13.0
+;; Version: 0.14.0
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -107,7 +107,7 @@
   :group 'xah-js-mode )
 
 
-(defvar xah-js-keyword-builtin nil "List of js language names, such as if else for in case new break.")
+(defvar xah-js-keyword-builtin nil "List of js language words, such as: if else for in case new break.")
 (setq xah-js-keyword-builtin '(
 "break"
 "case"
@@ -233,6 +233,7 @@
    "Math"
    "Number"
    "Object"
+   "Promise"
    "Proxy"
    "Reflect"
    "RegExp"
@@ -307,6 +308,12 @@
 (defvar xah-js-Number-props-fullword nil "List of Number properties full words, e.g. \"Number.parseIntPoint\".")
 (setq xah-js-Number-props-fullword (mapcar (lambda (x)  (concat "Number." x)) xah-js-Number-props))
 
+(defvar xah-js-Promise-props nil "List of Promise constructor properties.")
+(setq xah-js-Promise-props '( "prototype" "race" "reject" "resolve" ))
+
+(defvar xah-js-Promise-props-fullword nil "List of Promise constructor properties full words, e.g. \"Promise.reject\".")
+(setq xah-js-Promise-props-fullword (mapcar (lambda (x)  (concat "Promise." x)) xah-js-Promise-props))
+
 (defvar xah-js-JSON-props nil "List of Array properties.")
 (setq xah-js-JSON-props '( "stringify" "parse" ))
 
@@ -369,6 +376,9 @@
 "toString"
 "constructor"
 ) )
+
+(defvar xah-js-Promise-proto-props nil "List of Promise.prototype properties.")
+(setq xah-js-Promise-proto-props '( "constructor" "catch" "then" ) )
 
 (defvar xah-js-Symbol-proto-props nil "List of Symbol.prototype properties.")
 (setq
@@ -887,6 +897,7 @@
        xah-js-RegExp-props-fullword
        xah-js-String-props-fullword
        xah-js-Number-props-fullword
+       xah-js-Promise-props-fullword
        xah-js-JSON-props-fullword
        xah-js-Math-props-fullword
        xah-js-Symbol-props-fullword
@@ -937,6 +948,7 @@
           (,(regexp-opt xah-js-RegExp-props-fullword 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-String-props-fullword 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-Number-props-fullword 'symbols) . font-lock-keyword-face)
+          (,(regexp-opt xah-js-Promise-props-fullword 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-JSON-props-fullword 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-Math-props-fullword 'symbols) . font-lock-function-name-face)
           (,(regexp-opt xah-js-Symbol-props-fullword 'symbols) . font-lock-function-name-face)
@@ -952,6 +964,7 @@
           (,(regexp-opt xah-js-RegExp-props 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-String-props 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-Number-props 'symbols) . font-lock-keyword-face)
+          (,(regexp-opt xah-js-Promise-props 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-JSON-props 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-Math-props 'symbols) . font-lock-function-name-face)
           (,(regexp-opt xah-js-Symbol-props 'symbols) . font-lock-function-name-face)
@@ -961,6 +974,7 @@
           (,(regexp-opt xah-js-Object-proto-props 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-Array-proto-props 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-Function-proto-props 'symbols) . font-lock-keyword-face)
+          (,(regexp-opt xah-js-Promise-proto-props 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-Symbol-proto-props 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-String-proto-props 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-Number-proto-props 'symbols) . font-lock-keyword-face)
@@ -1301,6 +1315,12 @@ Version 2016-10-24"
     ;; Function
     ("fp" "Function.prototype" xah-js--abbrev-hook-f)
     ("fl" "Function.length" xah-js--abbrev-hook-f)
+
+    ;; Promise
+    ("pp" "Promise.prototype" xah-js--abbrev-hook-f)
+    ("Promise.race" "Promise.race" xah-js--abbrev-hook-f)
+    ("Promise.reject" "Promise.reject" xah-js--abbrev-hook-f)
+    ("Promise.resolve" "Promise.resolve" xah-js--abbrev-hook-f)
 
     ;; RegExp
     ("RegExp.prototype" "RegExp.prototype" xah-js--abbrev-hook-f)
