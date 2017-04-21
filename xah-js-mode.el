@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2016 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 0.14.0
+;; Version: 1.0.0
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -934,7 +934,9 @@
       (let (
             (capVars "\\_<[A-Z][-_?0-9A-Za-z]*" ))
         `(
+          ("p_[$_0-9A-Za-z]+" . 'xah-js-function-param-fc)
           ("φ[$_0-9A-Za-z]+" . 'xah-js-function-param-fc)
+          ("v_[$_0-9A-Za-z]+" . 'xah-js-user-variable-fc)
           ("ξ[$_0-9A-Za-z]+" . 'xah-js-user-variable-fc)
           ("ε[$_0-9A-Za-z]+" . 'xah-js-identifier-ε)
           ("ƒ[$_0-9A-Za-z]+" . 'xah-js-identifier-ƒ)
@@ -1528,6 +1530,7 @@ Version 2016-10-24"
     ("slice" "slice (start▮, end)" xah-js--abbrev-hook-f)
     ("some" "some ( f▮, thisArg )" xah-js--abbrev-hook-f)
     ("sort" "sort (comparefn)" xah-js--abbrev-hook-f)
+    ("Array.prototype.splice" "splice (start▮, deleteCount , items … )" xah-js--abbrev-hook-f)
     ("splice" "splice (start▮, deleteCount , items … )" xah-js--abbrev-hook-f)
     ("toLocaleString" "toLocaleString ()" xah-js--abbrev-hook-f)
     ("toString" "toString ()" xah-js--abbrev-hook-f)
@@ -1588,14 +1591,15 @@ Version 2016-10-24"
     ;; lang syntax
     ("af" "(x▮ => { 3; })" xah-js--abbrev-hook-f)
     ("af2" "((x▮, x2) => ({ 3 }))" xah-js--abbrev-hook-f)
+    ("caf" "const x = (x => { 3 });" xah-js--abbrev-hook-f)
     ("c" "const ▮ = 3" xah-js--abbrev-hook-f)
     ("case" "case ▮: x; break" xah-js--abbrev-hook-f)
     ("con" "constructor" xah-js--abbrev-hook-f)
     ("cl" "console.log ( ▮ );" xah-js--abbrev-hook-f)
     ("class" "class A▮ {\n  constructor(x) {\n    this.p = x;\n  }\n}"  :system t)
     ("cls" "class A▮ {\n  constructor(x) {\n    this.p = x;\n  }\n}"  :system t)
-    ("cm" "/* ▮ */" xah-js--abbrev-hook-f)
-    ("cmt" "/**/n * desc▮./n * @param {string} title The title of the book./n * @return {number} The circumference of the circle./n */" xah-js--abbrev-hook-f)
+    ("cm" "/* (▮) */" xah-js--abbrev-hook-f)
+    ("cmt" "/**\n * desc▮.\n * @param {string} title The title of the book.\n * @return {number} The circumference of the circle.\n */" xah-js--abbrev-hook-f)
     ("do" "do { ▮; x++} while (x != 5)" xah-js--abbrev-hook-f)
     ("ei" "else if (▮) { 3 }" xah-js--abbrev-hook-f)
     ("else" "else { ▮ }" xah-js--abbrev-hook-f)
@@ -1614,7 +1618,7 @@ Version 2016-10-24"
     ("try" "try {\n▮\n} catch (error) {\n▮\n}" xah-js--abbrev-hook-f)
     ("u" "undefined" xah-js--abbrev-hook-f)
     ("us" "\"use strict\"" xah-js--abbrev-hook-f)
-    ("v" "var ▮ = 3;" xah-js--abbrev-hook-f)
+    ("var" "var ▮ = 3;" xah-js--abbrev-hook-f)
     ("while" "while (i<10) { ▮; i++ }" xah-js--abbrev-hook-f)
     ("yi" "yield ▮;" xah-js--abbrev-hook-f)
     ("if" "if ( ▮ ) {\n}" xah-js--abbrev-hook-f)
