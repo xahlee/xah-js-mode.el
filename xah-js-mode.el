@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2016 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 1.0.0
+;; Version: 1.0.1
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -32,7 +32,7 @@
 
 ;;; Code:
 
-(require 'js) ; in emacs. temp, borrow js-indent-line
+(require 'js) ; in emacs. temp, borrow js-indent-line, and js-syntax-propertize
 (provide 'thingatpt)  ; in emacs
 (require 'newcomment) ; in emacs
 (require 'ido)        ; in emacs
@@ -688,6 +688,8 @@
 "attributes"
 "currentScript"
 
+"checked"
+
 ) )
 
 (defvar xah-js-dom-style-obj-words nil "List of constants")
@@ -1053,7 +1055,7 @@
         (modify-syntax-entry ?\| "." synTable)
         (modify-syntax-entry ?\~ "." synTable)
 
-        (modify-syntax-entry ?\/ ". 124" synTable)
+        (modify-syntax-entry ?\/ "./124" synTable)
         (modify-syntax-entry ?* "w 23b" synTable)
         (modify-syntax-entry ?\n ">" synTable)
 
@@ -1591,7 +1593,7 @@ Version 2016-10-24"
     ;; lang syntax
     ("af" "(x▮ => { 3; })" xah-js--abbrev-hook-f)
     ("af2" "((x▮, x2) => ({ 3 }))" xah-js--abbrev-hook-f)
-    ("caf" "const x = (x => { 3 });" xah-js--abbrev-hook-f)
+    ("caf" "const f = (x => { 3 });" xah-js--abbrev-hook-f)
     ("c" "const ▮ = 3" xah-js--abbrev-hook-f)
     ("case" "case ▮: x; break" xah-js--abbrev-hook-f)
     ("con" "constructor" xah-js--abbrev-hook-f)
@@ -1677,6 +1679,8 @@ URL `http://ergoemacs.org/emacs/xah-js-mode.html'
   (setq-local comment-start "// ")
   (setq-local comment-end "")
   (setq-local comment-column 2)
+
+  (setq-local syntax-propertize-function #'js-syntax-propertize)
 
   (make-local-variable 'abbrev-expand-function)
   (if (version< emacs-version "24.4")
