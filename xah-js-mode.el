@@ -670,6 +670,10 @@
 
 "innerWidth"
 "innerHeight"
+"screen.height"
+"screen.width"
+"offsetWidth"
+"offsetHeight"
 
 "appendChild"
 "cloneNode"
@@ -1600,7 +1604,7 @@ Version 2016-10-24"
     ("cl" "console.log ( ▮ );" xah-js--abbrev-hook-f)
     ("class" "class A▮ {\n  constructor(x) {\n    this.p = x;\n  }\n}"  :system t)
     ("cls" "class A▮ {\n  constructor(x) {\n    this.p = x;\n  }\n}"  :system t)
-    ("cm" "/* (▮) */" xah-js--abbrev-hook-f)
+    ("cm" "/* ( ▮ ) */" xah-js--abbrev-hook-f)
     ("cmt" "/**\n * desc▮.\n * @param {string} title The title of the book.\n * @return {number} The circumference of the circle.\n */" xah-js--abbrev-hook-f)
     ("do" "do { ▮; x++} while (x != 5)" xah-js--abbrev-hook-f)
     ("ei" "else if (▮) { 3 }" xah-js--abbrev-hook-f)
@@ -1642,15 +1646,17 @@ Version 2016-10-24"
 
     ;; dom
     ("doc" "document." xah-js--abbrev-hook-f)
-    ("addEventListener" "addEventListener(\"click\", ▮ , false)" xah-js--abbrev-hook-f)
+    ("addEventListener" "addEventListener (\"click\", ▮ , false)" xah-js--abbrev-hook-f)
     ("ael" "addEventListener" xah-js--abbrev-hook-f)
-    ("gebi" "getElementById(\"▮\")" xah-js--abbrev-hook-f)
-    ("getElementById" "getElementById(\"▮\")" xah-js--abbrev-hook-f)
-    ("setInterval" "setInterval(func, delay, param1, param2)" xah-js--abbrev-hook-f)
-    ("setTimeout" "setTimeout(func, delay, param1, param2)" xah-js--abbrev-hook-f) ;
-    ("si" "setInterval(func, delay, param1, param2)" xah-js--abbrev-hook-f)
-    ("st" "setTimeout(func, delay, param1, param2)" xah-js--abbrev-hook-f)
+    ("gebi" "getElementById (\"▮\")" xah-js--abbrev-hook-f)
+    ("getElementById" "getElementById (\"▮\")" xah-js--abbrev-hook-f)
+    ("setInterval" "setInterval (func, delay, param1, param2)" xah-js--abbrev-hook-f)
+    ("setTimeout" "setTimeout (func, delay, param1, param2)" xah-js--abbrev-hook-f) ;
+    ("si" "setInterval (func, delay, param1, param2)" xah-js--abbrev-hook-f)
+    ("st" "setTimeout (func, delay, param1, param2)" xah-js--abbrev-hook-f)
     ("w" "window." xah-js--abbrev-hook-f)
+    ("ac" "appendChild ( ▮ )" xah-js--abbrev-hook-f)
+    ("sa" "setAttribute ( ▮ )" xah-js--abbrev-hook-f)
 
     ;;
     )
