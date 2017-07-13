@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2016 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 1.0.1
+;; Version: 1.3.0
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -1073,12 +1073,12 @@
 Version 2016-10-18"
   (interactive)
   (let* (
-        (-p0 (if (number-or-marker-p pos) pos (point)))
-        (-p1 -p0))
-    (goto-char -p1)
+        ($p0 (if (number-or-marker-p pos) pos (point)))
+        ($p1 $p0))
+    (goto-char $p1)
     (search-backward "{" nil t)
     ;; (while
-    ;;     ;; (setq -p1 (point))
+    ;;     ;; (setq $p1 (point))
     ;;     )
     ))
 
@@ -1087,17 +1087,17 @@ Version 2016-10-18"
 Root sexp group is the outmost sexp unit."
   (interactive)
   (save-excursion
-    (let (-p1 )
+    (let ($p1 )
       (xah-js-goto-outer-bracket)
-      (setq -p1 (point))
+      (setq $p1 (point))
       (forward-sexp 1)
       (progn
-        (goto-char -p1)
+        (goto-char $p1)
         ;; (indent-sexp)
         (message "xah-js-indent-root-block called " )
         ;; (js-indent-line)
-        ;; (indent-region -p1 -p2)
-        ;; (c-indent-region -p1 -p2)
+        ;; (indent-region $p1 $p2)
+        ;; (c-indent-region $p1 $p2)
         ))))
 
 (defun xah-js-complete-or-indent ()
@@ -1106,8 +1106,8 @@ Root sexp group is the outmost sexp unit."
 If char before point is letters and char after point is whitespace or punctuation, then do completion, except when in string or comment. In these cases, do `xah-js-indent-root-block'.
 Version 2016-10-24"
   (interactive)
-  (let ( (-syntax-state (syntax-ppss)))
-    (if (or (nth 3 -syntax-state) (nth 4 -syntax-state))
+  (let ( ($syntax-state (syntax-ppss)))
+    (if (or (nth 3 $syntax-state) (nth 4 $syntax-state))
         (progn
           ;; (insert "★")
           (message "tried indent")
@@ -1147,21 +1147,21 @@ This uses `ido-mode' user interface style for completion.
 Version 2017-01-27"
   (interactive)
   (let* (
-         (-bds (xah-js--get-bounds-of-glyph))
-         -p1
-         -p2
-         -input
-         -inputPrefixStr
-         (-matchedIndex nil)
-         (-isObjectName-p nil)
-         -result)
-    (if (or (not (car -bds)) (not (cdr -bds)))
+         ($bds (xah-js--get-bounds-of-glyph))
+         $p1
+         $p2
+         $input
+         $inputPrefixStr
+         ($matchedIndex nil)
+         ($isObjectName-p nil)
+         $result)
+    (if (or (not (car $bds)) (not (cdr $bds)))
         (progn
-          (setq -p1 (point) -p2 (point))
-          (setq -input ""))
+          (setq $p1 (point) $p2 (point))
+          (setq $input ""))
       (progn
-        (setq -p1 (car -bds) -p2 (cdr -bds))
-        (setq -input (buffer-substring-no-properties -p1 -p2))))
+        (setq $p1 (car $bds) $p2 (cdr $bds))
+        (setq $input (buffer-substring-no-properties $p1 $p2))))
 
     ;; 2016-12-10
     ;; if the input word contains at least one dot,
@@ -1169,26 +1169,26 @@ Version 2017-01-27"
     ;; then, do completion with the pool of fullwords (fully qualified words eg Object.create)
     ;; else, set input word to not contain the string after the last dot, do completion with that
 
-    (setq -matchedIndex (string-match "\\." -input))
-    (when -matchedIndex
+    (setq $matchedIndex (string-match "\\." $input))
+    (when $matchedIndex
       (progn
-        (setq -inputPrefixStr (substring -input 0 -matchedIndex))
-        (setq -isObjectName-p
+        (setq $inputPrefixStr (substring $input 0 $matchedIndex))
+        (setq $isObjectName-p
               (catch 'TAG
-                (dolist ( -objName xah-js-big-obj-names nil) (when (equal -objName -inputPrefixStr) (throw 'TAG -objName)))))))
-    (if -isObjectName-p
+                (dolist ( $objName xah-js-big-obj-names nil) (when (equal $objName $inputPrefixStr) (throw 'TAG $objName)))))))
+    (if $isObjectName-p
         (progn ; input start with Object or Array etc.
-          (setq -result (ido-completing-read "" xah-js-fullwords nil nil -input ))
-          (delete-region -p1 -p2)
-          (insert -result))
+          (setq $result (ido-completing-read "" xah-js-fullwords nil nil $input ))
+          (delete-region $p1 $p2)
+          (insert $result))
       (progn ; input does not start with Object or Array etc.
-        (let* ((-bounds (bounds-of-thing-at-point 'symbol))
-               (-p3 (car -bounds))
-               (-p4 (cdr -bounds))
-               (-input2 (buffer-substring-no-properties -p3 -p4 )))
-          (setq -result (ido-completing-read "" xah-js-all-js-keywords nil nil -input2 ))
-          (delete-region -p3 -p4)
-          (insert -result))))))
+        (let* (($bounds (bounds-of-thing-at-point 'symbol))
+               ($p3 (car $bounds))
+               ($p4 (cdr $bounds))
+               ($input2 (buffer-substring-no-properties $p3 $p4 )))
+          (setq $result (ido-completing-read "" xah-js-all-js-keywords nil nil $input2 ))
+          (delete-region $p3 $p4)
+          (insert $result))))))
 
 
 ;; abbrev
@@ -1197,8 +1197,8 @@ Version 2017-01-27"
   "Return t if not in string or comment. Else nil.
 This is for abbrev table property `:enable-function'.
 Version 2017-02-05"
-  (let ((-syntax-state (syntax-ppss)))
-    (if (or (nth 3 -syntax-state) (nth 4 -syntax-state))
+  (let (($syntax-state (syntax-ppss)))
+    (if (or (nth 3 $syntax-state) (nth 4 $syntax-state))
         nil
       t)))
 
@@ -1214,39 +1214,39 @@ Version 2017-02-05"
   (interactive)
   (when (xah-js-abbrev-enable-function)
     (let (
-          (-p0 (point))
-          -p1 -p2
-          -inputStr
-          -abrSymbol
+          ($p0 (point))
+          $p1 $p2
+          $inputStr
+          $abrSymbol
           )
       (progn
         ;; first try expansion with char sequence including the dot
         (skip-chars-backward "[._0-9A-Za-z]+" (min (- (point) 100) (point-min)))
-        (setq -p1 (point) -p2 -p0)
-        (goto-char -p0))
-      (setq -inputStr (buffer-substring-no-properties -p1 -p2))
-      ;; (message "first -inputStr is %s" -inputStr)
-      (setq -abrSymbol (abbrev-symbol -inputStr))
-      (if -abrSymbol
+        (setq $p1 (point) $p2 $p0)
+        (goto-char $p0))
+      (setq $inputStr (buffer-substring-no-properties $p1 $p2))
+      ;; (message "first $inputStr is %s" $inputStr)
+      (setq $abrSymbol (abbrev-symbol $inputStr))
+      (if $abrSymbol
           (progn
-            (abbrev-insert -abrSymbol -inputStr -p1 -p2 )
-            (xah-js--abbrev-position-cursor -p1)
-            -abrSymbol)
+            (abbrev-insert $abrSymbol $inputStr $p1 $p2 )
+            (xah-js--abbrev-position-cursor $p1)
+            $abrSymbol)
         (progn
           ;; if expansion with char sequence including the dot come out no result, try without the dot
           (progn
-            (goto-char -p0)
+            (goto-char $p0)
             (skip-chars-backward "[_0-9A-Za-z]+" (min (- (point) 100) (point-min)))
-            (setq -p1 (point) -p2 -p0)
-            (goto-char -p0))
-          (setq -inputStr (buffer-substring-no-properties -p1 -p2))
-          ;; (message "2nd -inputStr is %s" -inputStr)
-          (setq -abrSymbol (abbrev-symbol -inputStr))
-          (if -abrSymbol
+            (setq $p1 (point) $p2 $p0)
+            (goto-char $p0))
+          (setq $inputStr (buffer-substring-no-properties $p1 $p2))
+          ;; (message "2nd $inputStr is %s" $inputStr)
+          (setq $abrSymbol (abbrev-symbol $inputStr))
+          (if $abrSymbol
               (progn
-                (abbrev-insert -abrSymbol -inputStr -p1 -p2 )
-                (xah-js--abbrev-position-cursor -p1)
-                -abrSymbol)
+                (abbrev-insert $abrSymbol $inputStr $p1 $p2 )
+                (xah-js--abbrev-position-cursor $p1)
+                $abrSymbol)
             nil
             ))))))
 
@@ -1255,9 +1255,9 @@ Version 2017-02-05"
 Return true if found, else false.
 Version 2016-10-24"
   (interactive)
-  (let ((-found-p (search-backward "▮" (if *pos *pos (max (point-min) (- (point) 100))) t )))
-    (when -found-p (delete-char 1) )
-    -found-p
+  (let (($found-p (search-backward "▮" (if *pos *pos (max (point-min) (- (point) 100))) t )))
+    (when $found-p (delete-char 1) )
+    $found-p
     ))
 
 (defun xah-js--abbrev-hook-f ()
@@ -1623,7 +1623,7 @@ Version 2016-10-24"
     ("to" "typeof " xah-js--abbrev-hook-f)
     ("try" "try {\n▮\n} catch (error) {\n▮\n}" xah-js--abbrev-hook-f)
     ("u" "undefined" xah-js--abbrev-hook-f)
-    ("us" "\"use strict\"" xah-js--abbrev-hook-f)
+    ("us" "\"use strict\";\n" xah-js--abbrev-hook-f)
     ("var" "var ▮ = 3;" xah-js--abbrev-hook-f)
     ("while" "while (i<10) { ▮; i++ }" xah-js--abbrev-hook-f)
     ("yi" "yield ▮;" xah-js--abbrev-hook-f)
