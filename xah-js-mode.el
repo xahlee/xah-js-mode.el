@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2016 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 1.3.0
+;; Version: 1.4.0
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -40,71 +40,6 @@
 
 
 (defvar xah-js-mode-hook nil "Standard hook for `xah-js-mode'")
-
-
-
-(defface xah-js-function-param-fc
-  '((t :foreground "DarkGreen" :weight bold))
-  "face for function parameters."
-  :group 'xah-js-mode )
-
-(defface xah-js-user-variable-fc
-  '((t :foreground "magenta"
-      :weight bold
-      ))
-  "face for user variables."
-  :group 'xah-js-mode )
-
-(defface xah-js-identifier-ε
-  '((t :foreground "red"
-      :weight bold
-      ))
-  "face for user variables."
-  :group 'xah-js-mode )
-
-(face-spec-set
- 'xah-js-identifier-ε
- '((t :foreground "red"
-      :weight bold
-      ))
- 'face-defface-spec
- )
-
-(defface xah-js-identifier-ƒ
-  '((t :foreground "purple"
-      :weight bold
-      ))
-  "face for user variables."
-  :group 'xah-js-mode )
-
-(face-spec-set
- 'xah-js-identifier-ƒ
- '((t :foreground "purple"
-      :weight bold
-      ))
- 'face-defface-spec
- )
-
-(defface xah-js-identifier-γ
-  '((t :foreground "#104e8b"
-      :weight bold
-      ))
-  "face for user variables."
-  :group 'xah-js-mode )
-
-(face-spec-set
- 'xah-js-identifier-γ
- '((t :foreground "#104e8b"
-      :weight bold
-      ))
- 'face-defface-spec
- )
-
-(defface xah-js-cap-word
-  '(
-    (t :foreground "firebrick" :weight bold))
-  "Face for capitalized word."
-  :group 'xah-js-mode )
 
 
 (defvar xah-js-keyword-builtin nil "List of js language words, such as: if else for in case new break.")
@@ -935,18 +870,76 @@
 
 ;; syntax coloring related
 
+(defface xah-js-dollar-name
+  '((t :foreground "purple" :weight bold ))
+  "face for user variables."
+  :group 'xah-js-mode )
+
+(face-spec-set
+ 'xah-js-dollar-name
+ '((t :foreground "purple" :weight bold ))
+ 'face-defface-spec
+ )
+
+(defface xah-js-identifier-caps
+  '((t :foreground "firebrick" :weight bold))
+  "Face for capitalized word."
+  :group 'xah-js-mode )
+
+(face-spec-set
+ 'xah-js-identifier-caps
+ '((t :foreground "firebrick" :weight bold))
+ 'face-defface-spec
+ )
+
+(defface xah-js-func-param
+  '((t :foreground "red" :weight bold))
+  "face for function parameters."
+  :group 'xah-js-mode )
+
+(face-spec-set
+ 'xah-js-func-param
+ '((t :foreground "red" :weight bold))
+ 'face-defface-spec
+ )
+
+(defface xah-js-user-var
+  '((t :foreground "DarkGreen" :weight bold ))
+  "face for user variables."
+  :group 'xah-js-mode )
+
+(defface xah-js-func-name
+  '((t :foreground "blue" :weight bold ))
+  "face for user variables."
+  :group 'xah-js-mode )
+
+(face-spec-set
+ 'xah-js-func-name
+ '((t :foreground "blue" :weight bold ))
+ 'face-defface-spec
+ )
+
+(defface xah-js-name-global
+  '((t :foreground "#104e8b" :weight bold ))
+  "face for user variables."
+  :group 'xah-js-mode )
+
+(face-spec-set
+ 'xah-js-name-global
+ '((t :foreground "#104e8b" :weight bold ))
+ 'face-defface-spec
+ )
+
 (defvar xah-js-font-lock-keywords nil "gist for `font-lock-defaults'")
 (setq xah-js-font-lock-keywords
       (let (
             (capVars "\\_<[A-Z][-_?0-9A-Za-z]*" ))
         `(
-          ("p_[$_0-9A-Za-z]+" . 'xah-js-function-param-fc)
-          ("φ[$_0-9A-Za-z]+" . 'xah-js-function-param-fc)
-          ("v_[$_0-9A-Za-z]+" . 'xah-js-user-variable-fc)
-          ("ξ[$_0-9A-Za-z]+" . 'xah-js-user-variable-fc)
-          ("ε[$_0-9A-Za-z]+" . 'xah-js-identifier-ε)
-          ("ƒ[$_0-9A-Za-z]+" . 'xah-js-identifier-ƒ)
-          ("γ[$_0-9A-Za-z]+" . 'xah-js-identifier-γ)
+          ("\\_<$[$_0-9A-Za-z]+" . 'xah-js-dollar-name)
+          ("\\_<f_[$_0-9A-Za-z]+" . 'xah-js-func-name)
+          ("\\_<p_[$_0-9A-Za-z]+" . 'xah-js-func-param)
+          ("\\_<v_[$_0-9A-Za-z]+" . 'xah-js-user-var)
+          ("\\_<g_[$_0-9A-Za-z]+" . 'xah-js-name-global)
           ("\\(\\.replace\\|\\.search\\|\\.match\\)[ ]*([ ]*\\(/[^/]+/\\)" . (2 font-lock-string-face t)) ; regex
 
           (,(regexp-opt xah-js-Object-props-fullword 'symbols) . font-lock-keyword-face)
@@ -998,8 +991,7 @@
           (,(regexp-opt xah-js-lang-words  'symbols) . font-lock-keyword-face)
 
           ;; font-lock-variable-name-face
-          (,capVars . 'xah-js-cap-word)
-          )))
+          (,capVars . 'xah-js-identifier-caps))))
 
 
 ;; keybinding
@@ -1595,9 +1587,9 @@ Version 2016-10-24"
     ("[Symbol.toPrimitive]" "[Symbol.toPrimitive] ( hint▮ )" xah-js--abbrev-hook-f)
 
     ;; lang syntax
-    ("af" "(x▮ => { 3; })" xah-js--abbrev-hook-f)
+    ("af" "((x▮) => { 3; })" xah-js--abbrev-hook-f)
     ("af2" "((x▮, x2) => ({ 3 }))" xah-js--abbrev-hook-f)
-    ("caf" "const f = (x => { 3 });" xah-js--abbrev-hook-f)
+    ("caf" "const f = ((x▮) => { 3 });" xah-js--abbrev-hook-f)
     ("c" "const ▮ = 3" xah-js--abbrev-hook-f)
     ("case" "case ▮: x; break" xah-js--abbrev-hook-f)
     ("con" "constructor" xah-js--abbrev-hook-f)
@@ -1673,7 +1665,7 @@ Version 2016-10-24"
 
 
 ;;;###autoload
-(define-derived-mode xah-js-mode prog-mode "ξjs"
+(define-derived-mode xah-js-mode prog-mode "∑js"
   "A major mode for JavaScript.
 
 URL `http://ergoemacs.org/emacs/xah-js-mode.html'
