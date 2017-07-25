@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2016 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 1.4.0
+;; Version: 1.4.1
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -569,6 +569,7 @@
 
 "setTimeout"
 "setInterval"
+"clearTimeout"
 "clearInterval"
 
 "innerHTML"
@@ -1594,9 +1595,9 @@ Version 2016-10-24"
     ("case" "case ▮: x; break" xah-js--abbrev-hook-f)
     ("con" "constructor" xah-js--abbrev-hook-f)
     ("cl" "console.log ( ▮ );" xah-js--abbrev-hook-f)
-    ("class" "class A▮ {\n  constructor(x) {\n    this.p = x;\n  }\n}"  :system t)
-    ("cls" "class A▮ {\n  constructor(x) {\n    this.p = x;\n  }\n}"  :system t)
-    ("cm" "/* ( ▮ ) */" xah-js--abbrev-hook-f)
+    ("class" "class A▮ {\n  constructor(x) {\n    this.p = x;\n  }\n}" xah-js--abbrev-hook-f)
+    ("cls" "class A▮ {\n  constructor(x) {\n    this.p = x;\n  }\n}" xah-js--abbrev-hook-f)
+    ("cm" "/* [ ▮ ] */" xah-js--abbrev-hook-f)
     ("cmt" "/**\n * desc▮.\n * @param {string} title The title of the book.\n * @return {number} The circumference of the circle.\n */" xah-js--abbrev-hook-f)
     ("do" "do { ▮; x++} while (x != 5)" xah-js--abbrev-hook-f)
     ("ei" "else if (▮) { 3 }" xah-js--abbrev-hook-f)
@@ -1608,8 +1609,8 @@ Version 2016-10-24"
     ("fo" "for (let p▮ of iterable) { }" xah-js--abbrev-hook-f)
     ("for" "for (let i = 0; i < ▮.length; i++) { }" xah-js--abbrev-hook-f)
     ("function" "function ▮ () { return 3 }" xah-js--abbrev-hook-f)
-    ("fu" "function ▮ () { 3 }"  :system t)
-    ("gf" "function* ▮ () { yield 3;}"  :system t)
+    ("fu" "function ▮ () { 3 }" xah-js--abbrev-hook-f)
+    ("gf" "function* ▮ () { yield 3;}" xah-js--abbrev-hook-f)
     ("switch" "switch(▮) {\n    case 3:\n3\n        break\n    case 3:\n3\n        break\n    default:\n        3\n}" xah-js--abbrev-hook-f)
     ("te" "( test▮ ? expr1 : expr2 )" xah-js--abbrev-hook-f)
     ("to" "typeof " xah-js--abbrev-hook-f)
@@ -1643,7 +1644,11 @@ Version 2016-10-24"
     ("gebi" "getElementById (\"▮\")" xah-js--abbrev-hook-f)
     ("getElementById" "getElementById (\"▮\")" xah-js--abbrev-hook-f)
     ("setInterval" "setInterval (func, delay, param1, param2)" xah-js--abbrev-hook-f)
-    ("setTimeout" "setTimeout (func, delay, param1, param2)" xah-js--abbrev-hook-f) ;
+    ("setTimeout" "setTimeout (func, delay, param1, param2)" xah-js--abbrev-hook-f)
+
+    ("ci" "clearInterval (id▮)" xah-js--abbrev-hook-f)
+    ("ct" "clearTimeout (id▮)" xah-js--abbrev-hook-f)
+
     ("si" "setInterval (func, delay, param1, param2)" xah-js--abbrev-hook-f)
     ("st" "setTimeout (func, delay, param1, param2)" xah-js--abbrev-hook-f)
     ("w" "window." xah-js--abbrev-hook-f)
