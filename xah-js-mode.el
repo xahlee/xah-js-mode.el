@@ -1,9 +1,9 @@
 ;;; xah-js-mode.el --- Major mode for editing JavaScript. -*- coding: utf-8; lexical-binding: t; -*-
 
-;; Copyright © 2013-2016 by Xah Lee
+;; Copyright © 2013-2017 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 1.4.1
+;; Version: 1.4.2
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -1243,12 +1243,12 @@ Version 2017-02-05"
             nil
             ))))))
 
-(defun xah-js--abbrev-position-cursor (&optional *pos)
+(defun xah-js--abbrev-position-cursor (&optional @pos)
   "Move cursor back to ▮ if exist, else put at end.
 Return true if found, else false.
 Version 2016-10-24"
   (interactive)
-  (let (($found-p (search-backward "▮" (if *pos *pos (max (point-min) (- (point) 100))) t )))
+  (let (($found-p (search-backward "▮" (if @pos @pos (max (point-min) (- (point) 100))) t )))
     (when $found-p (delete-char 1) )
     $found-p
     ))
@@ -1612,7 +1612,7 @@ Version 2016-10-24"
     ("fu" "function ▮ () { 3 }" xah-js--abbrev-hook-f)
     ("gf" "function* ▮ () { yield 3;}" xah-js--abbrev-hook-f)
     ("switch" "switch(▮) {\n    case 3:\n3\n        break\n    case 3:\n3\n        break\n    default:\n        3\n}" xah-js--abbrev-hook-f)
-    ("te" "( test▮ ? expr1 : expr2 )" xah-js--abbrev-hook-f)
+    ("ie" "( ( test▮ ) ? ( expr1 ) : ( expr2 ) )" xah-js--abbrev-hook-f)
     ("to" "typeof " xah-js--abbrev-hook-f)
     ("try" "try {\n▮\n} catch (error) {\n▮\n}" xah-js--abbrev-hook-f)
     ("u" "undefined" xah-js--abbrev-hook-f)
