@@ -7,11 +7,10 @@
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
+;; License: GPL v3
 ;; URL: http://ergoemacs.org/emacs/xah-js-mode.html
 
 ;; This file is not part of GNU Emacs.
-
-;; You can redistribute this program and/or modify it under the terms of the GNU General Public License version 3.
 
 ;;; Commentary:
 
