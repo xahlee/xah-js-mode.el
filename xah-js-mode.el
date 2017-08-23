@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2017 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 1.4.20170820
+;; Version: 1.4.20170823
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -1611,7 +1611,7 @@ Version 2016-10-24"
     ("fu" "function ▮ () { 3 }" xah-js--abbrev-hook-f)
     ("gf" "function* ▮ () { yield 3;}" xah-js--abbrev-hook-f)
     ("switch" "switch(▮) {\n    case 3:\n3\n        break\n    case 3:\n3\n        break\n    default:\n        3\n}" xah-js--abbrev-hook-f)
-    ("ie" "( ( test▮ ) ? ( expr1 ) : ( expr2 ) )" xah-js--abbrev-hook-f)
+    ("ie" "( ( test▮ ) ? ( true ) : ( false ) )" xah-js--abbrev-hook-f)
     ("to" "typeof " xah-js--abbrev-hook-f)
     ("try" "try {\n▮\n} catch (error) {\n▮\n}" xah-js--abbrev-hook-f)
     ("u" "undefined" xah-js--abbrev-hook-f)
