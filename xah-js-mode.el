@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2017 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 1.4.20170823
+;; Version: 1.4.20170905
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -877,9 +877,7 @@
 
 (face-spec-set
  'xah-js-dollar-name
- '((t :foreground "purple" :weight bold ))
- 'face-defface-spec
- )
+ '((t :foreground "purple" :weight bold )))
 
 (defface xah-js-identifier-caps
   '((t :foreground "firebrick" :weight bold))
@@ -888,9 +886,7 @@
 
 (face-spec-set
  'xah-js-identifier-caps
- '((t :foreground "firebrick" :weight bold))
- 'face-defface-spec
- )
+ '((t :foreground "firebrick" :weight bold)))
 
 (defface xah-js-func-param
   '((t :foreground "red" :weight bold))
@@ -899,14 +895,35 @@
 
 (face-spec-set
  'xah-js-func-param
- '((t :foreground "red" :weight bold))
- 'face-defface-spec
- )
+ '((t :foreground "red" :weight bold)))
+
+(defface xah-js-greek-phi-φ
+  '((t :foreground "red" :weight bold))
+  "face for function parameters."
+  :group 'xah-js-mode )
+
+(face-spec-set
+ 'xah-js-greek-phi-φ
+ '((t :foreground "red" :weight bold)))
 
 (defface xah-js-user-var
   '((t :foreground "DarkGreen" :weight bold ))
   "face for user variables."
   :group 'xah-js-mode )
+
+(face-spec-set
+ 'xah-js-user-var
+ '((t :foreground "DarkGreen" :weight bold )))
+
+(defface xah-js-greek-xi-ξ
+  '((t :foreground "DarkGreen" :weight bold ))
+  "face for user variables."
+  :group 'xah-js-mode )
+
+(face-spec-set
+ 'xah-js-greek-xi-ξ
+ '((t :foreground "DarkGreen" :weight bold )))
+
 
 (defface xah-js-func-name
   '((t :foreground "blue" :weight bold ))
@@ -915,9 +932,7 @@
 
 (face-spec-set
  'xah-js-func-name
- '((t :foreground "blue" :weight bold ))
- 'face-defface-spec
- )
+ '((t :foreground "blue" :weight bold )))
 
 (defface xah-js-name-global
   '((t :foreground "#104e8b" :weight bold ))
@@ -926,20 +941,13 @@
 
 (face-spec-set
  'xah-js-name-global
- '((t :foreground "#104e8b" :weight bold ))
- 'face-defface-spec
- )
+ '((t :foreground "#104e8b" :weight bold )))
 
 (defvar xah-js-font-lock-keywords nil "gist for `font-lock-defaults'")
 (setq xah-js-font-lock-keywords
       (let (
             (capVars "\\_<[A-Z][-_?0-9A-Za-z]*" ))
         `(
-          ("\\_<$[$_0-9A-Za-z]+" . 'xah-js-dollar-name)
-          ("\\_<f_[$_0-9A-Za-z]+" . 'xah-js-func-name)
-          ("\\_<p_[$_0-9A-Za-z]+" . 'xah-js-func-param)
-          ("\\_<v_[$_0-9A-Za-z]+" . 'xah-js-user-var)
-          ("\\_<g_[$_0-9A-Za-z]+" . 'xah-js-name-global)
           ("\\(\\.replace\\|\\.search\\|\\.match\\)[ ]*([ ]*\\(/[^/]+/\\)" . (2 font-lock-string-face t)) ; regex
 
           (,(regexp-opt xah-js-Object-props-fullword 'symbols) . font-lock-keyword-face)
@@ -991,7 +999,16 @@
           (,(regexp-opt xah-js-lang-words  'symbols) . font-lock-keyword-face)
 
           ;; font-lock-variable-name-face
-          (,capVars . 'xah-js-identifier-caps))))
+          ("\\_<$[$_0-9A-Za-z]+" . 'xah-js-dollar-name)
+          ("\\_<f_[$_0-9A-Za-z]+" . 'xah-js-func-name)
+          ("\\_<p_[$_0-9A-Za-z]+" . 'xah-js-func-param)
+          ("\\_<φ[$_0-9A-Za-z]+" . 'xah-js-greek-phi-φ)
+          ("\\_<v_[$_0-9A-Za-z]+" . 'xah-js-user-var)
+          ("\\_<g_[$_0-9A-Za-z]+" . 'xah-js-name-global)
+          ("\\_<ξ[$_0-9A-Za-z]+" . 'xah-js-greek-xi-ξ)
+          (,capVars . 'xah-js-identifier-caps))
+        ;;
+        ))
 
 
 ;; keybinding
