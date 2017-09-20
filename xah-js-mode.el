@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2017 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 1.4.20170905
+;; Version: 1.4.20170920
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -493,7 +493,6 @@
 (setq xah-js-dom-words '(
 
 "alert"
-"insertBefore" ; hack. todo
 "write"
 "Worker"
 "postMessage"
@@ -574,6 +573,10 @@
 "innerHTML"
 "innerText"
 "textContent"
+
+;; hack. todo
+"insertBefore"
+"insertAdjacentElement"
 
 "console"
 "console.dir"
@@ -923,7 +926,6 @@
 (face-spec-set
  'xah-js-greek-xi-ξ
  '((t :foreground "DarkGreen" :weight bold )))
-
 
 (defface xah-js-func-name
   '((t :foreground "blue" :weight bold ))
