@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2017 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 1.4.20170920
+;; Version: 1.5.20180103
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -373,7 +373,25 @@
 ) )
 
 (defvar xah-js-Map-proto-props nil "List of Map.prototype properties.")
-(setq xah-js-Map-proto-props '( "set" "get" "values" ) ) ; 2016-12-10 incomplete
+(setq xah-js-Map-proto-props '(
+
+"clear"
+"constructor"
+"delete"
+"entries"
+"forEach"
+"get"
+"has"
+"keys"
+"set"
+"size"
+"values"
+
+"Symbol.iterator"
+"Symbol.toStringTag"
+ )
+
+ ) ; 2016-12-10 incomplete
 
 (defvar xah-js-String-proto-props nil "List of JavaScript String.prototype properties.")
 (setq
