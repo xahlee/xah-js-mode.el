@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2017 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 1.5.20180103
+;; Version: 1.5.20180109
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -196,6 +196,12 @@
 (defvar xah-js-Set-props-fullword nil "List of Set properties full words, e.g. \"Set.length\".")
 (setq xah-js-Set-props-fullword (mapcar (lambda (x)  (concat "Set." x)) xah-js-Set-props))
 
+(defvar xah-js-Map-props nil "List of Map properties.")
+(setq xah-js-Map-props '( "prototype" ))
+
+(defvar xah-js-Map-props-fullword nil "List of Map properties full words, e.g. \"Map.prototype\".")
+(setq xah-js-Map-props-fullword (mapcar (lambda (x)  (concat "Map." x)) xah-js-Map-props))
+
 (defvar xah-js-Array-props nil "List of Array properties.")
 (setq xah-js-Array-props '( "from" "isArray" "length" "of" "prototype" ))
 
@@ -321,111 +327,21 @@
    "constructor"
    "toString"
    "valueOf"
-   "[ Symbol.toPrimitive ]"
-   "[ Symbol.toStringTag ]"
    ))
 
 (defvar xah-js-Array-proto-props nil "List of Array.prototype properties.")
-(setq xah-js-Array-proto-props '(
-"concat"
-"constructor"
-"copyWithin"
-"entries"
-"every"
-"fill"
-"filter"
-"find"
-"findIndex"
-"forEach"
-"indexOf"
-"join"
-"keys"
-"lastIndexOf"
-"map"
-"pop"
-"push"
-"reduce"
-"reduceRight"
-"reverse"
-"shift"
-"slice"
-"some"
-"sort"
-"splice"
-"toLocaleString"
-"toString"
-"unshift"
-"values"
-) )
+(setq xah-js-Array-proto-props '( "concat" "constructor" "copyWithin" "entries" "every" "fill" "filter" "find" "findIndex" "forEach" "indexOf" "join" "keys" "lastIndexOf" "map" "pop" "push" "reduce" "reduceRight" "reverse" "shift" "slice" "some" "sort" "splice" "toLocaleString" "toString" "unshift" "values" ) )
 
 (defvar xah-js-Set-proto-props nil "List of Set.prototype properties.")
-(setq xah-js-Set-proto-props '(
-"add"
-"clear"
-"constructor"
-"delete"
-"entries"
-"forEach"
-"has"
-"keys"
-"size"
-"values"
-) )
+(setq xah-js-Set-proto-props '( "add" "clear" "constructor" "delete" "entries" "forEach" "has" "keys" "size" "values" ) )
 
 (defvar xah-js-Map-proto-props nil "List of Map.prototype properties.")
-(setq xah-js-Map-proto-props '(
-
-"clear"
-"constructor"
-"delete"
-"entries"
-"forEach"
-"get"
-"has"
-"keys"
-"set"
-"size"
-"values"
-
-"Symbol.iterator"
-"Symbol.toStringTag"
- )
-
- ) ; 2016-12-10 incomplete
+(setq xah-js-Map-proto-props '( "clear" "constructor" "delete" "entries" "forEach" "get" "has" "keys" "set" "size" "values"))
 
 (defvar xah-js-String-proto-props nil "List of JavaScript String.prototype properties.")
 (setq
  xah-js-String-proto-props
- '(
-   "charAt"
-   "charCodeAt"
-   "codePointAt"
-   "concat"
-   "endsWith"
-   "includes"
-   "indexOf"
-   "lastIndexOf"
-   "length"
-   "localeCompare"
-   "localeCompare"
-   "match"
-   "normalize"
-   "repeat"
-   "replace"
-   "search"
-   "slice"
-   "split"
-   "startsWith"
-   "substr"
-   "substring"
-   "toLocaleLowerCase"
-   "toLocaleUpperCase"
-   "toLowerCase"
-   "toString"
-   "toUpperCase"
-   "toValueOf"
-   "trim"
-   ))
+ '( "charAt" "charCodeAt" "codePointAt" "concat" "endsWith" "includes" "indexOf" "lastIndexOf" "length" "localeCompare" "localeCompare" "match" "normalize" "repeat" "replace" "search" "slice" "split" "startsWith" "substr" "substring" "toLocaleLowerCase" "toLocaleUpperCase" "toLowerCase" "toString" "toUpperCase" "toValueOf" "trim" ))
 
 (defvar xah-js-Number-proto-props nil "List of JavaScript Number.prototype properties.")
 (setq
@@ -854,6 +770,7 @@
        xah-js-Object-props-fullword
        xah-js-Reflect-props-fullword
        xah-js-Set-props-fullword
+       xah-js-Map-props-fullword
        xah-js-Array-props-fullword
        xah-js-Function-props-fullword
        xah-js-RegExp-props-fullword
@@ -983,7 +900,7 @@
           (,(regexp-opt xah-js-Symbol-props-fullword 'symbols) . font-lock-function-name-face)
           (,(regexp-opt xah-js-Date-props-fullword 'symbols) . font-lock-function-name-face)
           (,(regexp-opt xah-js-Set-props-fullword 'symbols) . font-lock-keyword-face)
-
+          (,(regexp-opt xah-js-Map-props-fullword 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-big-obj-names 'symbols) . font-lock-keyword-face)
 
           (,(regexp-opt xah-js-Object-props 'symbols) . font-lock-keyword-face)
