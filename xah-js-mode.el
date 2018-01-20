@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2017 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 1.5.20180114
+;; Version: 1.6.20180120
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -1590,6 +1590,8 @@ Version 2016-10-24"
     ("inf" "Infinity" xah-js--abbrev-hook-f)
     ("ud" "undefined" xah-js--abbrev-hook-f)
 
+    ("parseInt" "parseInt ( num▮, ?base )" xah-js--abbrev-hook-f)
+
     ;; dom
     ("doc" "document." xah-js--abbrev-hook-f)
     ("addEventListener" "addEventListener (\"click\", ▮ , false)" xah-js--abbrev-hook-f)
@@ -1605,8 +1607,11 @@ Version 2016-10-24"
     ("si" "setInterval (func, delay, param1, param2)" xah-js--abbrev-hook-f)
     ("st" "setTimeout (func, delay, param1, param2)" xah-js--abbrev-hook-f)
     ("w" "window." xah-js--abbrev-hook-f)
-    ("ac" "appendChild ( ▮ )" xah-js--abbrev-hook-f)
     ("sa" "setAttribute ( ▮ )" xah-js--abbrev-hook-f)
+
+    ("ac" "appendChild ( ▮ )" xah-js--abbrev-hook-f)
+    ("iae" "insertAdjacentElement(\"beforebegin\" \"afterbegin\" \"beforeend\" \"afterend\" , new▮ )" xah-js--abbrev-hook-f)
+    ("insertAdjacentElement" "insertAdjacentElement(\"beforebegin\" \"afterbegin\" \"beforeend\" \"afterend\" , new▮ )" xah-js--abbrev-hook-f)
 
     ;;
     )
