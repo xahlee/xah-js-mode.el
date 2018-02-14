@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2017 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 1.6.20180120
+;; Version: 1.7.20180213
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -79,19 +79,22 @@
 
 (defvar xah-js-lang-words nil "List of JavaScript keywords.")
 (setq xah-js-lang-words '(
-"iterator"
+
 "EvalError"
 "RangeError"
 "ReferenceError"
 "SyntaxError"
 "TypeError"
 "URIError"
+
+"__proto__"
 "abstract"
 "arguments"
 "boolean"
 "byte"
 "char"
 "class"
+"configurable"
 "const"
 "decodeURI"
 "decodeURIComponent"
@@ -99,6 +102,7 @@
 "encodeURI"
 "encodeURIComponent"
 "enum"
+"enumerable"
 "eval"
 "export"
 "extends"
@@ -111,6 +115,7 @@
 "interface"
 "isFinite"
 "isNaN"
+"iterator"
 "let"
 "long"
 "native"
@@ -127,30 +132,11 @@
 "throws"
 "transient"
 "undefined"
+"value" ; from property descriptor
 "volatile"
+"writable"
 "yield"
 
-"writable"
-"enumerable"
-"configurable"
-
-;; --------------------
-
- ;; todo remove when all js object and properties are classified properly
-"toFixed"
-"substring"
-"value"
-
-"arguments"
-
-"__proto__"
-
-"isSafeInteger"
-"isInteger"
-"isNaN"
-"EPSILON"
-"MIN_SAFE_INTEGER"
-"MAX_SAFE_INTEGER"
 ) )
 
 (defvar xah-js-big-obj-names nil "List of standard object names. e.g. Object, Array Math, Date, JSON, etc.")
@@ -1462,8 +1448,8 @@ Version 2016-10-24"
     ("filter" "filter ( f▮, this )" xah-js--abbrev-hook-f)
     ("find" "find ( predicate▮ , this )" xah-js--abbrev-hook-f)
     ("findIndex" "findIndex ( predicate▮ , this )" xah-js--abbrev-hook-f)
-    ("forEach" "forEach ( f▮ , thisBinding)" xah-js--abbrev-hook-f)
-    ("fe" "forEach ( f▮ , thisBinding)" xah-js--abbrev-hook-f)
+    ("forEach" "forEach ( f▮ , this)" xah-js--abbrev-hook-f)
+    ("fe" "forEach ( f▮ , this)" xah-js--abbrev-hook-f)
     ("indexOf" "indexOf ( searchElement▮, fromIndex )" xah-js--abbrev-hook-f)
     ("indexOf" "indexOf ( searchElement▮, fromIndex )" xah-js--abbrev-hook-f)
     ("io" "indexOf ( searchElement▮, fromIndex )" xah-js--abbrev-hook-f)
@@ -1541,10 +1527,10 @@ Version 2016-10-24"
     ("[Symbol.toPrimitive]" "[Symbol.toPrimitive] ( hint▮ )" xah-js--abbrev-hook-f)
 
     ;; lang syntax
-    ("af" "((x▮) => { 3; })" xah-js--abbrev-hook-f)
+    ("af" "((x▮) => { 3 })" xah-js--abbrev-hook-f)
     ("af2" "((x▮, x2) => ({ 3 }))" xah-js--abbrev-hook-f)
     ("caf" "const f = ((x▮) => { 3 });" xah-js--abbrev-hook-f)
-    ("c" "const ▮ = 3" xah-js--abbrev-hook-f)
+    ("c" "const ▮ = 3;" xah-js--abbrev-hook-f)
     ("case" "case ▮: x; break" xah-js--abbrev-hook-f)
     ("con" "constructor" xah-js--abbrev-hook-f)
     ("cl" "console.log ( ▮ );" xah-js--abbrev-hook-f)
@@ -1565,7 +1551,7 @@ Version 2016-10-24"
     ("fu" "function ▮ () { 3 }" xah-js--abbrev-hook-f)
     ("gf" "function* ▮ () { yield 3;}" xah-js--abbrev-hook-f)
     ("switch" "switch(▮) {\n    case 3:\n3\n        break\n    case 3:\n3\n        break\n    default:\n        3\n}" xah-js--abbrev-hook-f)
-    ("ie" "( ( test▮ ) ? ( true ) : ( false ) )" xah-js--abbrev-hook-f)
+    ("ie" "( ( test▮ ) ? 1 : 0 )" xah-js--abbrev-hook-f)
     ("to" "typeof " xah-js--abbrev-hook-f)
     ("try" "try {\n▮\n} catch (error) {\n▮\n}" xah-js--abbrev-hook-f)
     ("u" "undefined" xah-js--abbrev-hook-f)
@@ -1574,7 +1560,7 @@ Version 2016-10-24"
     ("while" "while (i<10) { ▮; i++ }" xah-js--abbrev-hook-f)
     ("yi" "yield ▮;" xah-js--abbrev-hook-f)
     ("if" "if ( ▮ ) {\n}" xah-js--abbrev-hook-f)
-    ("l" "let ▮ = 3" xah-js--abbrev-hook-f)
+    ("l" "let ▮ = 3;" xah-js--abbrev-hook-f)
     ("ps" "+" xah-js--abbrev-hook-f)
     ("r" "return ▮;" xah-js--abbrev-hook-f)
 
@@ -1585,7 +1571,7 @@ Version 2016-10-24"
     ("ar" "Array" xah-js--abbrev-hook-f)
     ("sy" "Symbol" xah-js--abbrev-hook-f)
     ("pt" "prototype." xah-js--abbrev-hook-f)
-
+    
     ("nan" "NaN" xah-js--abbrev-hook-f)
     ("inf" "Infinity" xah-js--abbrev-hook-f)
     ("ud" "undefined" xah-js--abbrev-hook-f)
