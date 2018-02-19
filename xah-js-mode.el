@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2017 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 1.7.20180213
+;; Version: 1.8.20180218
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -942,8 +942,8 @@
 
   (define-key xah-js-mode-map (kbd "<menu> e TAB") 'xah-js-complete-symbol-ido)
   (define-key xah-js-mode-map (kbd "TAB") 'xah-js-complete-or-indent)
-
-  )
+  (define-key xah-js-mode-map (kbd "<C-return>") 'xah-js-insert-semicolon)
+  (define-key xah-js-mode-map (kbd "RET") 'xah-js-smart-newline))
 
 
 ;; syntax table
@@ -1123,6 +1123,25 @@ Version 2017-01-27"
           (insert $result))))))
 
 
+
+(defun xah-js-insert-semicolon ()
+  "insert a semicolon and return"
+  (interactive)
+  (insert ";\n"))
+
+(defun xah-js-smart-newline ()
+  "insert a newline, maybe add a semicolon before"
+  (interactive)
+  (backward-char )
+  (when
+      (looking-at ")\\|]\\|}\\|`\\|'")
+    ;; (looking-back "[\]\"')}`]" 1)
+    (forward-char )
+    (insert ";"))
+  (forward-char )
+  (newline))
+
+
 ;; abbrev
 
 (defun xah-js-abbrev-enable-function ()
@@ -1208,7 +1227,7 @@ Version 2016-10-24"
   '(
 
     ;; Object
-    ("Object.create" "Object.create ( Object.prototype▮, {\n    \"p1\": { value : 3, writable: true, enumerable: true, configurable: true },\n    \"p2\": { value : 3, writable: true, enumerable: false, configurable: true }})" xah-js--abbrev-hook-f)
+    ("Object.create" "Object.create ( Object.prototype▮, {\n    'p1': { value : 3, writable: true, enumerable: true, configurable: true },\n    'p2': { value : 3, writable: true, enumerable: false, configurable: true }})" xah-js--abbrev-hook-f)
     ("Object.assign" "Object.assign ( target▮, source1, source2, etc )" xah-js--abbrev-hook-f)
     ("Object.getPrototypeOf" "Object.getPrototypeOf ( ▮ )" xah-js--abbrev-hook-f)
     ("Object.setPrototypeOf" "Object.setPrototypeOf ( ▮, proto )" xah-js--abbrev-hook-f)
@@ -1223,7 +1242,7 @@ Version 2016-10-24"
     ("Object.isFrozen" "Object.isFrozen ( ▮ )" xah-js--abbrev-hook-f)
     ("Object.isSealed" "Object.isSealed ( ▮ )" xah-js--abbrev-hook-f)
 
-    ("oc" "Object.create ( Object.prototype▮, {\n    \"p1\": { value : 3, writable: true, enumerable: true, configurable: true },\n    \"p2\": { value : 3, writable: true, enumerable: false, configurable: true }})" xah-js--abbrev-hook-f)
+    ("oc" "Object.create ( Object.prototype▮, {\n    'p1': { value : 3, writable: true, enumerable: true, configurable: true },\n    'p2': { value : 3, writable: true, enumerable: false, configurable: true }})" xah-js--abbrev-hook-f)
     ("oa" "Object.assign ( target▮, source1, source2, etc )" xah-js--abbrev-hook-f)
     ("ogpo" "Object.getPrototypeOf ( ▮ )" xah-js--abbrev-hook-f)
     ("ospo" "Object.setPrototypeOf ( ▮, proto )" xah-js--abbrev-hook-f)
@@ -1411,7 +1430,7 @@ Version 2016-10-24"
     ("replace" "replace (stringOrRegex▮, replaceStrOrFunc)" xah-js--abbrev-hook-f)
     ("search" "search (regex▮)" xah-js--abbrev-hook-f)
     ("slice" "slice (pos1▮, pos2)" xah-js--abbrev-hook-f)
-    ("split" "split (\"seperator▮\", limit)" xah-js--abbrev-hook-f)
+    ("split" "split ('seperator' or /regex/, ?maxlength)" xah-js--abbrev-hook-f)
     ("startsWith" "startsWith (str▮, endpos)" xah-js--abbrev-hook-f)
     ("substr" "substr (pos1▮, pos2)" xah-js--abbrev-hook-f)
     ("substring" "substring (pos1▮, pos2)" xah-js--abbrev-hook-f)
@@ -1555,7 +1574,7 @@ Version 2016-10-24"
     ("to" "typeof " xah-js--abbrev-hook-f)
     ("try" "try {\n▮\n} catch (error) {\n▮\n}" xah-js--abbrev-hook-f)
     ("u" "undefined" xah-js--abbrev-hook-f)
-    ("us" "\"use strict\";\n" xah-js--abbrev-hook-f)
+    ("us" "'use strict';\n" xah-js--abbrev-hook-f)
     ("var" "var ▮ = 3;" xah-js--abbrev-hook-f)
     ("while" "while (i<10) { ▮; i++ }" xah-js--abbrev-hook-f)
     ("yi" "yield ▮;" xah-js--abbrev-hook-f)
@@ -1563,6 +1582,8 @@ Version 2016-10-24"
     ("l" "let ▮ = 3;" xah-js--abbrev-hook-f)
     ("ps" "+" xah-js--abbrev-hook-f)
     ("r" "return ▮;" xah-js--abbrev-hook-f)
+    ("t" "true" xah-js--abbrev-hook-f)
+    ("f" "false" xah-js--abbrev-hook-f)
 
     ("getter" "get keyname▮ () {body};" xah-js--abbrev-hook-f)
     ("setter" "get keyname▮ (x) {body};" xah-js--abbrev-hook-f)
@@ -1571,19 +1592,22 @@ Version 2016-10-24"
     ("ar" "Array" xah-js--abbrev-hook-f)
     ("sy" "Symbol" xah-js--abbrev-hook-f)
     ("pt" "prototype." xah-js--abbrev-hook-f)
-    
+
     ("nan" "NaN" xah-js--abbrev-hook-f)
     ("inf" "Infinity" xah-js--abbrev-hook-f)
     ("ud" "undefined" xah-js--abbrev-hook-f)
+    ("fc" "firstChild" xah-js--abbrev-hook-f)
 
     ("parseInt" "parseInt ( num▮, ?base )" xah-js--abbrev-hook-f)
 
     ;; dom
-    ("doc" "document." xah-js--abbrev-hook-f)
-    ("addEventListener" "addEventListener (\"click\", ▮ , false)" xah-js--abbrev-hook-f)
+    ("d" "document." xah-js--abbrev-hook-f)
+    ("ce" "document.createElement('div')" xah-js--abbrev-hook-f)
+
+    ("addEventListener" "addEventListener ('click', ▮ , false)" xah-js--abbrev-hook-f)
     ("ael" "addEventListener" xah-js--abbrev-hook-f)
-    ("gebi" "getElementById (\"▮\")" xah-js--abbrev-hook-f)
-    ("getElementById" "getElementById (\"▮\")" xah-js--abbrev-hook-f)
+    ("gebi" "getElementById ('▮')" xah-js--abbrev-hook-f)
+    ("getElementById" "getElementById ('▮')" xah-js--abbrev-hook-f)
     ("setInterval" "setInterval (func, delay, param1, param2)" xah-js--abbrev-hook-f)
     ("setTimeout" "setTimeout (func, delay, param1, param2)" xah-js--abbrev-hook-f)
 
@@ -1593,11 +1617,11 @@ Version 2016-10-24"
     ("si" "setInterval (func, delay, param1, param2)" xah-js--abbrev-hook-f)
     ("st" "setTimeout (func, delay, param1, param2)" xah-js--abbrev-hook-f)
     ("w" "window." xah-js--abbrev-hook-f)
-    ("sa" "setAttribute ( ▮ )" xah-js--abbrev-hook-f)
+    ("sa" "setAttribute ('style', ▮ )" xah-js--abbrev-hook-f)
 
     ("ac" "appendChild ( ▮ )" xah-js--abbrev-hook-f)
-    ("iae" "insertAdjacentElement(\"beforebegin\" \"afterbegin\" \"beforeend\" \"afterend\" , new▮ )" xah-js--abbrev-hook-f)
-    ("insertAdjacentElement" "insertAdjacentElement(\"beforebegin\" \"afterbegin\" \"beforeend\" \"afterend\" , new▮ )" xah-js--abbrev-hook-f)
+    ("iae" "insertAdjacentElement('beforebegin' 'afterbegin' 'beforeend' 'afterend' , new▮ )" xah-js--abbrev-hook-f)
+    ("insertAdjacentElement" "insertAdjacentElement('beforebegin' 'afterbegin' 'beforeend' 'afterend' , new▮ )" xah-js--abbrev-hook-f)
 
     ;;
     )
