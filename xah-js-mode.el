@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2017 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 1.8.20180218
+;; Version: 1.8.20180227
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -23,10 +23,7 @@
 ;; version 0.1, 2013-08-21 first version
 
 ;; TODO
-;; add new faces
-;; separate diff types of keywords to use diff face
-;; add indentation
-;; add support for autocomplete
+;; 2018-02-18 need to add indentation
 
 
 ;;; Code:
@@ -1130,16 +1127,19 @@ Version 2017-01-27"
   (insert ";\n"))
 
 (defun xah-js-smart-newline ()
-  "insert a newline, maybe add a semicolon before"
+  "Insert a newline, maybe add a semicolon before.
+Version 2018-02-27"
   (interactive)
   (backward-char )
-  (when
-      (looking-at ")\\|]\\|}\\|`\\|'")
-    ;; (looking-back "[\]\"')}`]" 1)
-    (forward-char )
-    (insert ";"))
-  (forward-char )
-  (newline))
+  (if
+      (looking-at ")\n\\|]\n\\|}\n\\|`\n\\|'\n")
+      (progn
+        (forward-char )
+        (insert ";")
+        (newline))
+    (progn
+      (forward-char )
+      (newline))))
 
 
 ;; abbrev
@@ -1545,11 +1545,25 @@ Version 2016-10-24"
     ("toUTCString" "toUTCString ( ▮ )" xah-js--abbrev-hook-f)
     ("[Symbol.toPrimitive]" "[Symbol.toPrimitive] ( hint▮ )" xah-js--abbrev-hook-f)
 
+    ;; 1 letter abbrevs
+
+    ("a" "Array" xah-js--abbrev-hook-f)
+    ("d" "document." xah-js--abbrev-hook-f)
+    ("f" "false" xah-js--abbrev-hook-f)
+    ("l" "let ▮ = 3;" xah-js--abbrev-hook-f)
+    ("o" "Object." xah-js--abbrev-hook-f)
+    ("p" "prototype." xah-js--abbrev-hook-f)
+    ("r" "return ▮;" xah-js--abbrev-hook-f)
+    ("s" "Symbol" xah-js--abbrev-hook-f)
+    ("t" "true" xah-js--abbrev-hook-f)
+    ("u" "undefined" xah-js--abbrev-hook-f)
+    ("w" "window." xah-js--abbrev-hook-f)
+    ("c" "const ▮ = 3;" xah-js--abbrev-hook-f)
+
     ;; lang syntax
     ("af" "((x▮) => { 3 })" xah-js--abbrev-hook-f)
     ("af2" "((x▮, x2) => ({ 3 }))" xah-js--abbrev-hook-f)
     ("caf" "const f = ((x▮) => { 3 });" xah-js--abbrev-hook-f)
-    ("c" "const ▮ = 3;" xah-js--abbrev-hook-f)
     ("case" "case ▮: x; break" xah-js--abbrev-hook-f)
     ("con" "constructor" xah-js--abbrev-hook-f)
     ("cl" "console.log ( ▮ );" xah-js--abbrev-hook-f)
@@ -1573,25 +1587,15 @@ Version 2016-10-24"
     ("ie" "( ( test▮ ) ? 1 : 0 )" xah-js--abbrev-hook-f)
     ("to" "typeof " xah-js--abbrev-hook-f)
     ("try" "try {\n▮\n} catch (error) {\n▮\n}" xah-js--abbrev-hook-f)
-    ("u" "undefined" xah-js--abbrev-hook-f)
     ("us" "'use strict';\n" xah-js--abbrev-hook-f)
     ("var" "var ▮ = 3;" xah-js--abbrev-hook-f)
     ("while" "while (i<10) { ▮; i++ }" xah-js--abbrev-hook-f)
     ("yi" "yield ▮;" xah-js--abbrev-hook-f)
     ("if" "if ( ▮ ) {\n}" xah-js--abbrev-hook-f)
-    ("l" "let ▮ = 3;" xah-js--abbrev-hook-f)
     ("ps" "+" xah-js--abbrev-hook-f)
-    ("r" "return ▮;" xah-js--abbrev-hook-f)
-    ("t" "true" xah-js--abbrev-hook-f)
-    ("f" "false" xah-js--abbrev-hook-f)
 
     ("getter" "get keyname▮ () {body};" xah-js--abbrev-hook-f)
     ("setter" "get keyname▮ (x) {body};" xah-js--abbrev-hook-f)
-
-    ("ob" "Object." xah-js--abbrev-hook-f)
-    ("ar" "Array" xah-js--abbrev-hook-f)
-    ("sy" "Symbol" xah-js--abbrev-hook-f)
-    ("pt" "prototype." xah-js--abbrev-hook-f)
 
     ("nan" "NaN" xah-js--abbrev-hook-f)
     ("inf" "Infinity" xah-js--abbrev-hook-f)
@@ -1601,7 +1605,6 @@ Version 2016-10-24"
     ("parseInt" "parseInt ( num▮, ?base )" xah-js--abbrev-hook-f)
 
     ;; dom
-    ("d" "document." xah-js--abbrev-hook-f)
     ("ce" "document.createElement('div')" xah-js--abbrev-hook-f)
 
     ("addEventListener" "addEventListener ('click', ▮ , false)" xah-js--abbrev-hook-f)
@@ -1616,7 +1619,6 @@ Version 2016-10-24"
 
     ("si" "setInterval (func, delay, param1, param2)" xah-js--abbrev-hook-f)
     ("st" "setTimeout (func, delay, param1, param2)" xah-js--abbrev-hook-f)
-    ("w" "window." xah-js--abbrev-hook-f)
     ("sa" "setAttribute ('style', ▮ )" xah-js--abbrev-hook-f)
 
     ("ac" "appendChild ( ▮ )" xah-js--abbrev-hook-f)
