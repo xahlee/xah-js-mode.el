@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2017 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 1.8.20180227
+;; Version: 1.8.20180328
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -1320,7 +1320,7 @@ Version 2016-10-24"
     ("jp" "JSON.parse ( ▮ )" xah-js--abbrev-hook-f)
 
     ;; Reflect
-    ("ra" "Reflect.apply ( f▮ , this, arglist )" xah-js--abbrev-hook-f)
+    ("ra" "Reflect.apply ( f▮ , ?this, arglist )" xah-js--abbrev-hook-f)
     ("rc" "Reflect.construct ( Constructor▮ , arglist, newTarget )" xah-js--abbrev-hook-f)
     ("rdp" "Reflect.defineProperty ( ▮ , key, attributes )" xah-js--abbrev-hook-f)
     ("rg" "Reflect.get ( ▮ , key [ , receiver ])" xah-js--abbrev-hook-f)
@@ -1333,7 +1333,7 @@ Version 2016-10-24"
     ("rs" "Reflect.set ( ▮ , key, V [ , receiver ] )" xah-js--abbrev-hook-f)
     ("rspo" "Reflect.setPrototypeOf ( ▮ , proto )" xah-js--abbrev-hook-f)
 
-    ("Reflect.apply" "Reflect.apply ( f▮ , this, args )" xah-js--abbrev-hook-f)
+    ("Reflect.apply" "Reflect.apply ( f▮ , ?this, args )" xah-js--abbrev-hook-f)
     ("Reflect.construct" "Reflect.construct ( Constructor▮ , args [, newTarget▮ ] )" xah-js--abbrev-hook-f)
     ("Reflect.defineProperty" "Reflect.defineProperty ( ▮ , key, attributes )" xah-js--abbrev-hook-f)
     ("Reflect.deleteProperty" "Reflect.deleteProperty ( ▮ , key )" xah-js--abbrev-hook-f)
@@ -1459,24 +1459,24 @@ Version 2016-10-24"
 
     ;; Array.prototype
     ("concat" "concat ( args1▮, args2, etc )" xah-js--abbrev-hook-f)
-    ("copyWithin" "copyWithin (target▮, start , end )" xah-js--abbrev-hook-f)
-    ("cw" "copyWithin ( target▮, start , end )" xah-js--abbrev-hook-f)
+    ("copyWithin" "copyWithin (target▮, start , ?end )" xah-js--abbrev-hook-f)
+    ("cw" "copyWithin ( target▮, start , ?end )" xah-js--abbrev-hook-f)
     ("entries" "entries ()" xah-js--abbrev-hook-f)
-    ("every" "every ( f▮, this )" xah-js--abbrev-hook-f)
-    ("fill" "fill ( value▮, start , end )" xah-js--abbrev-hook-f)
-    ("filter" "filter ( f▮, this )" xah-js--abbrev-hook-f)
-    ("find" "find ( predicate▮ , this )" xah-js--abbrev-hook-f)
-    ("findIndex" "findIndex ( predicate▮ , this )" xah-js--abbrev-hook-f)
-    ("forEach" "forEach ( f▮ , this)" xah-js--abbrev-hook-f)
-    ("fe" "forEach ( f▮ , this)" xah-js--abbrev-hook-f)
-    ("indexOf" "indexOf ( searchElement▮, fromIndex )" xah-js--abbrev-hook-f)
-    ("indexOf" "indexOf ( searchElement▮, fromIndex )" xah-js--abbrev-hook-f)
-    ("io" "indexOf ( searchElement▮, fromIndex )" xah-js--abbrev-hook-f)
+    ("every" "every ( f▮, ?this )" xah-js--abbrev-hook-f)
+    ("fill" "fill ( value▮, start , ?end )" xah-js--abbrev-hook-f)
+    ("filter" "filter ( f▮, ?this )" xah-js--abbrev-hook-f)
+    ("find" "find ( f▮ , ?this )" xah-js--abbrev-hook-f)
+    ("findIndex" "findIndex ( f▮ , ?this )" xah-js--abbrev-hook-f)
+    ("forEach" "forEach ( f▮ , ?this)" xah-js--abbrev-hook-f)
+    ("fe" "forEach ( f▮ , ?this)" xah-js--abbrev-hook-f)
+    ("indexOf" "indexOf ( value▮, ?start )" xah-js--abbrev-hook-f)
+    ("indexOf" "indexOf ( value▮, ?start )" xah-js--abbrev-hook-f)
+    ("io" "indexOf ( value▮, ?start )" xah-js--abbrev-hook-f)
     ("join" "join ('separator')" xah-js--abbrev-hook-f)
     ("keys" "keys ()" xah-js--abbrev-hook-f)
-    ("lastIndexOf" "lastIndexOf ( searchElement▮, fromIndex )" xah-js--abbrev-hook-f)
+    ("lastIndexOf" "lastIndexOf ( value▮, ?start )" xah-js--abbrev-hook-f)
     ("le" "length" xah-js--abbrev-hook-f)
-    ("map" "map ( f▮, this )" xah-js--abbrev-hook-f)
+    ("map" "map ( f▮, ?this )" xah-js--abbrev-hook-f)
     ("pop" "pop ()" xah-js--abbrev-hook-f)
     ("push" "push ( items▮, … )" xah-js--abbrev-hook-f)
     ("reduce" "reduce ( f▮, initialValue )" xah-js--abbrev-hook-f)
@@ -1484,8 +1484,8 @@ Version 2016-10-24"
     ("rr" "reduceRight ( f▮, initialValue )" xah-js--abbrev-hook-f)
     ("reverse" "reverse ()" xah-js--abbrev-hook-f)
     ("shift" "shift ()" xah-js--abbrev-hook-f)
-    ("slice" "slice (start▮, end)" xah-js--abbrev-hook-f)
-    ("some" "some ( f▮, this )" xah-js--abbrev-hook-f)
+    ("slice" "slice (start▮, ?end)" xah-js--abbrev-hook-f)
+    ("some" "some ( f▮, ?this )" xah-js--abbrev-hook-f)
     ("sort" "sort (comparefn)" xah-js--abbrev-hook-f)
     ("Array.prototype.splice" "splice (start▮, deleteCount , items … )" xah-js--abbrev-hook-f)
     ("splice" "splice (start▮, deleteCount , items … )" xah-js--abbrev-hook-f)
@@ -1549,7 +1549,6 @@ Version 2016-10-24"
 
     ("a" "Array" xah-js--abbrev-hook-f)
     ("d" "document." xah-js--abbrev-hook-f)
-    ("f" "false" xah-js--abbrev-hook-f)
     ("l" "let ▮ = 3;" xah-js--abbrev-hook-f)
     ("o" "Object." xah-js--abbrev-hook-f)
     ("p" "prototype." xah-js--abbrev-hook-f)
@@ -1580,8 +1579,8 @@ Version 2016-10-24"
     ("finally" "finally {\n▮\n}" xah-js--abbrev-hook-f)
     ("fo" "for (let p▮ of iterable) { }" xah-js--abbrev-hook-f)
     ("for" "for (let i = 0; i < ▮.length; i++) { }" xah-js--abbrev-hook-f)
-    ("function" "function ▮ () { return 3 }" xah-js--abbrev-hook-f)
-    ("fu" "function ▮ () { 3 }" xah-js--abbrev-hook-f)
+    ("function" "function ▮ () { 3 }" xah-js--abbrev-hook-f)
+    ("f" "function" xah-js--abbrev-hook-f)
     ("gf" "function* ▮ () { yield 3;}" xah-js--abbrev-hook-f)
     ("switch" "switch(▮) {\n    case 3:\n3\n        break\n    case 3:\n3\n        break\n    default:\n        3\n}" xah-js--abbrev-hook-f)
     ("ie" "( ( test▮ ) ? 1 : 0 )" xah-js--abbrev-hook-f)
