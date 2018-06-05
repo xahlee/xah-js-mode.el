@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2017 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 1.9.20180516204643
+;; Version: 1.9.20180605135203
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -1563,7 +1563,7 @@ Version 2016-10-24"
     ;; lang syntax
     ("af" "((x▮) => { 3 })" xah-js--abbrev-hook-f)
     ("af2" "((x▮, x2) => ({ 3 }))" xah-js--abbrev-hook-f)
-    ("caf" "const f = ((x▮) => { 3 })" xah-js--abbrev-hook-f)
+    ("caf" "const f▮ = ((x) => { 3 })" xah-js--abbrev-hook-f)
     ("case" "case ▮: x; break" xah-js--abbrev-hook-f)
     ("con" "constructor" xah-js--abbrev-hook-f)
     ("cl" "console.log ( ▮ )" xah-js--abbrev-hook-f)
@@ -1605,6 +1605,9 @@ Version 2016-10-24"
     ("parseInt" "parseInt ( num▮, ?base )" xah-js--abbrev-hook-f)
 
     ;; dom
+
+    ("qs" "querySelector ( '▮' )" xah-js--abbrev-hook-f)
+    ("qsa" "querySelectorAll ( '▮' )" xah-js--abbrev-hook-f)
 
     ("ac" "appendChild ( ▮ )" xah-js--abbrev-hook-f)
     ("ael" "addEventListener" xah-js--abbrev-hook-f)
