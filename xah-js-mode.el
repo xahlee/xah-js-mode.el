@@ -1,9 +1,9 @@
 ;;; xah-js-mode.el --- Major mode for editing JavaScript. -*- coding: utf-8; lexical-binding: t; -*-
 
-;; Copyright © 2013-2017 by Xah Lee
+;; Copyright © 2013-2018 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 1.9.20180605135203
+;; Version: 2.0.20180701152646
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -918,6 +918,8 @@
           (,(regexp-opt xah-js-dom-words  'symbols) . font-lock-function-name-face)
           (,(regexp-opt xah-js-lang-words  'symbols) . font-lock-keyword-face)
 
+          (,"</?[a-z0-9]+\\([^>]+?\\)>" . font-lock-constant-face)
+
           ;; font-lock-variable-name-face
           ("\\_<$[$_0-9A-Za-z]+" . 'xah-js-dollar-name)
           ("\\_<f_[$_0-9A-Za-z]+" . 'xah-js-func-name)
@@ -1206,10 +1208,10 @@ Version 2017-02-05"
 (defun xah-js--abbrev-position-cursor (&optional @pos)
   "Move cursor back to ▮ if exist, else put at end.
 Return true if found, else false.
-Version 2016-10-24"
+Version 2018-06-10"
   (interactive)
   (let (($found-p (search-backward "▮" (if @pos @pos (max (point-min) (- (point) 100))) t )))
-    (when $found-p (delete-char 1) )
+    (when $found-p (delete-char 1))
     $found-p
     ))
 
@@ -1677,6 +1679,7 @@ URL `http://ergoemacs.org/emacs/xah-js-mode.html'
 
 ;; (autoload 'xah-js-mode "xah-js-mode" "load xah-js-mode for JavaScript file" t)
 (add-to-list 'auto-mode-alist '("\\.js\\'" . xah-js-mode))
+(add-to-list 'auto-mode-alist '("\\.jsx\\'" . xah-js-mode))
 
 (provide 'xah-js-mode)
 
