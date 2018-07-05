@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2018 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 2.0.20180701152646
+;; Version: 2.1.20180705041508
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -1561,6 +1561,9 @@ Version 2016-10-24"
     ("u" "undefined" xah-js--abbrev-hook-f)
     ("w" "window." xah-js--abbrev-hook-f)
     ("c" "const ▮ = 3" xah-js--abbrev-hook-f)
+
+    ;; nodejs
+    ("rq" "require('./▮x.js')" xah-js--abbrev-hook-f)
 
     ;; lang syntax
     ("af" "((x▮) => { 3 })" xah-js--abbrev-hook-f)
