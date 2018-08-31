@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2018 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 2.1.20180705041508
+;; Version: 2.1.20180831072806
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -1163,11 +1163,10 @@ if cursor is not in string or comment.
 
 Note: emacs tries to expand abbrev on every insertion of chars that's not word or symbol syntax. So, when return is pressed, normally it also tries to expand, and this function will be called if `abbrev-expand-functions' is set to it.
 Returns the abbrev symbol if there's a expansion, else nil.
-Version 2017-02-05"
+Version 2018-07-17"
   (interactive)
   (when
-      t
-    ;; (xah-js-abbrev-enable-function)
+    (xah-js-abbrev-enable-function)
     (let (
           ($p0 (point))
           $p1 $p2
@@ -1483,8 +1482,8 @@ Version 2016-10-24"
     ("map" "map ( f▮, ?this )" xah-js--abbrev-hook-f)
     ("pop" "pop ()" xah-js--abbrev-hook-f)
     ("push" "push ( items▮, … )" xah-js--abbrev-hook-f)
-    ("reduce" "reduce ( f▮, initialValue )" xah-js--abbrev-hook-f)
-    ("reduceRight" "reduceRight ( f▮, initialValue )" xah-js--abbrev-hook-f)
+    ("reduce" "reduce ( ((a▮,b) => (a+b)), initialValue )" xah-js--abbrev-hook-f)
+    ("reduceRight" "reduceRight ( ((a▮,b) => (a+b)), initialValue )" xah-js--abbrev-hook-f)
     ("rr" "reduceRight ( f▮, initialValue )" xah-js--abbrev-hook-f)
     ("reverse" "reverse ()" xah-js--abbrev-hook-f)
     ("shift" "shift ()" xah-js--abbrev-hook-f)
@@ -1570,7 +1569,9 @@ Version 2016-10-24"
     ("af2" "((x▮, x2) => ({ 3 }))" xah-js--abbrev-hook-f)
     ("caf" "const f▮ = ((x) => { 3 })" xah-js--abbrev-hook-f)
     ("case" "case ▮: x; break" xah-js--abbrev-hook-f)
-    ("con" "constructor" xah-js--abbrev-hook-f)
+    ("con" "constructor(x) { this.k  = x; }" xah-js--abbrev-hook-f)
+    ("constructor" "constructor(x) { this.k  = x; }" xah-js--abbrev-hook-f)
+    ("super" "super( ▮ )" xah-js--abbrev-hook-f)
     ("cl" "console.log ( ▮ )" xah-js--abbrev-hook-f)
     ("class" "class A▮ {\n  constructor(x) {\n    this.p = x;\n  }\n}" xah-js--abbrev-hook-f)
     ("cls" "class A▮ {\n  constructor(x) {\n    this.p = x;\n  }\n}" xah-js--abbrev-hook-f)
@@ -1581,9 +1582,9 @@ Version 2016-10-24"
     ("else" "else { ▮ }" xah-js--abbrev-hook-f)
     ("eq" "=== " xah-js--abbrev-hook-f)
     ("ne" "!== " xah-js--abbrev-hook-f)
-    ("fi" "for (let p▮ in obj) { }" xah-js--abbrev-hook-f)
+    ("fi" "for (let k▮ in obj) { }" xah-js--abbrev-hook-f)
     ("finally" "finally {\n▮\n}" xah-js--abbrev-hook-f)
-    ("fo" "for (let p▮ of iterable) { }" xah-js--abbrev-hook-f)
+    ("fo" "for (let k▮ of iterable) { }" xah-js--abbrev-hook-f)
     ("for" "for (let i = 0; i < ▮.length; i++) { }" xah-js--abbrev-hook-f)
     ("function" "function ▮ () { 3 }" xah-js--abbrev-hook-f)
     ("f" "function" xah-js--abbrev-hook-f)
