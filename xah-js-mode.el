@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2018 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 2.1.20180831072806
+;; Version: 2.2.20181103144130
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -434,6 +434,8 @@
 "getElementsByTagName"
 "getElementsByClassName"
 "getElementsByName"
+"getComputedStyle"
+"getPropertyValue"
 
 "getAttribute"
 "setAttribute"
@@ -922,11 +924,12 @@
 
           ;; font-lock-variable-name-face
           ("\\_<$[$_0-9A-Za-z]+" . 'xah-js-dollar-name)
-          ("\\_<f_[$_0-9A-Za-z]+" . 'xah-js-func-name)
-          ("\\_<p_[$_0-9A-Za-z]+" . 'xah-js-func-param)
+          ("\\_<f[$_0-9A-Za-z]+" . 'xah-js-func-name)
+          ("\\_<λ[$_0-9A-Za-z]+" . 'xah-js-func-name)
+          ;; ("\\_<p[$_0-9A-Za-z]+" . 'xah-js-func-param)
           ("\\_<φ[$_0-9A-Za-z]+" . 'xah-js-greek-phi-φ)
-          ("\\_<v_[$_0-9A-Za-z]+" . 'xah-js-user-var)
-          ("\\_<g_[$_0-9A-Za-z]+" . 'xah-js-name-global)
+          ("\\_<v[$_0-9A-Za-z]+" . 'xah-js-user-var)
+          ;; ("\\_<g[$_0-9A-Za-z]+" . 'xah-js-name-global)
           ("\\_<ξ[$_0-9A-Za-z]+" . 'xah-js-greek-xi-ξ)
           (,capVars . 'xah-js-identifier-caps))
         ;;
@@ -1229,140 +1232,111 @@ Version 2016-10-24"
 (define-abbrev-table 'xah-js-mode-abbrev-table
   '(
 
-    ;; Object
-    ("Object.create" "Object.create ( Object.prototype▮, {\n    'p1': { value : 3, writable: true, enumerable: true, configurable: true },\n    'p2': { value : 3, writable: true, enumerable: false, configurable: true }})" xah-js--abbrev-hook-f)
-    ("Object.assign" "Object.assign ( target▮, source1, source2, etc )" xah-js--abbrev-hook-f)
-    ("Object.getPrototypeOf" "Object.getPrototypeOf ( ▮ )" xah-js--abbrev-hook-f)
-    ("Object.setPrototypeOf" "Object.setPrototypeOf ( ▮, proto )" xah-js--abbrev-hook-f)
-    ("Object.getOwnPropertyDescriptor" "Object.getOwnPropertyDescriptor ( ▮, P )" xah-js--abbrev-hook-f)
-    ("Object.defineProperty" "Object.defineProperty ( ▮, pname, { value : 3, writable: true, enumerable: false, configurable: true, 〔set: function, get: function〕 })" xah-js--abbrev-hook-f)
-    ("Object.defineProperties" "Object.defineProperties ( ▮, {pname, { value : 3, writable: true, enumerable: false, configurable: true, 〔set: function, get: function〕 }}, etc)" xah-js--abbrev-hook-f)
-    ("Object.getOwnPropertyNames" "Object.getOwnPropertyNames ( ▮ )" xah-js--abbrev-hook-f)
-    ("Object.getOwnPropertySymbols" "Object.getOwnPropertySymbols ( ▮ )" xah-js--abbrev-hook-f)
-    ("Object.keys" "Object.keys ( ▮ )" xah-js--abbrev-hook-f)
-    ("Object.is" "Object.is ( value1▮, value2 )" xah-js--abbrev-hook-f)
-    ("Object.isExtensible" "Object.isExtensible ( ▮ )" xah-js--abbrev-hook-f)
-    ("Object.isFrozen" "Object.isFrozen ( ▮ )" xah-js--abbrev-hook-f)
-    ("Object.isSealed" "Object.isSealed ( ▮ )" xah-js--abbrev-hook-f)
+    ;; 1 letter abbrevs
 
-    ("oc" "Object.create ( Object.prototype▮, {\n    'p1': { value : 3, writable: true, enumerable: true, configurable: true },\n    'p2': { value : 3, writable: true, enumerable: false, configurable: true }})" xah-js--abbrev-hook-f)
-    ("oa" "Object.assign ( target▮, source1, source2, etc )" xah-js--abbrev-hook-f)
-    ("ogpo" "Object.getPrototypeOf ( ▮ )" xah-js--abbrev-hook-f)
-    ("ospo" "Object.setPrototypeOf ( ▮, proto )" xah-js--abbrev-hook-f)
-    ("ogopd" "Object.getOwnPropertyDescriptor ( ▮, P )" xah-js--abbrev-hook-f)
-    ("odp" "Object.defineProperty ( ▮, pname, { value : 3, writable: true, enumerable: false, configurable: true, 〔set: function, get: function〕 })" xah-js--abbrev-hook-f)
-    ("odps" "Object.defineProperties ( ▮, {pname, { value : 3, writable: true, enumerable: false, configurable: true, set: function, get: function }}, etc)" xah-js--abbrev-hook-f)
-    ("ogopn" "Object.getOwnPropertyNames ( ▮ )" xah-js--abbrev-hook-f)
-    ("ogops" "Object.getOwnPropertySymbols ( ▮ )" xah-js--abbrev-hook-f)
-    ("ok" "Object.keys ( ▮ )" xah-js--abbrev-hook-f)
-    ("oi" "Object.is ( value1▮, value2 )" xah-js--abbrev-hook-f)
-    ("oie" "Object.isExtensible ( ▮ )" xah-js--abbrev-hook-f)
-    ("oif" "Object.isFrozen ( ▮ )" xah-js--abbrev-hook-f)
-    ("ois" "Object.isSealed ( ▮ )" xah-js--abbrev-hook-f)
-    ("ope" "Object.preventExtensions ( ▮ )" xah-js--abbrev-hook-f)
-    ("of" "Object.freeze ( ▮ )" xah-js--abbrev-hook-f)
-    ("os" "Object.seal ( ▮ )" xah-js--abbrev-hook-f)
-    ("op" "Object.prototype" xah-js--abbrev-hook-f)
+    ("d" "document." xah-js--abbrev-hook-f)
+    ("l" "let ▮ = 3" xah-js--abbrev-hook-f)
+    ("o" "Object." xah-js--abbrev-hook-f)
+    ("p" "prototype." xah-js--abbrev-hook-f)
+    ("r" "return ▮" xah-js--abbrev-hook-f)
+    ("s" "Symbol" xah-js--abbrev-hook-f)
+    ("t" "true" xah-js--abbrev-hook-f)
+    ("u" "undefined" xah-js--abbrev-hook-f)
+    ("w" "window." xah-js--abbrev-hook-f)
+    ("c" "const x = 3" xah-js--abbrev-hook-f)
 
-    ;; Array
-    ("Array.isArray" "Array.isArray ( ▮ )" xah-js--abbrev-hook-f)
-    ("aia" "Array.isArray ( ▮ )" xah-js--abbrev-hook-f)
-    ("Array.from" "Array.from ( items▮ , ?mapfn, ?this )" xah-js--abbrev-hook-f)
+    ;; 2 letters abbrevs
 
-    ("Array.of" "Array.of ( e1▮ , e2, etc )" xah-js--abbrev-hook-f)
-    ("ao" "Array.of ( e1▮ , e2, etc )" xah-js--abbrev-hook-f)
-
+    ("aia" "Array.isArray" xah-js--abbrev-hook-f)
+    ("ao" "Array.of" xah-js--abbrev-hook-f)
     ("ap" "Array.prototype" xah-js--abbrev-hook-f)
-
-    ;; Function
-    ("fp" "Function.prototype" xah-js--abbrev-hook-f)
+    ("gcs" "getComputedStyle" xah-js--abbrev-hook-f)
+    ("wgcs" "window.getComputedStyle" xah-js--abbrev-hook-f)
+    ("gpv" "getPropertyValue" xah-js--abbrev-hook-f)
     ("fl" "Function.length" xah-js--abbrev-hook-f)
-
-    ;; Promise
-    ("pp" "Promise.prototype" xah-js--abbrev-hook-f)
-    ("Promise.all" "Promise.all (iterable▮)" xah-js--abbrev-hook-f)
-    ("Promise.race" "Promise.race (iterable▮)" xah-js--abbrev-hook-f)
-    ("Promise.reject" "Promise.reject (r▮)" xah-js--abbrev-hook-f)
-    ("Promise.resolve" "Promise.resolve (x▮)" xah-js--abbrev-hook-f)
-
-    ;; RegExp
-    ("RegExp.prototype" "RegExp.prototype" xah-js--abbrev-hook-f)
-
-    ("rep" "RegExp.prototype" xah-js--abbrev-hook-f)
-
-    ;; String
-    ("String.raw" "String.raw ( template▮ , …substitutions )" xah-js--abbrev-hook-f)
-    ("String.fromCharCode" "String.fromCharCode ( int▮, etc )" xah-js--abbrev-hook-f)
-    ("String.fromCodePoint" "String.fromCodePoint ( int▮, etc )" xah-js--abbrev-hook-f)
-
-    ("sp" "String.prototype" xah-js--abbrev-hook-f)
-    ("sr" "String.raw ( template▮ , …substitutions )" xah-js--abbrev-hook-f)
-    ("sfcc" "String.fromCharCode ( int▮, etc )" xah-js--abbrev-hook-f)
-    ("sfcp" "String.fromCodePoint ( int▮, etc )" xah-js--abbrev-hook-f)
-
-    ;; Number
+    ("fp" "Function.prototype" xah-js--abbrev-hook-f)
+    ("ih" "innerHTML = " xah-js--abbrev-hook-f)
+    ("jp" "JSON.parse" xah-js--abbrev-hook-f)
+    ("js" "JSON.stringify" xah-js--abbrev-hook-f)
+    ("nif" "Number.isFinite" xah-js--abbrev-hook-f)
+    ("nii" "Number.isInteger" xah-js--abbrev-hook-f)
+    ("nin" "Number.isNaN" xah-js--abbrev-hook-f)
+    ("nisi" "Number.isSafeInteger" xah-js--abbrev-hook-f)
     ("np" "Number.prototype" xah-js--abbrev-hook-f)
-    ("Number.isFinite" "Number.isFinite ( num▮ )" xah-js--abbrev-hook-f)
-    ("nif" "Number.isFinite ( num▮ )" xah-js--abbrev-hook-f)
-    ("Number.isInteger" "Number.isInteger ( num▮ )" xah-js--abbrev-hook-f)
-    ("nii" "Number.isInteger ( num▮ )" xah-js--abbrev-hook-f)
-    ("Number.isNaN" "Number.isNaN ( num▮ )" xah-js--abbrev-hook-f)
-    ("nin" "Number.isNaN ( num▮ )" xah-js--abbrev-hook-f)
-    ("Number.isSafeInteger" "Number.isSafeInteger ( num▮ )" xah-js--abbrev-hook-f)
-    ("nisi" "Number.isSafeInteger ( num▮ )" xah-js--abbrev-hook-f)
-    ("Number.parseFloat" "Number.parseFloat ( num▮ )" xah-js--abbrev-hook-f)
-    ("npf" "Number.parseFloat ( num▮ )" xah-js--abbrev-hook-f)
-    ("Number.parseInt" "Number.parseInt ( num▮, ?base )" xah-js--abbrev-hook-f)
-    ("npi" "Number.parseInt ( num▮, ?base )" xah-js--abbrev-hook-f)
+    ("npf" "Number.parseFloat" xah-js--abbrev-hook-f)
+    ("npi" "Number.parseInt" xah-js--abbrev-hook-f)
+    ("oa" "Object.assign" xah-js--abbrev-hook-f)
+    ("oc" "Object.create" xah-js--abbrev-hook-f)
+    ("odp" "Object.defineProperty" xah-js--abbrev-hook-f)
+    ("odps" "Object.defineProperties" xah-js--abbrev-hook-f)
+    ("of" "Object.freeze" xah-js--abbrev-hook-f)
+    ("ogopd" "Object.getOwnPropertyDescriptor" xah-js--abbrev-hook-f)
+    ("ogopn" "Object.getOwnPropertyNames" xah-js--abbrev-hook-f)
+    ("ogops" "Object.getOwnPropertySymbols" xah-js--abbrev-hook-f)
+    ("ogpo" "Object.getPrototypeOf" xah-js--abbrev-hook-f)
+    ("oi" "Object.is" xah-js--abbrev-hook-f)
+    ("oie" "Object.isExtensible" xah-js--abbrev-hook-f)
+    ("oif" "Object.isFrozen" xah-js--abbrev-hook-f)
+    ("ois" "Object.isSealed" xah-js--abbrev-hook-f)
+    ("ok" "Object.keys" xah-js--abbrev-hook-f)
+    ("op" "Object.prototype" xah-js--abbrev-hook-f)
+    ("ope" "Object.preventExtensions" xah-js--abbrev-hook-f)
+    ("os" "Object.seal" xah-js--abbrev-hook-f)
+    ("ospo" "Object.setPrototypeOf" xah-js--abbrev-hook-f)
+    ("pp" "Promise.prototype" xah-js--abbrev-hook-f)
+    ("ra" "Reflect.apply" xah-js--abbrev-hook-f)
+    ("rc" "Reflect.construct" xah-js--abbrev-hook-f)
+    ("rdp" "Reflect.defineProperty" xah-js--abbrev-hook-f)
+    ("rep" "RegExp.prototype" xah-js--abbrev-hook-f)
+    ("rg" "Reflect.get" xah-js--abbrev-hook-f)
+    ("rgopd" "Reflect.getOwnPropertyDescriptor" xah-js--abbrev-hook-f)
+    ("rgpo" "Reflect.getPrototypeOf" xah-js--abbrev-hook-f)
+    ("rh" "Reflect.has" xah-js--abbrev-hook-f)
+    ("rie" "Reflect.isExtensible" xah-js--abbrev-hook-f)
+    ("rok" "Reflect.ownKeys" xah-js--abbrev-hook-f)
+    ("rpe" "Reflect.preventExtensions" xah-js--abbrev-hook-f)
+    ("rs" "Reflect.set" xah-js--abbrev-hook-f)
+    ("rspo" "Reflect.setPrototypeOf" xah-js--abbrev-hook-f)
+    ("sfcc" "String.fromCharCode" xah-js--abbrev-hook-f)
+    ("sfcp" "String.fromCodePoint" xah-js--abbrev-hook-f)
+    ("sp" "String.prototype" xah-js--abbrev-hook-f)
+    ("sr" "String.raw" xah-js--abbrev-hook-f)
 
-    ;; JSON
-    ("JSON.stringify" "JSON.stringify ( ▮ )" xah-js--abbrev-hook-f)
-    ("JSON.parse" "JSON.parse ( ▮ )" xah-js--abbrev-hook-f)
+    ("hop" "hasOwnProperty" xah-js--abbrev-hook-f)
+    ("ipo" "isPrototypeOf" xah-js--abbrev-hook-f)
+    ("pie" "propertyIsEnumerable" xah-js--abbrev-hook-f)
+    ("tls" "toLocaleString" xah-js--abbrev-hook-f)
+    ("ts" "toString" xah-js--abbrev-hook-f)
+    ("vo" "valueOf" xah-js--abbrev-hook-f)
 
-    ("js" "JSON.stringify ( ▮ )" xah-js--abbrev-hook-f)
-    ("jp" "JSON.parse ( ▮ )" xah-js--abbrev-hook-f)
+    ("dp" "Date.prototype" xah-js--abbrev-hook-f)
+    ("du" "Date.UTC" xah-js--abbrev-hook-f)
+    ("dp" "Date.parse" xah-js--abbrev-hook-f)
+    ("dn" "Date.now" xah-js--abbrev-hook-f)
 
-    ;; Reflect
-    ("ra" "Reflect.apply ( f▮ , ?this, arglist )" xah-js--abbrev-hook-f)
-    ("rc" "Reflect.construct ( Constructor▮ , arglist, newTarget )" xah-js--abbrev-hook-f)
-    ("rdp" "Reflect.defineProperty ( ▮ , key, attributes )" xah-js--abbrev-hook-f)
-    ("rg" "Reflect.get ( ▮ , key [ , receiver ])" xah-js--abbrev-hook-f)
-    ("rgopd" "Reflect.getOwnPropertyDescriptor ( ▮ , key )" xah-js--abbrev-hook-f)
-    ("rgpo" "Reflect.getPrototypeOf ( ▮ )" xah-js--abbrev-hook-f)
-    ("rh" "Reflect.has ( ▮ , key )" xah-js--abbrev-hook-f)
-    ("rie" "Reflect.isExtensible ( ▮ )" xah-js--abbrev-hook-f)
-    ("rok" "Reflect.ownKeys ( ▮ )" xah-js--abbrev-hook-f)
-    ("rpe" "Reflect.preventExtensions ( ▮ )" xah-js--abbrev-hook-f)
-    ("rs" "Reflect.set ( ▮ , key, V [ , receiver ] )" xah-js--abbrev-hook-f)
-    ("rspo" "Reflect.setPrototypeOf ( ▮ , proto )" xah-js--abbrev-hook-f)
+    ("ppc" "Promise.prototype.catch" xah-js--abbrev-hook-f)
+    ("ppt" "Promise.prototype.then" xah-js--abbrev-hook-f)
+    ("tf" "toFixed" xah-js--abbrev-hook-f)
+    ("tp" "toPrecision" xah-js--abbrev-hook-f)
+    ("cw" "copyWithin" xah-js--abbrev-hook-f)
+    ("fe" "forEach" xah-js--abbrev-hook-f)
+    ("io" "indexOf" xah-js--abbrev-hook-f)
+    ("le" "length" xah-js--abbrev-hook-f)
+    ("rr" "reduceRight" xah-js--abbrev-hook-f)
 
-    ("Reflect.apply" "Reflect.apply ( f▮ , ?this, args )" xah-js--abbrev-hook-f)
-    ("Reflect.construct" "Reflect.construct ( Constructor▮ , args [, newTarget▮ ] )" xah-js--abbrev-hook-f)
-    ("Reflect.defineProperty" "Reflect.defineProperty ( ▮ , key, attributes )" xah-js--abbrev-hook-f)
-    ("Reflect.deleteProperty" "Reflect.deleteProperty ( ▮ , key )" xah-js--abbrev-hook-f)
-    ("Reflect.get" "Reflect.get ( ▮ , key [ , receiver ])" xah-js--abbrev-hook-f)
-    ("Reflect.getOwnPropertyDescriptor" "Reflect.getOwnPropertyDescriptor ( ▮ , key )" xah-js--abbrev-hook-f)
-    ("Reflect.getPrototypeOf" "Reflect.getPrototypeOf ( ▮ )" xah-js--abbrev-hook-f)
-    ("Reflect.has" "Reflect.has ( ▮ , key )" xah-js--abbrev-hook-f)
-    ("Reflect.isExtensible" "Reflect.isExtensible ( ▮ )" xah-js--abbrev-hook-f)
-    ("Reflect.ownKeys" "Reflect.ownKeys ( ▮ )" xah-js--abbrev-hook-f)
-    ("Reflect.preventExtensions" "Reflect.preventExtensions ( ▮ )" xah-js--abbrev-hook-f)
-    ("Reflect.set" "Reflect.set ( ▮ , key, V [ , receiver ] )" xah-js--abbrev-hook-f)
-    ("Reflect.setPrototypeOf" "Reflect.setPrototypeOf ( ▮ , proto )" xah-js--abbrev-hook-f)
+    ("rq" "require" xah-js--abbrev-hook-f)
 
-    ;; Date
+    ("window.getComputedStyle" "window.getComputedStyle(ele)" xah-js--abbrev-hook-f)
+    ("getPropertyValue" "getPropertyValue( 'font-family')" xah-js--abbrev-hook-f)
 
-    ("Date.prototype" "Date.prototype▮" xah-js--abbrev-hook-f)
+    ("Array.from" "Array.from ( items▮ , ?mapfn, ?this )" xah-js--abbrev-hook-f)
+    ("Array.isArray" "Array.isArray ( ▮ )" xah-js--abbrev-hook-f)
+    ("Array.of" "Array.of ( e1▮ , e2, etc )" xah-js--abbrev-hook-f)
     ("Date.UTC" "Date.UTC ( year▮, month , date , hours , minutes , seconds , ms )" xah-js--abbrev-hook-f)
-    ("Date.parse" "Date.parse ( string▮ )" xah-js--abbrev-hook-f)
     ("Date.now" "Date.now ()" xah-js--abbrev-hook-f)
-
-    ("dp" "Date.prototype▮" xah-js--abbrev-hook-f)
-    ("du" "Date.UTC ( year▮, month , date , hours , minutes , seconds , ms )" xah-js--abbrev-hook-f)
-    ("dp" "Date.parse ( string▮ )" xah-js--abbrev-hook-f)
-    ("dn" "Date.now ()" xah-js--abbrev-hook-f)
-
-    ;; Math
+    ("Date.parse" "Date.parse ( string▮ )" xah-js--abbrev-hook-f)
+    ("JSON.parse" "JSON.parse ( ▮ )" xah-js--abbrev-hook-f)
+    ("JSON.stringify" "JSON.stringify ( ▮ )" xah-js--abbrev-hook-f)
     ("Math.abs" "Math.abs (▮)" xah-js--abbrev-hook-f)
     ("Math.acos" "Math.acos (▮)" xah-js--abbrev-hook-f)
     ("Math.acosh" "Math.acosh (▮)" xah-js--abbrev-hook-f)
@@ -1399,6 +1373,49 @@ Version 2016-10-24"
     ("Math.tanh" "Math.tanh (▮)" xah-js--abbrev-hook-f)
     ("Math.toSource" "Math.toSource (▮)" xah-js--abbrev-hook-f)
     ("Math.trunc" "Math.trunc (▮)" xah-js--abbrev-hook-f)
+    ("Number.isFinite" "Number.isFinite ( num▮ )" xah-js--abbrev-hook-f)
+    ("Number.isInteger" "Number.isInteger ( num▮ )" xah-js--abbrev-hook-f)
+    ("Number.isNaN" "Number.isNaN ( num▮ )" xah-js--abbrev-hook-f)
+    ("Number.isSafeInteger" "Number.isSafeInteger ( num▮ )" xah-js--abbrev-hook-f)
+    ("Number.parseFloat" "Number.parseFloat ( num▮ )" xah-js--abbrev-hook-f)
+    ("Number.parseInt" "Number.parseInt ( num▮, ?base )" xah-js--abbrev-hook-f)
+    ("Object.assign" "Object.assign ( target▮, source1, source2, etc )" xah-js--abbrev-hook-f)
+    ("Object.create" "Object.create ( Object.prototype▮, {\n    'p1': { value : 3, writable: true, enumerable: true, configurable: true },\n    'p2': { value : 3, writable: true, enumerable: false, configurable: true }})" xah-js--abbrev-hook-f)
+    ("Object.defineProperties" "Object.defineProperties ( ▮, {pname, { value : 3, writable: true, enumerable: false, configurable: true, 〔set: function, get: function〕 }}, etc)" xah-js--abbrev-hook-f)
+    ("Object.defineProperty" "Object.defineProperty ( ▮, pname, { value : 3, writable: true, enumerable: false, configurable: true, 〔set: function, get: function〕 })" xah-js--abbrev-hook-f)
+    ("Object.freeze" "Object.freeze ( ▮ )" xah-js--abbrev-hook-f)
+    ("Object.getOwnPropertyDescriptor" "Object.getOwnPropertyDescriptor ( ▮, P )" xah-js--abbrev-hook-f)
+    ("Object.getOwnPropertyNames" "Object.getOwnPropertyNames ( ▮ )" xah-js--abbrev-hook-f)
+    ("Object.getOwnPropertySymbols" "Object.getOwnPropertySymbols ( ▮ )" xah-js--abbrev-hook-f)
+    ("Object.getPrototypeOf" "Object.getPrototypeOf ( ▮ )" xah-js--abbrev-hook-f)
+    ("Object.is" "Object.is ( value1▮, value2 )" xah-js--abbrev-hook-f)
+    ("Object.isExtensible" "Object.isExtensible ( ▮ )" xah-js--abbrev-hook-f)
+    ("Object.isFrozen" "Object.isFrozen ( ▮ )" xah-js--abbrev-hook-f)
+    ("Object.isSealed" "Object.isSealed ( ▮ )" xah-js--abbrev-hook-f)
+    ("Object.keys" "Object.keys ( ▮ )" xah-js--abbrev-hook-f)
+    ("Object.preventExtensions" "Object.preventExtensions ( ▮ )" xah-js--abbrev-hook-f)
+    ("Object.seal" "Object.seal ( ▮ )" xah-js--abbrev-hook-f)
+    ("Object.setPrototypeOf" "Object.setPrototypeOf ( ▮, proto )" xah-js--abbrev-hook-f)
+    ("Promise.all" "Promise.all (iterable▮)" xah-js--abbrev-hook-f)
+    ("Promise.race" "Promise.race (iterable▮)" xah-js--abbrev-hook-f)
+    ("Promise.reject" "Promise.reject (r▮)" xah-js--abbrev-hook-f)
+    ("Promise.resolve" "Promise.resolve (x▮)" xah-js--abbrev-hook-f)
+    ("Reflect.apply" "Reflect.apply ( f▮ , ?this, args )" xah-js--abbrev-hook-f)
+    ("Reflect.construct" "Reflect.construct ( Constructor▮ , args [, newTarget▮ ] )" xah-js--abbrev-hook-f)
+    ("Reflect.defineProperty" "Reflect.defineProperty ( ▮ , key, attributes )" xah-js--abbrev-hook-f)
+    ("Reflect.deleteProperty" "Reflect.deleteProperty ( ▮ , key )" xah-js--abbrev-hook-f)
+    ("Reflect.get" "Reflect.get ( ▮ , key [ , receiver ])" xah-js--abbrev-hook-f)
+    ("Reflect.getOwnPropertyDescriptor" "Reflect.getOwnPropertyDescriptor ( ▮ , key )" xah-js--abbrev-hook-f)
+    ("Reflect.getPrototypeOf" "Reflect.getPrototypeOf ( ▮ )" xah-js--abbrev-hook-f)
+    ("Reflect.has" "Reflect.has ( ▮ , key )" xah-js--abbrev-hook-f)
+    ("Reflect.isExtensible" "Reflect.isExtensible ( ▮ )" xah-js--abbrev-hook-f)
+    ("Reflect.ownKeys" "Reflect.ownKeys ( ▮ )" xah-js--abbrev-hook-f)
+    ("Reflect.preventExtensions" "Reflect.preventExtensions ( ▮ )" xah-js--abbrev-hook-f)
+    ("Reflect.set" "Reflect.set ( ▮ , key, V [ , receiver ] )" xah-js--abbrev-hook-f)
+    ("Reflect.setPrototypeOf" "Reflect.setPrototypeOf ( ▮ , proto )" xah-js--abbrev-hook-f)
+    ("String.fromCharCode" "String.fromCharCode ( int▮, etc )" xah-js--abbrev-hook-f)
+    ("String.fromCodePoint" "String.fromCodePoint ( int▮, etc )" xah-js--abbrev-hook-f)
+    ("String.raw" "String.raw ( template▮ , …substitutions )" xah-js--abbrev-hook-f)
 
     ;; Object.prototype
     ("hasOwnProperty" "hasOwnProperty (▮)" xah-js--abbrev-hook-f)
@@ -1407,13 +1424,6 @@ Version 2016-10-24"
     ("toLocaleString" "toLocaleString (▮)" xah-js--abbrev-hook-f)
     ("toString" "toString ()" xah-js--abbrev-hook-f)
     ("valueOf" "valueOf ( ▮ )" xah-js--abbrev-hook-f)
-
-    ("hop" "hasOwnProperty ( ▮ )" xah-js--abbrev-hook-f)
-    ("ipo" "isPrototypeOf ( ▮ )" xah-js--abbrev-hook-f)
-    ("pie" "propertyIsEnumerable ( ▮ )" xah-js--abbrev-hook-f)
-    ("tls" "toLocaleString (▮)" xah-js--abbrev-hook-f)
-    ("ts" "toString ()" xah-js--abbrev-hook-f)
-    ("vo" "valueOf ( ▮ )" xah-js--abbrev-hook-f)
 
     ;; String.prototype
     ("charAt" "charAt (pos▮)" xah-js--abbrev-hook-f)
@@ -1447,15 +1457,11 @@ Version 2016-10-24"
     ;; Promise.prototype
     ("Promise.prototype.constructor" "Promise.prototype.constructor" xah-js--abbrev-hook-f)
     ("Promise.prototype.catch" "Promise.prototype.catch (onrejected▮)" xah-js--abbrev-hook-f)
-    ("ppc" "Promise.prototype.catch (onrejected▮)" xah-js--abbrev-hook-f)
     ("Promise.prototype.then" "Promise.prototype.then (onfullfilled▮, onrejected)" xah-js--abbrev-hook-f)
-    ("ppt" "Promise.prototype.then (onfullfilled▮, onrejected)" xah-js--abbrev-hook-f)
 
     ;; Number.prototype
     ("toFixed" "toFixed ( n▮ )" xah-js--abbrev-hook-f)
-    ("tf" "toFixed ( n▮ )" xah-js--abbrev-hook-f)
     ("toPrecision" "toPrecision ( n▮ )" xah-js--abbrev-hook-f)
-    ("tp" "toPrecision ( n▮ )" xah-js--abbrev-hook-f)
     ("toExponential" "toExponential ( n▮ )" xah-js--abbrev-hook-f)
     ("toString" "toString ( ?radix▮ )" xah-js--abbrev-hook-f)
     ("toLocaleString" "toLocaleString ( ?reserved )" xah-js--abbrev-hook-f)
@@ -1463,7 +1469,7 @@ Version 2016-10-24"
     ;; Array.prototype
     ("concat" "concat ( args1▮, args2, etc )" xah-js--abbrev-hook-f)
     ("copyWithin" "copyWithin (target▮, start , ?end )" xah-js--abbrev-hook-f)
-    ("cw" "copyWithin ( target▮, start , ?end )" xah-js--abbrev-hook-f)
+
     ("entries" "entries ()" xah-js--abbrev-hook-f)
     ("every" "every ( f▮, ?this )" xah-js--abbrev-hook-f)
     ("fill" "fill ( value▮, start , ?end )" xah-js--abbrev-hook-f)
@@ -1471,20 +1477,19 @@ Version 2016-10-24"
     ("find" "find ( f▮ , ?this )" xah-js--abbrev-hook-f)
     ("findIndex" "findIndex ( f▮ , ?this )" xah-js--abbrev-hook-f)
     ("forEach" "forEach ( f▮ , ?this)" xah-js--abbrev-hook-f)
-    ("fe" "forEach ( f▮ , ?this)" xah-js--abbrev-hook-f)
+
     ("indexOf" "indexOf ( value▮, ?start )" xah-js--abbrev-hook-f)
-    ("indexOf" "indexOf ( value▮, ?start )" xah-js--abbrev-hook-f)
-    ("io" "indexOf ( value▮, ?start )" xah-js--abbrev-hook-f)
+
     ("join" "join ('separator')" xah-js--abbrev-hook-f)
     ("keys" "keys ()" xah-js--abbrev-hook-f)
     ("lastIndexOf" "lastIndexOf ( value▮, ?start )" xah-js--abbrev-hook-f)
-    ("le" "length" xah-js--abbrev-hook-f)
+
     ("map" "map ( f▮, ?this )" xah-js--abbrev-hook-f)
     ("pop" "pop ()" xah-js--abbrev-hook-f)
     ("push" "push ( items▮, … )" xah-js--abbrev-hook-f)
     ("reduce" "reduce ( ((a▮,b) => (a+b)), initialValue )" xah-js--abbrev-hook-f)
     ("reduceRight" "reduceRight ( ((a▮,b) => (a+b)), initialValue )" xah-js--abbrev-hook-f)
-    ("rr" "reduceRight ( f▮, initialValue )" xah-js--abbrev-hook-f)
+
     ("reverse" "reverse ()" xah-js--abbrev-hook-f)
     ("shift" "shift ()" xah-js--abbrev-hook-f)
     ("slice" "slice (start▮, ?end)" xah-js--abbrev-hook-f)
@@ -1548,21 +1553,8 @@ Version 2016-10-24"
     ("toUTCString" "toUTCString ( ▮ )" xah-js--abbrev-hook-f)
     ("[Symbol.toPrimitive]" "[Symbol.toPrimitive] ( hint▮ )" xah-js--abbrev-hook-f)
 
-    ;; 1 letter abbrevs
-
-    ("d" "document." xah-js--abbrev-hook-f)
-    ("l" "let ▮ = 3" xah-js--abbrev-hook-f)
-    ("o" "Object." xah-js--abbrev-hook-f)
-    ("p" "prototype." xah-js--abbrev-hook-f)
-    ("r" "return ▮" xah-js--abbrev-hook-f)
-    ("s" "Symbol" xah-js--abbrev-hook-f)
-    ("t" "true" xah-js--abbrev-hook-f)
-    ("u" "undefined" xah-js--abbrev-hook-f)
-    ("w" "window." xah-js--abbrev-hook-f)
-    ("c" "const ▮ = 3" xah-js--abbrev-hook-f)
-
     ;; nodejs
-    ("rq" "require('./▮x.js')" xah-js--abbrev-hook-f)
+    ("require" "require('./▮x.js')" xah-js--abbrev-hook-f)
 
     ;; lang syntax
     ("af" "((x▮) => { 3 })" xah-js--abbrev-hook-f)
@@ -1612,12 +1604,16 @@ Version 2016-10-24"
 
     ;; dom
 
+    ("dce" "document.createElement" xah-js--abbrev-hook-f)
+    ("ce" "createElement('div')" xah-js--abbrev-hook-f)
+
     ("qs" "querySelector ( '▮' )" xah-js--abbrev-hook-f)
     ("qsa" "querySelectorAll ( '▮' )" xah-js--abbrev-hook-f)
 
-    ("ac" "appendChild ( ▮ )" xah-js--abbrev-hook-f)
+    ("ac" "appendChild ( ele▮ )" xah-js--abbrev-hook-f)
     ("ael" "addEventListener" xah-js--abbrev-hook-f)
-    ("ce" "document.createElement('div')" xah-js--abbrev-hook-f)
+
+
     ("ci" "clearInterval (id▮)" xah-js--abbrev-hook-f)
     ("ct" "clearTimeout (id▮)" xah-js--abbrev-hook-f)
     ("gebi" "getElementById ('▮')" xah-js--abbrev-hook-f)
