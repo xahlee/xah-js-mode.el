@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2018 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 2.2.20181103144130
+;; Version: 2.2.20181119014718
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -1600,33 +1600,41 @@ Version 2016-10-24"
     ("ud" "undefined" xah-js--abbrev-hook-f)
     ("fc" "firstChild" xah-js--abbrev-hook-f)
 
+    ("pi" "parseInt" xah-js--abbrev-hook-f)
     ("parseInt" "parseInt ( num▮, ?base )" xah-js--abbrev-hook-f)
 
     ;; dom
 
-    ("dce" "document.createElement" xah-js--abbrev-hook-f)
-    ("ce" "createElement('div')" xah-js--abbrev-hook-f)
-
-    ("qs" "querySelector ( '▮' )" xah-js--abbrev-hook-f)
-    ("qsa" "querySelectorAll ( '▮' )" xah-js--abbrev-hook-f)
-
-    ("ac" "appendChild ( ele▮ )" xah-js--abbrev-hook-f)
+    ("ac" "appendChild" xah-js--abbrev-hook-f)
     ("ael" "addEventListener" xah-js--abbrev-hook-f)
-
-
-    ("ci" "clearInterval (id▮)" xah-js--abbrev-hook-f)
-    ("ct" "clearTimeout (id▮)" xah-js--abbrev-hook-f)
-    ("gebi" "getElementById ('▮')" xah-js--abbrev-hook-f)
+    ("ce" "createElement" xah-js--abbrev-hook-f)
+    ("ci" "clearInterval" xah-js--abbrev-hook-f)
+    ("ct" "clearTimeout" xah-js--abbrev-hook-f)
+    ("dce" "document.createElement" xah-js--abbrev-hook-f)
+    ("ga" "getAttribute" xah-js--abbrev-hook-f)
+    ("gebcn" "getElementsByClassName" xah-js--abbrev-hook-f)
+    ("gebi" "getElementById" xah-js--abbrev-hook-f)
     ("gebtn" "getElementsByTagName" xah-js--abbrev-hook-f)
-    ("iae" "insertAdjacentElement('beforebegin' 'afterbegin' 'beforeend' 'afterend' , new▮ )" xah-js--abbrev-hook-f)
-    ("sa" "setAttribute ('style', ▮ )" xah-js--abbrev-hook-f)
-    ("si" "setInterval (func, delay, param1, param2)" xah-js--abbrev-hook-f)
-    ("st" "setTimeout (func, delay, param1, param2)" xah-js--abbrev-hook-f)
+    ("iae" "insertAdjacentElement" xah-js--abbrev-hook-f)
+    ("qs" "querySelector" xah-js--abbrev-hook-f)
+    ("qsa" "querySelectorAll" xah-js--abbrev-hook-f)
+    ("sa" "setAttribute" xah-js--abbrev-hook-f)
+    ("si" "setInterval" xah-js--abbrev-hook-f)
+    ("st" "setTimeout" xah-js--abbrev-hook-f)
 
     ("addEventListener" "addEventListener ('click', ▮ , false)" xah-js--abbrev-hook-f)
+    ("appendChild" "appendChild ( ele▮ )" xah-js--abbrev-hook-f)
+    ("clearInterval" "clearInterval (id▮)" xah-js--abbrev-hook-f)
+    ("clearTimeout" "clearTimeout (id▮)" xah-js--abbrev-hook-f)
+    ("createElement" "createElement('div')" xah-js--abbrev-hook-f)
+    ("getAttribute" "getAttribute ('attrName')" xah-js--abbrev-hook-f)
     ("getElementById" "getElementById ('▮')" xah-js--abbrev-hook-f)
+    ("getElementsByClassName" "getElementsByClassName ('▮')" xah-js--abbrev-hook-f)
     ("getElementsByTagName" "getElementsByTagName ('▮')" xah-js--abbrev-hook-f)
     ("insertAdjacentElement" "insertAdjacentElement('beforebegin' 'afterbegin' 'beforeend' 'afterend' , new▮ )" xah-js--abbrev-hook-f)
+    ("querySelector" "querySelector ( '▮' )" xah-js--abbrev-hook-f)
+    ("querySelectorAll" "querySelectorAll ( '▮' )" xah-js--abbrev-hook-f)
+    ("setAttribute" "setAttribute ('style', ▮ )" xah-js--abbrev-hook-f)
     ("setInterval" "setInterval (func, delay, param1, param2)" xah-js--abbrev-hook-f)
     ("setTimeout" "setTimeout (func, delay, param1, param2)" xah-js--abbrev-hook-f)
 
