@@ -1,9 +1,9 @@
 ;;; xah-js-mode.el --- Major mode for editing JavaScript. -*- coding: utf-8; lexical-binding: t; -*-
 
-;; Copyright © 2013-2018 by Xah Lee
+;; Copyright © 2013-2019 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 2.2.20181119014718
+;; Version: 2.2.20190504014331
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -25,6 +25,16 @@
 ;; TODO
 ;; 2018-02-18 need to add indentation
 
+;; 2019-05-02. need to solve the method completion problem. some method name is property of diff obj, eg “value”. they have diff method signature.
+
+;; need to add
+;; Promise.prototype.finally
+;; String.prototype.padEnd
+;; String.prototype.padStart
+;; String.prototype.trimEnd
+;; String.prototype.trimStart
+;; Symbol.prototype.description
+
 
 ;;; Code:
 
@@ -40,6 +50,9 @@
 
 (defvar xah-js-keyword-builtin nil "List of js language words, such as: if else for in case new break.")
 (setq xah-js-keyword-builtin '(
+
+"async"
+"await"
 "break"
 "case"
 "catch"
@@ -48,16 +61,18 @@
 "default"
 "delete"
 "do"
+"done"
 "else"
 "finally"
 "for"
-"of"
 "function"
 "function*"
 "if"
 "in"
 "instanceof"
 "new"
+"next"
+"of"
 "return"
 "switch"
 "this"
@@ -68,9 +83,6 @@
 "void"
 "while"
 "with"
-
-"done"
-"next"
 
 ) )
 
@@ -162,7 +174,30 @@
    ))
 
 (defvar xah-js-Object-props nil "List of Object properties.")
-(setq xah-js-Object-props '( "assign" "create" "defineProperties" "defineProperty" "freeze" "getOwnPropertyDescriptor" "getOwnPropertyNames" "getOwnPropertySymbols" "getPrototypeOf" "is" "isExtensible" "isFrozen" "isSealed" "keys" "preventExtensions" "prototype" "seal" "setPrototypeOf" ))
+(setq xah-js-Object-props '(
+"assign"
+"create"
+"defineProperties"
+"defineProperty"
+"entries"
+"freeze"
+"fromEntries"
+"getOwnPropertyDescriptor"
+"getOwnPropertyDescriptors"
+"getOwnPropertyNames"
+"getOwnPropertySymbols"
+"getPrototypeOf"
+"is"
+"isExtensible"
+"isFrozen"
+"isSealed"
+"keys"
+"preventExtensions"
+"prototype"
+"seal"
+"setPrototypeOf"
+"values"
+))
 
 (defvar xah-js-Object-props-fullword nil "List of Object properties full words, e.g. \"Object.create\".")
 (setq xah-js-Object-props-fullword (mapcar (lambda (x)  (concat "Object." x)) xah-js-Object-props))
@@ -313,7 +348,40 @@
    ))
 
 (defvar xah-js-Array-proto-props nil "List of Array.prototype properties.")
-(setq xah-js-Array-proto-props '( "concat" "constructor" "copyWithin" "entries" "every" "fill" "filter" "find" "findIndex" "forEach" "indexOf" "join" "keys" "lastIndexOf" "map" "pop" "push" "reduce" "reduceRight" "reverse" "shift" "slice" "some" "sort" "splice" "toLocaleString" "toString" "unshift" "values" ) )
+(setq xah-js-Array-proto-props '(
+"concat"
+"constructor"
+"copyWithin"
+"entries"
+"every"
+"fill"
+"filter"
+"find"
+"findIndex"
+"flat"
+"flatMap"
+"forEach"
+"includes"
+"indexOf"
+"join"
+"keys"
+"lastIndexOf"
+"map"
+"pop"
+"push"
+"reduce"
+"reduceRight"
+"reverse"
+"shift"
+"slice"
+"some"
+"sort"
+"splice"
+"toLocaleString"
+"toString"
+"unshift"
+"values"
+) )
 
 (defvar xah-js-Set-proto-props nil "List of Set.prototype properties.")
 (setq xah-js-Set-proto-props '( "add" "clear" "constructor" "delete" "entries" "forEach" "has" "keys" "size" "values" ) )
@@ -324,7 +392,36 @@
 (defvar xah-js-String-proto-props nil "List of JavaScript String.prototype properties.")
 (setq
  xah-js-String-proto-props
- '( "charAt" "charCodeAt" "codePointAt" "concat" "endsWith" "includes" "indexOf" "lastIndexOf" "length" "localeCompare" "localeCompare" "match" "normalize" "repeat" "replace" "search" "slice" "split" "startsWith" "substr" "substring" "toLocaleLowerCase" "toLocaleUpperCase" "toLowerCase" "toString" "toUpperCase" "toValueOf" "trim" ))
+ '(
+"charAt"
+"charCodeAt"
+"codePointAt"
+"concat"
+"endsWith"
+"includes"
+"indexOf"
+"lastIndexOf"
+"length"
+"localeCompare"
+"localeCompare"
+"match"
+"normalize"
+"repeat"
+"replace"
+"search"
+"slice"
+"split"
+"startsWith"
+"substr"
+"substring"
+"toLocaleLowerCase"
+"toLocaleUpperCase"
+"toLowerCase"
+"toString"
+"toUpperCase"
+"toValueOf"
+"trim"
+))
 
 (defvar xah-js-Number-proto-props nil "List of JavaScript Number.prototype properties.")
 (setq
@@ -550,6 +647,10 @@
 "currentScript"
 
 "checked"
+"requestAnimationFrame"
+"performance"
+"timing"
+"navigationStart"
 
 ) )
 
@@ -924,7 +1025,7 @@
 
           ;; font-lock-variable-name-face
           ("\\_<$[$_0-9A-Za-z]+" . 'xah-js-dollar-name)
-          ("\\_<f[$_0-9A-Za-z]+" . 'xah-js-func-name)
+          ("\\_<f_[$_0-9A-Za-z]+" . 'xah-js-func-name)
           ("\\_<λ[$_0-9A-Za-z]+" . 'xah-js-func-name)
           ;; ("\\_<p[$_0-9A-Za-z]+" . 'xah-js-func-param)
           ("\\_<φ[$_0-9A-Za-z]+" . 'xah-js-greek-phi-φ)
@@ -1269,7 +1370,11 @@ Version 2016-10-24"
     ("oc" "Object.create" xah-js--abbrev-hook-f)
     ("odp" "Object.defineProperty" xah-js--abbrev-hook-f)
     ("odps" "Object.defineProperties" xah-js--abbrev-hook-f)
+    ("oe" "Object.entries" xah-js--abbrev-hook-f)
     ("of" "Object.freeze" xah-js--abbrev-hook-f)
+    ("ofe" "Object.fromEntries" xah-js--abbrev-hook-f)
+    ("ov" "Object.values" xah-js--abbrev-hook-f)
+
     ("ogopd" "Object.getOwnPropertyDescriptor" xah-js--abbrev-hook-f)
     ("ogopn" "Object.getOwnPropertyNames" xah-js--abbrev-hook-f)
     ("ogops" "Object.getOwnPropertySymbols" xah-js--abbrev-hook-f)
@@ -1308,6 +1413,8 @@ Version 2016-10-24"
     ("tls" "toLocaleString" xah-js--abbrev-hook-f)
     ("ts" "toString" xah-js--abbrev-hook-f)
     ("vo" "valueOf" xah-js--abbrev-hook-f)
+    ("raf" "requestAnimationFrame(f▮)" xah-js--abbrev-hook-f)
+    ("pn" "performance.now()" xah-js--abbrev-hook-f)
 
     ("dp" "Date.prototype" xah-js--abbrev-hook-f)
     ("du" "Date.UTC" xah-js--abbrev-hook-f)
@@ -1383,8 +1490,11 @@ Version 2016-10-24"
     ("Object.create" "Object.create ( Object.prototype▮, {\n    'p1': { value : 3, writable: true, enumerable: true, configurable: true },\n    'p2': { value : 3, writable: true, enumerable: false, configurable: true }})" xah-js--abbrev-hook-f)
     ("Object.defineProperties" "Object.defineProperties ( ▮, {pname, { value : 3, writable: true, enumerable: false, configurable: true, 〔set: function, get: function〕 }}, etc)" xah-js--abbrev-hook-f)
     ("Object.defineProperty" "Object.defineProperty ( ▮, pname, { value : 3, writable: true, enumerable: false, configurable: true, 〔set: function, get: function〕 })" xah-js--abbrev-hook-f)
+    ("Object.entries" "Object.entries ( ▮ )" xah-js--abbrev-hook-f)
     ("Object.freeze" "Object.freeze ( ▮ )" xah-js--abbrev-hook-f)
-    ("Object.getOwnPropertyDescriptor" "Object.getOwnPropertyDescriptor ( ▮, P )" xah-js--abbrev-hook-f)
+    ("Object.fromEntries" "Object.fromEntries ( ▮ )" xah-js--abbrev-hook-f)
+    ("Object.getOwnPropertyDescriptor" "Object.getOwnPropertyDescriptor ( ▮, key )" xah-js--abbrev-hook-f)
+    ("Object.getOwnPropertyDescriptors" "Object.getOwnPropertyDescriptors ( ▮ )" xah-js--abbrev-hook-f)
     ("Object.getOwnPropertyNames" "Object.getOwnPropertyNames ( ▮ )" xah-js--abbrev-hook-f)
     ("Object.getOwnPropertySymbols" "Object.getOwnPropertySymbols ( ▮ )" xah-js--abbrev-hook-f)
     ("Object.getPrototypeOf" "Object.getPrototypeOf ( ▮ )" xah-js--abbrev-hook-f)
@@ -1396,6 +1506,7 @@ Version 2016-10-24"
     ("Object.preventExtensions" "Object.preventExtensions ( ▮ )" xah-js--abbrev-hook-f)
     ("Object.seal" "Object.seal ( ▮ )" xah-js--abbrev-hook-f)
     ("Object.setPrototypeOf" "Object.setPrototypeOf ( ▮, proto )" xah-js--abbrev-hook-f)
+    ("Object.values" "Object.values ( obj▮ )" xah-js--abbrev-hook-f)
     ("Promise.all" "Promise.all (iterable▮)" xah-js--abbrev-hook-f)
     ("Promise.race" "Promise.race (iterable▮)" xah-js--abbrev-hook-f)
     ("Promise.reject" "Promise.reject (r▮)" xah-js--abbrev-hook-f)
@@ -1483,6 +1594,10 @@ Version 2016-10-24"
     ("join" "join ('separator')" xah-js--abbrev-hook-f)
     ("keys" "keys ()" xah-js--abbrev-hook-f)
     ("lastIndexOf" "lastIndexOf ( value▮, ?start )" xah-js--abbrev-hook-f)
+
+    ("flat" "flat ( ?n▮ )" xah-js--abbrev-hook-f)
+    ("flatMap" "flatMap ( f▮, ?this )" xah-js--abbrev-hook-f)
+    ("includes" "includes ( searchEle▮, ?fromIndex)" xah-js--abbrev-hook-f) ; todo. what to do with methods that's in different parant obj
 
     ("map" "map ( f▮, ?this )" xah-js--abbrev-hook-f)
     ("pop" "pop ()" xah-js--abbrev-hook-f)
