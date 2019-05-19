@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2019 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 2.2.20190504014331
+;; Version: 2.3.20190519015715
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -29,10 +29,6 @@
 
 ;; need to add
 ;; Promise.prototype.finally
-;; String.prototype.padEnd
-;; String.prototype.padStart
-;; String.prototype.trimEnd
-;; String.prototype.trimStart
 ;; Symbol.prototype.description
 
 
@@ -406,6 +402,8 @@
 "localeCompare"
 "match"
 "normalize"
+"padEnd"
+"padStart"
 "repeat"
 "replace"
 "search"
@@ -421,6 +419,10 @@
 "toUpperCase"
 "toValueOf"
 "trim"
+"trimEnd"
+"trimLeft"
+"trimRight"
+"trimStart"
 ))
 
 (defvar xah-js-Number-proto-props nil "List of JavaScript Number.prototype properties.")
@@ -1344,7 +1346,7 @@ Version 2016-10-24"
     ("t" "true" xah-js--abbrev-hook-f)
     ("u" "undefined" xah-js--abbrev-hook-f)
     ("w" "window." xah-js--abbrev-hook-f)
-    ("c" "const x = 3" xah-js--abbrev-hook-f)
+    ("c" "const x = 3;" xah-js--abbrev-hook-f)
 
     ;; 2 letters abbrevs
 
@@ -1354,7 +1356,6 @@ Version 2016-10-24"
     ("gcs" "getComputedStyle" xah-js--abbrev-hook-f)
     ("wgcs" "window.getComputedStyle" xah-js--abbrev-hook-f)
     ("gpv" "getPropertyValue" xah-js--abbrev-hook-f)
-    ("fl" "Function.length" xah-js--abbrev-hook-f)
     ("fp" "Function.prototype" xah-js--abbrev-hook-f)
     ("ih" "innerHTML = " xah-js--abbrev-hook-f)
     ("jp" "JSON.parse" xah-js--abbrev-hook-f)
@@ -1432,6 +1433,11 @@ Version 2016-10-24"
     ("rr" "reduceRight" xah-js--abbrev-hook-f)
 
     ("rq" "require" xah-js--abbrev-hook-f)
+
+    ("abs" "Math.abs (▮)" xah-js--abbrev-hook-f)
+    ("cos" "Math.cos (▮)" xah-js--abbrev-hook-f)
+    ("sin" "Math.sin (▮)" xah-js--abbrev-hook-f)
+    ("pi" "Math.PI" xah-js--abbrev-hook-f)
 
     ("window.getComputedStyle" "window.getComputedStyle(ele)" xah-js--abbrev-hook-f)
     ("getPropertyValue" "getPropertyValue( 'font-family')" xah-js--abbrev-hook-f)
@@ -1565,6 +1571,13 @@ Version 2016-10-24"
     ("toUpperCase" "toUpperCase ()" xah-js--abbrev-hook-f)
     ("trim" "trim ()" xah-js--abbrev-hook-f)
 
+    ("padStart" "padStart (totalLength▮ , ?padstr)" xah-js--abbrev-hook-f)
+    ("padEnd" "padEnd (totalLength▮ , ?padstr)" xah-js--abbrev-hook-f)
+    ("trimEnd" "trimEnd ()" xah-js--abbrev-hook-f)
+    ("trimRight" "trimRight ()" xah-js--abbrev-hook-f)
+    ("trimStart" "trimStart ()" xah-js--abbrev-hook-f)
+    ("trimLeft" "trimLeft ()" xah-js--abbrev-hook-f)
+
     ;; Promise.prototype
     ("Promise.prototype.constructor" "Promise.prototype.constructor" xah-js--abbrev-hook-f)
     ("Promise.prototype.catch" "Promise.prototype.catch (onrejected▮)" xah-js--abbrev-hook-f)
@@ -1674,12 +1687,12 @@ Version 2016-10-24"
     ;; lang syntax
     ("af" "((x▮) => { 3 })" xah-js--abbrev-hook-f)
     ("af2" "((x▮, x2) => ({ 3 }))" xah-js--abbrev-hook-f)
-    ("caf" "const f▮ = ((x) => { 3 })" xah-js--abbrev-hook-f)
+    ("caf" "const f▮ = ((x) => { 3 });" xah-js--abbrev-hook-f)
     ("case" "case ▮: x; break" xah-js--abbrev-hook-f)
     ("con" "constructor(x) { this.k  = x; }" xah-js--abbrev-hook-f)
     ("constructor" "constructor(x) { this.k  = x; }" xah-js--abbrev-hook-f)
     ("super" "super( ▮ )" xah-js--abbrev-hook-f)
-    ("cl" "console.log ( ▮ )" xah-js--abbrev-hook-f)
+    ("cl" "console.log ( ▮ );" xah-js--abbrev-hook-f)
     ("class" "class A▮ {\n  constructor(x) {\n    this.p = x;\n  }\n}" xah-js--abbrev-hook-f)
     ("cls" "class A▮ {\n  constructor(x) {\n    this.p = x;\n  }\n}" xah-js--abbrev-hook-f)
     ("cm" "/* [ ▮ ] */" xah-js--abbrev-hook-f)
@@ -1695,7 +1708,6 @@ Version 2016-10-24"
     ("for" "for (let i = 0; i < ▮.length; i++) { }" xah-js--abbrev-hook-f)
     ("function" "function ▮ () { 3 }" xah-js--abbrev-hook-f)
     ("f" "function" xah-js--abbrev-hook-f)
-    ("gf" "function* ▮ () { yield 3;}" xah-js--abbrev-hook-f)
     ("switch" "switch(▮) {\n    case 3:\n3\n        break\n    case 3:\n3\n        break\n    default:\n        3\n}" xah-js--abbrev-hook-f)
     ("ie" "( ( test▮ ) ? 1 : 0 )" xah-js--abbrev-hook-f)
     ("to" "typeof " xah-js--abbrev-hook-f)
@@ -1715,7 +1727,7 @@ Version 2016-10-24"
     ("ud" "undefined" xah-js--abbrev-hook-f)
     ("fc" "firstChild" xah-js--abbrev-hook-f)
 
-    ("pi" "parseInt" xah-js--abbrev-hook-f)
+    ("parseFloat" "parseFloat ( num▮ )" xah-js--abbrev-hook-f)
     ("parseInt" "parseInt ( num▮, ?base )" xah-js--abbrev-hook-f)
 
     ;; dom
@@ -1730,6 +1742,7 @@ Version 2016-10-24"
     ("gebcn" "getElementsByClassName" xah-js--abbrev-hook-f)
     ("gebi" "getElementById" xah-js--abbrev-hook-f)
     ("gebtn" "getElementsByTagName" xah-js--abbrev-hook-f)
+    ("gebn" "getElementsByName" xah-js--abbrev-hook-f)
     ("iae" "insertAdjacentElement" xah-js--abbrev-hook-f)
     ("qs" "querySelector" xah-js--abbrev-hook-f)
     ("qsa" "querySelectorAll" xah-js--abbrev-hook-f)
@@ -1743,9 +1756,12 @@ Version 2016-10-24"
     ("clearTimeout" "clearTimeout (id▮)" xah-js--abbrev-hook-f)
     ("createElement" "createElement('div')" xah-js--abbrev-hook-f)
     ("getAttribute" "getAttribute ('attrName')" xah-js--abbrev-hook-f)
+
     ("getElementById" "getElementById ('▮')" xah-js--abbrev-hook-f)
-    ("getElementsByClassName" "getElementsByClassName ('▮')" xah-js--abbrev-hook-f)
     ("getElementsByTagName" "getElementsByTagName ('▮')" xah-js--abbrev-hook-f)
+    ("getElementsByClassName" "getElementsByClassName ('▮')" xah-js--abbrev-hook-f)
+    ("getElementsByName" "getElementsByName ('▮')" xah-js--abbrev-hook-f)
+
     ("insertAdjacentElement" "insertAdjacentElement('beforebegin' 'afterbegin' 'beforeend' 'afterend' , new▮ )" xah-js--abbrev-hook-f)
     ("querySelector" "querySelector ( '▮' )" xah-js--abbrev-hook-f)
     ("querySelectorAll" "querySelectorAll ( '▮' )" xah-js--abbrev-hook-f)
