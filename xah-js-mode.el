@@ -1517,7 +1517,7 @@ Version 2016-10-24"
     ("Promise.race" "Promise.race (iterable▮)" xah-js--abbrev-hook-f)
     ("Promise.reject" "Promise.reject (r▮)" xah-js--abbrev-hook-f)
     ("Promise.resolve" "Promise.resolve (x▮)" xah-js--abbrev-hook-f)
-    ("Reflect.apply" "Reflect.apply ( f▮ , ?this, args )" xah-js--abbrev-hook-f)
+    ("Reflect.apply" "Reflect.apply ( f▮ , ?this, [args] )" xah-js--abbrev-hook-f)
     ("Reflect.construct" "Reflect.construct ( Constructor▮ , args [, newTarget▮ ] )" xah-js--abbrev-hook-f)
     ("Reflect.defineProperty" "Reflect.defineProperty ( ▮ , key, attributes )" xah-js--abbrev-hook-f)
     ("Reflect.deleteProperty" "Reflect.deleteProperty ( ▮ , key )" xah-js--abbrev-hook-f)
@@ -1533,6 +1533,9 @@ Version 2016-10-24"
     ("String.fromCharCode" "String.fromCharCode ( int▮, etc )" xah-js--abbrev-hook-f)
     ("String.fromCodePoint" "String.fromCodePoint ( int▮, etc )" xah-js--abbrev-hook-f)
     ("String.raw" "String.raw ( template▮ , …substitutions )" xah-js--abbrev-hook-f)
+
+    ;; constructor
+    ("RegExp" "RegExp(\"pattern▮\", \"flags\")" xah-js--abbrev-hook-f)
 
     ;; Object.prototype
     ("hasOwnProperty" "hasOwnProperty (▮)" xah-js--abbrev-hook-f)
@@ -1707,7 +1710,7 @@ Version 2016-10-24"
     ("fo" "for (let k▮ of iterable) { }" xah-js--abbrev-hook-f)
     ("for" "for (let i = 0; i < ▮.length; i++) { }" xah-js--abbrev-hook-f)
     ("function" "function ▮ () { 3 }" xah-js--abbrev-hook-f)
-    ("f" "function" xah-js--abbrev-hook-f)
+    ("fu" "function" xah-js--abbrev-hook-f)
     ("switch" "switch(▮) {\n    case 3:\n3\n        break\n    case 3:\n3\n        break\n    default:\n        3\n}" xah-js--abbrev-hook-f)
     ("ie" "( ( test▮ ) ? 1 : 0 )" xah-js--abbrev-hook-f)
     ("to" "typeof " xah-js--abbrev-hook-f)
@@ -1750,24 +1753,24 @@ Version 2016-10-24"
     ("si" "setInterval" xah-js--abbrev-hook-f)
     ("st" "setTimeout" xah-js--abbrev-hook-f)
 
-    ("addEventListener" "addEventListener ('click', ▮ , false)" xah-js--abbrev-hook-f)
-    ("appendChild" "appendChild ( ele▮ )" xah-js--abbrev-hook-f)
-    ("clearInterval" "clearInterval (id▮)" xah-js--abbrev-hook-f)
-    ("clearTimeout" "clearTimeout (id▮)" xah-js--abbrev-hook-f)
-    ("createElement" "createElement('div')" xah-js--abbrev-hook-f)
-    ("getAttribute" "getAttribute ('attrName')" xah-js--abbrev-hook-f)
+    ("addEventListener" "addEventListener ('click', ▮ , false);" xah-js--abbrev-hook-f)
+    ("appendChild" "appendChild ( ele▮ );" xah-js--abbrev-hook-f)
+    ("clearInterval" "clearInterval (id▮);" xah-js--abbrev-hook-f)
+    ("clearTimeout" "clearTimeout (id▮);" xah-js--abbrev-hook-f)
+    ("createElement" "createElement('div');" xah-js--abbrev-hook-f)
+    ("getAttribute" "getAttribute ('attrName');" xah-js--abbrev-hook-f)
 
-    ("getElementById" "getElementById ('▮')" xah-js--abbrev-hook-f)
-    ("getElementsByTagName" "getElementsByTagName ('▮')" xah-js--abbrev-hook-f)
-    ("getElementsByClassName" "getElementsByClassName ('▮')" xah-js--abbrev-hook-f)
-    ("getElementsByName" "getElementsByName ('▮')" xah-js--abbrev-hook-f)
+    ("getElementById" "getElementById ('▮');" xah-js--abbrev-hook-f)
+    ("getElementsByTagName" "getElementsByTagName ('▮');" xah-js--abbrev-hook-f)
+    ("getElementsByClassName" "getElementsByClassName ('▮');" xah-js--abbrev-hook-f)
+    ("getElementsByName" "getElementsByName ('▮');" xah-js--abbrev-hook-f)
 
-    ("insertAdjacentElement" "insertAdjacentElement('beforebegin' 'afterbegin' 'beforeend' 'afterend' , new▮ )" xah-js--abbrev-hook-f)
-    ("querySelector" "querySelector ( '▮' )" xah-js--abbrev-hook-f)
-    ("querySelectorAll" "querySelectorAll ( '▮' )" xah-js--abbrev-hook-f)
-    ("setAttribute" "setAttribute ('style', ▮ )" xah-js--abbrev-hook-f)
-    ("setInterval" "setInterval (func, delay, param1, param2)" xah-js--abbrev-hook-f)
-    ("setTimeout" "setTimeout (func, delay, param1, param2)" xah-js--abbrev-hook-f)
+    ("insertAdjacentElement" "insertAdjacentElement('beforebegin' 'afterbegin' 'beforeend' 'afterend' , new▮ );" xah-js--abbrev-hook-f)
+    ("querySelector" "querySelector ( '▮' );" xah-js--abbrev-hook-f)
+    ("querySelectorAll" "querySelectorAll ( '▮' );" xah-js--abbrev-hook-f)
+    ("setAttribute" "setAttribute ('style', ▮ );" xah-js--abbrev-hook-f)
+    ("setInterval" "setInterval (func, delay, param1, param2);" xah-js--abbrev-hook-f)
+    ("setTimeout" "setTimeout (func, delay, param1, param2);" xah-js--abbrev-hook-f)
 
     ;;
     )
