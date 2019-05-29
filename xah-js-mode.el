@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2019 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 2.3.20190519015715
+;; Version: 2.4.20190529082408
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -1065,9 +1065,13 @@
         (modify-syntax-entry ?\_ "_" synTable)
         (modify-syntax-entry ?\$ "_" synTable)
 
-        (modify-syntax-entry ?\\ "\\" synTable)
-        (modify-syntax-entry ?\" "\"" synTable)
-        (modify-syntax-entry ?\' "\"" synTable)
+        ;; (modify-syntax-entry ?\\ "\\" synTable)
+        ;; (modify-syntax-entry ?\" "\"" synTable)
+        ;; (modify-syntax-entry ?\' "\"" synTable)
+
+        (modify-syntax-entry ?\\ "." synTable)
+        (modify-syntax-entry ?\" "." synTable)
+        (modify-syntax-entry ?\' "." synTable)
 
         (modify-syntax-entry ?\( "()" synTable)
         (modify-syntax-entry ?\) ")(" synTable)
@@ -1753,7 +1757,7 @@ Version 2016-10-24"
     ("si" "setInterval" xah-js--abbrev-hook-f)
     ("st" "setTimeout" xah-js--abbrev-hook-f)
 
-    ("addEventListener" "addEventListener ('click', ▮ , false);" xah-js--abbrev-hook-f)
+    ("addEventListener" "addEventListener ('input', f▮ , false);" xah-js--abbrev-hook-f)
     ("appendChild" "appendChild ( ele▮ );" xah-js--abbrev-hook-f)
     ("clearInterval" "clearInterval (id▮);" xah-js--abbrev-hook-f)
     ("clearTimeout" "clearTimeout (id▮);" xah-js--abbrev-hook-f)
