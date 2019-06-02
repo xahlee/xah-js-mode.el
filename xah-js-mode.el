@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2019 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 2.4.20190529082408
+;; Version: 2.4.20190529221517
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -1065,13 +1065,13 @@
         (modify-syntax-entry ?\_ "_" synTable)
         (modify-syntax-entry ?\$ "_" synTable)
 
-        ;; (modify-syntax-entry ?\\ "\\" synTable)
-        ;; (modify-syntax-entry ?\" "\"" synTable)
-        ;; (modify-syntax-entry ?\' "\"" synTable)
+        (modify-syntax-entry ?\\ "\\" synTable)
+        (modify-syntax-entry ?\" "\"" synTable)
+        (modify-syntax-entry ?\' "\"" synTable)
 
-        (modify-syntax-entry ?\\ "." synTable)
-        (modify-syntax-entry ?\" "." synTable)
-        (modify-syntax-entry ?\' "." synTable)
+        ;; (modify-syntax-entry ?\\ "." synTable)
+        ;; (modify-syntax-entry ?\" "." synTable)
+        ;; (modify-syntax-entry ?\' "." synTable)
 
         (modify-syntax-entry ?\( "()" synTable)
         (modify-syntax-entry ?\) ")(" synTable)
@@ -1101,6 +1101,7 @@
         (modify-syntax-entry ?\~ "." synTable)
 
         (modify-syntax-entry ?\/ "./124" synTable)
+        ;; (modify-syntax-entry ?\/ "." synTable)
         (modify-syntax-entry ?* "w 23b" synTable)
         (modify-syntax-entry ?\n ">" synTable)
 
@@ -1356,6 +1357,7 @@ Version 2016-10-24"
 
     ("aia" "Array.isArray" xah-js--abbrev-hook-f)
     ("ao" "Array.of" xah-js--abbrev-hook-f)
+    ("af2" "Array.from ( items▮ , ?mapfn, ?this )" xah-js--abbrev-hook-f)
     ("ap" "Array.prototype" xah-js--abbrev-hook-f)
     ("gcs" "getComputedStyle" xah-js--abbrev-hook-f)
     ("wgcs" "window.getComputedStyle" xah-js--abbrev-hook-f)
@@ -1607,7 +1609,7 @@ Version 2016-10-24"
     ("filter" "filter ( f▮, ?this )" xah-js--abbrev-hook-f)
     ("find" "find ( f▮ , ?this )" xah-js--abbrev-hook-f)
     ("findIndex" "findIndex ( f▮ , ?this )" xah-js--abbrev-hook-f)
-    ("forEach" "forEach ( f▮ , ?this)" xah-js--abbrev-hook-f)
+    ("forEach" "forEach (((x) => { 3▮ }) , ?this)" xah-js--abbrev-hook-f)
 
     ("indexOf" "indexOf ( value▮, ?start )" xah-js--abbrev-hook-f)
 
@@ -1693,7 +1695,6 @@ Version 2016-10-24"
 
     ;; lang syntax
     ("af" "((x▮) => { 3 })" xah-js--abbrev-hook-f)
-    ("af2" "((x▮, x2) => ({ 3 }))" xah-js--abbrev-hook-f)
     ("caf" "const f▮ = ((x) => { 3 });" xah-js--abbrev-hook-f)
     ("case" "case ▮: x; break" xah-js--abbrev-hook-f)
     ("con" "constructor(x) { this.k  = x; }" xah-js--abbrev-hook-f)
