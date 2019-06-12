@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2019 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 2.4.20190529221517
+;; Version: 2.4.20190611220016
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -541,8 +541,6 @@
 "hasAttribute"
 "removeAttribute"
 "attributes"
-
-"textContent"
 
 "localStorage"
 "localStorage.getItem"
@@ -1364,6 +1362,7 @@ Version 2016-10-24"
     ("gpv" "getPropertyValue" xah-js--abbrev-hook-f)
     ("fp" "Function.prototype" xah-js--abbrev-hook-f)
     ("ih" "innerHTML = " xah-js--abbrev-hook-f)
+    ("tc" "textContent = " xah-js--abbrev-hook-f)
     ("jp" "JSON.parse" xah-js--abbrev-hook-f)
     ("js" "JSON.stringify" xah-js--abbrev-hook-f)
     ("nif" "Number.isFinite" xah-js--abbrev-hook-f)
