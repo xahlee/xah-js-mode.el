@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2019 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 2.4.20190611220016
+;; Version: 2.4.20191215063943
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -47,100 +47,16 @@
 (defvar xah-js-keyword-builtin nil "List of js language words, such as: if else for in case new break.")
 (setq xah-js-keyword-builtin '(
 
-"async"
-"await"
-"break"
-"case"
-"catch"
-"continue"
-"debugger"
-"default"
-"delete"
-"do"
-"done"
-"else"
-"finally"
-"for"
-"function"
-"function*"
-"if"
-"in"
-"instanceof"
-"new"
-"next"
-"of"
-"return"
-"switch"
-"this"
-"throw"
-"try"
-"typeof"
-"var"
-"void"
-"while"
-"with"
+"async" "await" "break" "case" "catch" "continue" "debugger" "default" "delete" "do" "done" "else" "finally" "for" "function" "function*" "if" "in" "instanceof" "new" "next" "of" "return" "switch" "this" "throw" "try" "typeof" "var" "void" "while" "with"
 
 ) )
 
 (defvar xah-js-lang-words nil "List of JavaScript keywords.")
 (setq xah-js-lang-words '(
 
-"EvalError"
-"RangeError"
-"ReferenceError"
-"SyntaxError"
-"TypeError"
-"URIError"
+"EvalError" "RangeError" "ReferenceError" "SyntaxError" "TypeError" "URIError"
 
-"__proto__"
-"abstract"
-"arguments"
-"boolean"
-"byte"
-"char"
-"class"
-"configurable"
-"const"
-"decodeURI"
-"decodeURIComponent"
-"double"
-"encodeURI"
-"encodeURIComponent"
-"enum"
-"enumerable"
-"eval"
-"export"
-"extends"
-"final"
-"float"
-"goto"
-"implements"
-"import"
-"int"
-"interface"
-"isFinite"
-"isNaN"
-"iterator"
-"let"
-"long"
-"native"
-"package"
-"parseFloat"
-"parseInt"
-"private"
-"protected"
-"public"
-"short"
-"static"
-"super"
-"synchronized"
-"throws"
-"transient"
-"undefined"
-"value" ; from property descriptor
-"volatile"
-"writable"
-"yield"
+"__proto__" "abstract" "arguments" "boolean" "byte" "char" "class" "configurable" "const" "decodeURI" "decodeURIComponent" "double" "encodeURI" "encodeURIComponent" "enum" "enumerable" "eval" "export" "extends" "final" "float" "goto" "implements" "import" "int" "interface" "isFinite" "isNaN" "iterator" "let" "long" "native" "package" "parseFloat" "parseInt" "private" "protected" "public" "short" "static" "super" "synchronized" "throws" "transient" "undefined" "value" ; from property descriptor "volatile" "writable" "yield"
 
 ) )
 
@@ -1025,7 +941,7 @@
 
           ;; font-lock-variable-name-face
           ("\\_<$[$_0-9A-Za-z]+" . 'xah-js-dollar-name)
-          ("\\_<f_[$_0-9A-Za-z]+" . 'xah-js-func-name)
+          ("\\_<f[$_0-9A-Za-z]+" . 'xah-js-func-name)
           ("\\_<λ[$_0-9A-Za-z]+" . 'xah-js-func-name)
           ;; ("\\_<p[$_0-9A-Za-z]+" . 'xah-js-func-param)
           ("\\_<φ[$_0-9A-Za-z]+" . 'xah-js-greek-phi-φ)
@@ -1239,18 +1155,21 @@ Version 2017-01-27"
 
 (defun xah-js-smart-newline ()
   "Insert a newline, maybe add a semicolon before.
-Version 2018-02-27"
+Version 2019-12-15"
   (interactive)
-  (backward-char )
-  (if
-      (looking-at ")\n\\|]\n\\|}\n\\|`\n\\|'\n")
-      (progn
-        (forward-char )
-        (insert ";")
-        (newline))
+  (if (eq (point) (point-min))
+      (newline)
     (progn
-      (forward-char )
-      (newline))))
+      (backward-char )
+      (if
+          (looking-at ")\n\\|]\n\\|}\n\\|`\n\\|'\n")
+          (progn
+            (forward-char )
+            (insert ";")
+            (newline))
+        (progn
+          (forward-char )
+          (newline))))))
 
 
 ;; abbrev
@@ -1349,7 +1268,7 @@ Version 2016-10-24"
     ("t" "true" xah-js--abbrev-hook-f)
     ("u" "undefined" xah-js--abbrev-hook-f)
     ("w" "window." xah-js--abbrev-hook-f)
-    ("c" "const x = 3;" xah-js--abbrev-hook-f)
+    ("c" "const x▮ = " xah-js--abbrev-hook-f)
 
     ;; 2 letters abbrevs
 
@@ -1559,7 +1478,7 @@ Version 2016-10-24"
     ("includes" "includes (str▮, pos)" xah-js--abbrev-hook-f)
     ("indexOf" "indexOf (str▮, pos)" xah-js--abbrev-hook-f)
     ("lastIndexOf" "lastIndexOf (str▮, pos)" xah-js--abbrev-hook-f)
-    ("length" "length (▮)" xah-js--abbrev-hook-f)
+    
     ("localeCompare" "localeCompare (▮)" xah-js--abbrev-hook-f)
     ("localeCompare" "localeCompare (▮)" xah-js--abbrev-hook-f)
     ("match" "match (/regex▮/g)" xah-js--abbrev-hook-f)
@@ -1608,7 +1527,7 @@ Version 2016-10-24"
     ("filter" "filter ( f▮, ?this )" xah-js--abbrev-hook-f)
     ("find" "find ( f▮ , ?this )" xah-js--abbrev-hook-f)
     ("findIndex" "findIndex ( f▮ , ?this )" xah-js--abbrev-hook-f)
-    ("forEach" "forEach (((x) => { 3▮ }) , ?this)" xah-js--abbrev-hook-f)
+    ("forEach" "forEach ( f , ?this)" xah-js--abbrev-hook-f)
 
     ("indexOf" "indexOf ( value▮, ?start )" xah-js--abbrev-hook-f)
 
@@ -1693,8 +1612,8 @@ Version 2016-10-24"
     ("require" "require('./▮x.js')" xah-js--abbrev-hook-f)
 
     ;; lang syntax
-    ("af" "((x▮) => { 3 })" xah-js--abbrev-hook-f)
-    ("caf" "const f▮ = ((x) => { 3 });" xah-js--abbrev-hook-f)
+    ("af" "((x▮) => {  })" xah-js--abbrev-hook-f)
+    ("caf" "const ▮ = ((x) => {  });" xah-js--abbrev-hook-f)
     ("case" "case ▮: x; break" xah-js--abbrev-hook-f)
     ("con" "constructor(x) { this.k  = x; }" xah-js--abbrev-hook-f)
     ("constructor" "constructor(x) { this.k  = x; }" xah-js--abbrev-hook-f)
