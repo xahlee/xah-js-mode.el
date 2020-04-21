@@ -1,9 +1,9 @@
 ;;; xah-js-mode.el --- Major mode for editing JavaScript. -*- coding: utf-8; lexical-binding: t; -*-
 
-;; Copyright © 2013-2019 by Xah Lee
+;; Copyright © 2013-2020 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 2.4.20191215063943
+;; Version: 2.4.20200421002517
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -1625,7 +1625,7 @@ Version 2016-10-24"
     ("cmt" "/**\n * desc▮.\n * @param {string} title The title of the book.\n * @return {number} The circumference of the circle.\n */" xah-js--abbrev-hook-f)
     ("do" "do { ▮; x++} while (x != 5)" xah-js--abbrev-hook-f)
     ("ei" "else if (▮) { 3 }" xah-js--abbrev-hook-f)
-    ("else" "else { ▮ }" xah-js--abbrev-hook-f)
+    ("else" "else {\n▮\n}" xah-js--abbrev-hook-f)
     ("eq" "=== " xah-js--abbrev-hook-f)
     ("ne" "!== " xah-js--abbrev-hook-f)
     ("fi" "for (let k▮ in obj) { }" xah-js--abbrev-hook-f)
