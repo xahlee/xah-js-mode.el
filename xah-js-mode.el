@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2020 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 2.4.20200421002517
+;; Version: 2.4.20200509130826
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -1621,10 +1621,10 @@ Version 2016-10-24"
     ("cl" "console.log ( ▮ );" xah-js--abbrev-hook-f)
     ("class" "class A▮ {\n  constructor(x) {\n    this.p = x;\n  }\n}" xah-js--abbrev-hook-f)
     ("cls" "class A▮ {\n  constructor(x) {\n    this.p = x;\n  }\n}" xah-js--abbrev-hook-f)
-    ("cm" "/* [ ▮ ] */" xah-js--abbrev-hook-f)
+    ("cm" "/* [\n▮\n] */" xah-js--abbrev-hook-f)
     ("cmt" "/**\n * desc▮.\n * @param {string} title The title of the book.\n * @return {number} The circumference of the circle.\n */" xah-js--abbrev-hook-f)
     ("do" "do { ▮; x++} while (x != 5)" xah-js--abbrev-hook-f)
-    ("ei" "else if (▮) { 3 }" xah-js--abbrev-hook-f)
+    ("ei" "else if (▮) {\n3\n}" xah-js--abbrev-hook-f)
     ("else" "else {\n▮\n}" xah-js--abbrev-hook-f)
     ("eq" "=== " xah-js--abbrev-hook-f)
     ("ne" "!== " xah-js--abbrev-hook-f)
