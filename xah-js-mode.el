@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2020 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 2.4.20200509130826
+;; Version: 2.4.20200510135412
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -56,7 +56,7 @@
 
 "EvalError" "RangeError" "ReferenceError" "SyntaxError" "TypeError" "URIError"
 
-"__proto__" "abstract" "arguments" "boolean" "byte" "char" "class" "configurable" "const" "decodeURI" "decodeURIComponent" "double" "encodeURI" "encodeURIComponent" "enum" "enumerable" "eval" "export" "extends" "final" "float" "goto" "implements" "import" "int" "interface" "isFinite" "isNaN" "iterator" "let" "long" "native" "package" "parseFloat" "parseInt" "private" "protected" "public" "short" "static" "super" "synchronized" "throws" "transient" "undefined" "value" ; from property descriptor "volatile" "writable" "yield"
+"__proto__" "abstract" "arguments" "boolean" "byte" "char" "class" "configurable" "const" "decodeURI" "decodeURIComponent" "double" "encodeURI" "encodeURIComponent" "enum" "writable" "enumerable" "eval" "export" "extends" "final" "float" "goto" "implements" "import" "int" "interface" "isFinite" "isNaN" "iterator" "let" "long" "native" "package" "parseFloat" "parseInt" "private" "protected" "public" "short" "static" "super" "synchronized" "throws" "transient" "undefined" "value" ; from property descriptor "volatile" "writable" "yield"
 
 ) )
 
