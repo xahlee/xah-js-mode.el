@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2020 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 2.4.20200706060639
+;; Version: 2.4.20200907130742
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -967,59 +967,59 @@
 
 ;; syntax table
 
-(defvar xah-js-mode-syntax-table nil "Syntax table for `xah-js-mode'.")
+;; (defvar xah-js-mode-syntax-table nil "Syntax table for `xah-js-mode'.")
 
-(setq xah-js-mode-syntax-table
-      (let ((synTable (make-syntax-table)))
+;; (setq xah-js-mode-syntax-table
+;;       (let ((synTable (make-syntax-table)))
 
-        (modify-syntax-entry '(?0 . ?9) "w" synTable)
-        (modify-syntax-entry '(?A . ?Z) "w" synTable)
-        (modify-syntax-entry '(?a . ?z) "w" synTable)
+;;         (modify-syntax-entry '(?0 . ?9) "w" synTable)
+;;         (modify-syntax-entry '(?A . ?Z) "w" synTable)
+;;         (modify-syntax-entry '(?a . ?z) "w" synTable)
 
-        (modify-syntax-entry ?\_ "_" synTable)
-        (modify-syntax-entry ?\$ "_" synTable)
+;;         (modify-syntax-entry ?\_ "_" synTable)
+;;         (modify-syntax-entry ?\$ "_" synTable)
 
-        (modify-syntax-entry ?\\ "\\" synTable)
-        (modify-syntax-entry ?\" "\"" synTable)
-        (modify-syntax-entry ?\' "\"" synTable)
+;;         (modify-syntax-entry ?\\ "\\" synTable)
+;;         (modify-syntax-entry ?\" "\"" synTable)
+;;         (modify-syntax-entry ?\' "\"" synTable)
 
-        ;; (modify-syntax-entry ?\\ "." synTable)
-        ;; (modify-syntax-entry ?\" "." synTable)
-        ;; (modify-syntax-entry ?\' "." synTable)
+;;         ;; (modify-syntax-entry ?\\ "." synTable)
+;;         ;; (modify-syntax-entry ?\" "." synTable)
+;;         ;; (modify-syntax-entry ?\' "." synTable)
 
-        (modify-syntax-entry ?\( "()" synTable)
-        (modify-syntax-entry ?\) ")(" synTable)
-        (modify-syntax-entry ?\[ "(]" synTable)
-        (modify-syntax-entry ?\] ")[" synTable)
-        (modify-syntax-entry ?\{ "(}" synTable)
-        (modify-syntax-entry ?\} "){" synTable)
+;;         (modify-syntax-entry ?\( "()" synTable)
+;;         (modify-syntax-entry ?\) ")(" synTable)
+;;         (modify-syntax-entry ?\[ "(]" synTable)
+;;         (modify-syntax-entry ?\] ")[" synTable)
+;;         (modify-syntax-entry ?\{ "(}" synTable)
+;;         (modify-syntax-entry ?\} "){" synTable)
 
-        (modify-syntax-entry ?\. "." synTable)
-        (modify-syntax-entry ?\! "." synTable)
-        (modify-syntax-entry ?\# "." synTable)
-        (modify-syntax-entry ?\% "." synTable)
-        (modify-syntax-entry ?\& "." synTable)
-        (modify-syntax-entry ?\+ "." synTable)
-        (modify-syntax-entry ?\, "." synTable)
-        (modify-syntax-entry ?\- "." synTable)
-        (modify-syntax-entry ?\: "." synTable)
-        (modify-syntax-entry ?\; "." synTable)
-        (modify-syntax-entry ?\< "." synTable)
-        (modify-syntax-entry ?\= "." synTable)
-        (modify-syntax-entry ?\> "." synTable)
-        (modify-syntax-entry ?\? "." synTable)
-        (modify-syntax-entry ?\@ "." synTable)
-        (modify-syntax-entry ?^ "." synTable) ; can't use blackslash, because it became control
-        (modify-syntax-entry ?\` "." synTable)
-        (modify-syntax-entry ?\| "." synTable)
-        (modify-syntax-entry ?\~ "." synTable)
+;;         (modify-syntax-entry ?\. "." synTable)
+;;         (modify-syntax-entry ?\! "." synTable)
+;;         (modify-syntax-entry ?\# "." synTable)
+;;         (modify-syntax-entry ?\% "." synTable)
+;;         (modify-syntax-entry ?\& "." synTable)
+;;         (modify-syntax-entry ?\+ "." synTable)
+;;         (modify-syntax-entry ?\, "." synTable)
+;;         (modify-syntax-entry ?\- "." synTable)
+;;         (modify-syntax-entry ?\: "." synTable)
+;;         (modify-syntax-entry ?\; "." synTable)
+;;         (modify-syntax-entry ?\< "." synTable)
+;;         (modify-syntax-entry ?\= "." synTable)
+;;         (modify-syntax-entry ?\> "." synTable)
+;;         (modify-syntax-entry ?\? "." synTable)
+;;         (modify-syntax-entry ?\@ "." synTable)
+;;         (modify-syntax-entry ?^ "." synTable) ; can't use blackslash, because it became control
+;;         (modify-syntax-entry ?\` "." synTable)
+;;         (modify-syntax-entry ?\| "." synTable)
+;;         (modify-syntax-entry ?\~ "." synTable)
 
-        (modify-syntax-entry ?\/ "./124" synTable)
-        ;; (modify-syntax-entry ?\/ "." synTable)
-        (modify-syntax-entry ?* "w 23b" synTable)
-        (modify-syntax-entry ?\n ">" synTable)
+;;         (modify-syntax-entry ?\/ "./124" synTable)
+;;         ;; (modify-syntax-entry ?\/ "." synTable)
+;;         (modify-syntax-entry ?* "w 23b" synTable)
+;;         (modify-syntax-entry ?\n ">" synTable)
 
-        synTable))
+;;         synTable))
 
 
 ;; indent
@@ -1612,8 +1612,8 @@ Version 2016-10-24"
     ("require" "require('./▮x.js')" xah-js--abbrev-hook-f)
 
     ;; lang syntax
-    ("af" "((x▮) => {  })" xah-js--abbrev-hook-f)
-    ("caf" "const ▮ = ((x) => {  });" xah-js--abbrev-hook-f)
+    ("af" "(x▮ => { })" xah-js--abbrev-hook-f)
+    ("caf" "const ▮ = (x => { });" xah-js--abbrev-hook-f)
     ("case" "case ▮: x; break" xah-js--abbrev-hook-f)
     ("con" "constructor(x) { this.k  = x; }" xah-js--abbrev-hook-f)
     ("constructor" "constructor(x) { this.k  = x; }" xah-js--abbrev-hook-f)
@@ -1710,7 +1710,7 @@ Version 2016-10-24"
 
 
 ;;;###autoload
-(define-derived-mode xah-js-mode prog-mode "∑js"
+(define-derived-mode xah-js-mode js-mode "∑js"
   "A major mode for JavaScript.
 
 URL `http://ergoemacs.org/emacs/xah-js-mode.html'
