@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2020 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 2.4.20200907130742
+;; Version: 2.4.20200909065410
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -1541,7 +1541,7 @@ Version 2016-10-24"
 
     ("map" "map ( f▮, ?this )" xah-js--abbrev-hook-f)
     ("pop" "pop ()" xah-js--abbrev-hook-f)
-    ("push" "push ( items▮, … )" xah-js--abbrev-hook-f)
+    ("push" "push ( items▮ )" xah-js--abbrev-hook-f)
     ("reduce" "reduce ( ((a▮,b) => (a+b)), initialValue )" xah-js--abbrev-hook-f)
     ("reduceRight" "reduceRight ( ((a▮,b) => (a+b)), initialValue )" xah-js--abbrev-hook-f)
 
@@ -1550,11 +1550,11 @@ Version 2016-10-24"
     ("slice" "slice (start▮, ?end)" xah-js--abbrev-hook-f)
     ("some" "some ( f▮, ?this )" xah-js--abbrev-hook-f)
     ("sort" "sort (comparefn)" xah-js--abbrev-hook-f)
-    ("Array.prototype.splice" "splice (start▮, deleteCount , items … )" xah-js--abbrev-hook-f)
-    ("splice" "splice (start▮, deleteCount , items … )" xah-js--abbrev-hook-f)
+    ("Array.prototype.splice" "splice (start▮, deleteCount , items )" xah-js--abbrev-hook-f)
+    ("splice" "splice (start▮, deleteCount , items )" xah-js--abbrev-hook-f)
     ("toLocaleString" "toLocaleString ()" xah-js--abbrev-hook-f)
     ("toString" "toString ()" xah-js--abbrev-hook-f)
-    ("unshift" "unshift ( items▮ … )" xah-js--abbrev-hook-f)
+    ("unshift" "unshift ( items▮ )" xah-js--abbrev-hook-f)
     ("values" "values ( )" xah-js--abbrev-hook-f)
 
     ;; Set.prototype
