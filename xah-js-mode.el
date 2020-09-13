@@ -967,59 +967,59 @@
 
 ;; syntax table
 
-;; (defvar xah-js-mode-syntax-table nil "Syntax table for `xah-js-mode'.")
+(defvar xah-js-mode-syntax-table nil "Syntax table for `xah-js-mode'.")
 
-;; (setq xah-js-mode-syntax-table
-;;       (let ((synTable (make-syntax-table)))
+(setq xah-js-mode-syntax-table
+      (let ((synTable (make-syntax-table)))
 
-;;         (modify-syntax-entry '(?0 . ?9) "w" synTable)
-;;         (modify-syntax-entry '(?A . ?Z) "w" synTable)
-;;         (modify-syntax-entry '(?a . ?z) "w" synTable)
+        (modify-syntax-entry '(?0 . ?9) "w" synTable)
+        (modify-syntax-entry '(?A . ?Z) "w" synTable)
+        (modify-syntax-entry '(?a . ?z) "w" synTable)
 
-;;         (modify-syntax-entry ?\_ "_" synTable)
-;;         (modify-syntax-entry ?\$ "_" synTable)
+        (modify-syntax-entry ?\_ "_" synTable)
+        (modify-syntax-entry ?\$ "_" synTable)
 
-;;         (modify-syntax-entry ?\\ "\\" synTable)
-;;         (modify-syntax-entry ?\" "\"" synTable)
-;;         (modify-syntax-entry ?\' "\"" synTable)
+        (modify-syntax-entry ?\\ "\\" synTable)
+        (modify-syntax-entry ?\" "\"" synTable)
+        (modify-syntax-entry ?\' "\"" synTable)
 
-;;         ;; (modify-syntax-entry ?\\ "." synTable)
-;;         ;; (modify-syntax-entry ?\" "." synTable)
-;;         ;; (modify-syntax-entry ?\' "." synTable)
+        ;; (modify-syntax-entry ?\\ "." synTable)
+        ;; (modify-syntax-entry ?\" "." synTable)
+        ;; (modify-syntax-entry ?\' "." synTable)
 
-;;         (modify-syntax-entry ?\( "()" synTable)
-;;         (modify-syntax-entry ?\) ")(" synTable)
-;;         (modify-syntax-entry ?\[ "(]" synTable)
-;;         (modify-syntax-entry ?\] ")[" synTable)
-;;         (modify-syntax-entry ?\{ "(}" synTable)
-;;         (modify-syntax-entry ?\} "){" synTable)
+        (modify-syntax-entry ?\( "()" synTable)
+        (modify-syntax-entry ?\) ")(" synTable)
+        (modify-syntax-entry ?\[ "(]" synTable)
+        (modify-syntax-entry ?\] ")[" synTable)
+        (modify-syntax-entry ?\{ "(}" synTable)
+        (modify-syntax-entry ?\} "){" synTable)
 
-;;         (modify-syntax-entry ?\. "." synTable)
-;;         (modify-syntax-entry ?\! "." synTable)
-;;         (modify-syntax-entry ?\# "." synTable)
-;;         (modify-syntax-entry ?\% "." synTable)
-;;         (modify-syntax-entry ?\& "." synTable)
-;;         (modify-syntax-entry ?\+ "." synTable)
-;;         (modify-syntax-entry ?\, "." synTable)
-;;         (modify-syntax-entry ?\- "." synTable)
-;;         (modify-syntax-entry ?\: "." synTable)
-;;         (modify-syntax-entry ?\; "." synTable)
-;;         (modify-syntax-entry ?\< "." synTable)
-;;         (modify-syntax-entry ?\= "." synTable)
-;;         (modify-syntax-entry ?\> "." synTable)
-;;         (modify-syntax-entry ?\? "." synTable)
-;;         (modify-syntax-entry ?\@ "." synTable)
-;;         (modify-syntax-entry ?^ "." synTable) ; can't use blackslash, because it became control
-;;         (modify-syntax-entry ?\` "." synTable)
-;;         (modify-syntax-entry ?\| "." synTable)
-;;         (modify-syntax-entry ?\~ "." synTable)
+        (modify-syntax-entry ?\. "." synTable)
+        (modify-syntax-entry ?\! "." synTable)
+        (modify-syntax-entry ?\# "." synTable)
+        (modify-syntax-entry ?\% "." synTable)
+        (modify-syntax-entry ?\& "." synTable)
+        (modify-syntax-entry ?\+ "." synTable)
+        (modify-syntax-entry ?\, "." synTable)
+        (modify-syntax-entry ?\- "." synTable)
+        (modify-syntax-entry ?\: "." synTable)
+        (modify-syntax-entry ?\; "." synTable)
+        (modify-syntax-entry ?\< "." synTable)
+        (modify-syntax-entry ?\= "." synTable)
+        (modify-syntax-entry ?\> "." synTable)
+        (modify-syntax-entry ?\? "." synTable)
+        (modify-syntax-entry ?\@ "." synTable)
+        (modify-syntax-entry ?^ "." synTable) ; can't use blackslash, because it became control
+        (modify-syntax-entry ?\` "." synTable)
+        (modify-syntax-entry ?\| "." synTable)
+        (modify-syntax-entry ?\~ "." synTable)
 
-;;         (modify-syntax-entry ?\/ "./124" synTable)
-;;         ;; (modify-syntax-entry ?\/ "." synTable)
-;;         (modify-syntax-entry ?* "w 23b" synTable)
-;;         (modify-syntax-entry ?\n ">" synTable)
+        (modify-syntax-entry ?\/ "./124" synTable)
+        ;; (modify-syntax-entry ?\/ "." synTable)
+        (modify-syntax-entry ?* "w 23b" synTable)
+        (modify-syntax-entry ?\n ">" synTable)
 
-;;         synTable))
+        synTable))
 
 
 ;; indent
@@ -1710,7 +1710,7 @@ Version 2016-10-24"
 
 
 ;;;###autoload
-(define-derived-mode xah-js-mode js-mode "∑js"
+(define-derived-mode xah-js-mode fundamental-mode "∑js"
   "A major mode for JavaScript.
 
 URL `http://ergoemacs.org/emacs/xah-js-mode.html'
