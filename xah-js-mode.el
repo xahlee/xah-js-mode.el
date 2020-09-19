@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2020 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 2.4.20200914111453
+;; Version: 2.5.20200918202230
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -54,9 +54,61 @@
 (defvar xah-js-lang-words nil "List of JavaScript keywords.")
 (setq xah-js-lang-words '(
 
-"EvalError" "RangeError" "ReferenceError" "SyntaxError" "TypeError" "URIError"
+"EvalError"
+"RangeError"
+"ReferenceError"
+"SyntaxError"
+"TypeError"
+"URIError"
+"abstract"
+"arguments"
+"boolean"
+"byte"
+"char"
+"class"
+"configurable"
+"const"
+"decodeURI"
+"decodeURIComponent"
+"double"
+"encodeURI"
+"encodeURIComponent"
+"enum"
+"enumerable"
+"eval"
+"export"
+"extends"
+"final"
+"float"
+"globalThis"
+"goto"
+"implements"
+"import"
+"int"
+"interface"
+"isFinite"
+"isNaN"
+"iterator"
+"let"
+"long"
+"native"
+"package"
+"parseFloat"
+"parseInt"
+"private"
+"protected"
+"public"
+"short"
+"static"
+"super"
+"synchronized"
+"throws"
+"transient"
+"undefined"
+"value" 
+"writable"
 
-"__proto__" "abstract" "arguments" "boolean" "byte" "char" "class" "configurable" "const" "decodeURI" "decodeURIComponent" "double" "encodeURI" "encodeURIComponent" "enum" "writable" "enumerable" "eval" "export" "extends" "final" "float" "goto" "implements" "import" "int" "interface" "isFinite" "isNaN" "iterator" "let" "long" "native" "package" "parseFloat" "parseInt" "private" "protected" "public" "short" "static" "super" "synchronized" "throws" "transient" "undefined" "value" ; from property descriptor "volatile" "writable" "yield"
+; from property descriptor "volatile" "writable" "yield"
 
 ) )
 
@@ -229,6 +281,7 @@
 
 (defvar xah-js-Object-proto-props nil "List of Object.prototype properties.")
 (setq xah-js-Object-proto-props '(
+"__proto__"
 "constructor"
 "hasOwnProperty"
 "isPrototypeOf"
@@ -1309,7 +1362,7 @@ Version 2016-10-24"
     ("Number.parseFloat" "Number.parseFloat ( num▮ )" xah-js--abbrev-hook-f)
     ("Number.parseInt" "Number.parseInt ( num▮, ?base )" xah-js--abbrev-hook-f)
     ("Object.assign" "Object.assign ( target▮, source1, source2, etc )" xah-js--abbrev-hook-f)
-    ("Object.create" "Object.create ( Object.prototype▮, {\n    'p1': { value : 3, writable: true, enumerable: true, configurable: true },\n   'p2': { value : 3, writable: true, enumerable: false, configurable: true }})" xah-js--abbrev-hook-f)
+    ("Object.create" "Object.create ( Object.prototype▮, {\n    \"p1\": { value : 3, writable: true, enumerable: true, configurable: true },\n   \"p2\": { value : 3, writable: true, enumerable: false, configurable: true }})" xah-js--abbrev-hook-f)
     ("Object.defineProperties" "Object.defineProperties ( ▮, {pname, { value : 3, writable: true, enumerable: false, configurable: true, 〔set: function, get: function〕 }}, etc)" xah-js--abbrev-hook-f)
     ("Object.defineProperty" "Object.defineProperty ( ▮, pname, { value : 3, writable: true, enumerable: false, configurable: true, 〔set: function, get: function〕 })" xah-js--abbrev-hook-f)
     ("Object.entries" "Object.entries ( ▮ )" xah-js--abbrev-hook-f)
@@ -1357,7 +1410,7 @@ Version 2016-10-24"
     ("abs" "Math.abs (▮)" xah-js--abbrev-hook-f)
     ("ac" "appendChild" xah-js--abbrev-hook-f)
     ("add" "add ( value▮ )" xah-js--abbrev-hook-f)
-    ("addEventListener" "addEventListener ('input', f▮ , false);" xah-js--abbrev-hook-f)
+    ("addEventListener" "addEventListener (\"input\", f▮ , false);" xah-js--abbrev-hook-f)
     ("ael" "addEventListener" xah-js--abbrev-hook-f)
     ("af" "(x▮ => { })" xah-js--abbrev-hook-f)
     ("af2" "Array.from" xah-js--abbrev-hook-f)
@@ -1387,7 +1440,7 @@ Version 2016-10-24"
     ("constructor" "constructor(x) { this.k  = x; }" xah-js--abbrev-hook-f)
     ("copyWithin" "copyWithin (target▮, start , ?end )" xah-js--abbrev-hook-f)
     ("cos" "Math.cos (▮)" xah-js--abbrev-hook-f)
-    ("createElement" "createElement('div');" xah-js--abbrev-hook-f)
+    ("createElement" "createElement(\"div\");" xah-js--abbrev-hook-f)
     ("ct" "clearTimeout" xah-js--abbrev-hook-f)
     ("cw" "copyWithin" xah-js--abbrev-hook-f)
     ("d" "document." xah-js--abbrev-hook-f)
@@ -1426,19 +1479,19 @@ Version 2016-10-24"
     ("gebi" "getElementById" xah-js--abbrev-hook-f)
     ("gebn" "getElementsByName" xah-js--abbrev-hook-f)
     ("gebtn" "getElementsByTagName" xah-js--abbrev-hook-f)
-    ("getAttribute" "getAttribute ('attrName');" xah-js--abbrev-hook-f)
+    ("getAttribute" "getAttribute (\"attrName\");" xah-js--abbrev-hook-f)
     ("getDate" "getDate ( ▮ )" xah-js--abbrev-hook-f)
     ("getDay" "getDay ( ▮ )" xah-js--abbrev-hook-f)
-    ("getElementById" "getElementById ('▮');" xah-js--abbrev-hook-f)
-    ("getElementsByClassName" "getElementsByClassName ('▮');" xah-js--abbrev-hook-f)
-    ("getElementsByName" "getElementsByName ('▮');" xah-js--abbrev-hook-f)
-    ("getElementsByTagName" "getElementsByTagName ('▮');" xah-js--abbrev-hook-f)
+    ("getElementById" "getElementById (\"▮\");" xah-js--abbrev-hook-f)
+    ("getElementsByClassName" "getElementsByClassName (\"▮\");" xah-js--abbrev-hook-f)
+    ("getElementsByName" "getElementsByName (\"▮\");" xah-js--abbrev-hook-f)
+    ("getElementsByTagName" "getElementsByTagName (\"▮\");" xah-js--abbrev-hook-f)
     ("getFullYear" "getFullYear ( ▮ )" xah-js--abbrev-hook-f)
     ("getHours" "getHours ( ▮ )" xah-js--abbrev-hook-f)
     ("getMilliseconds" "getMilliseconds ( ▮ )" xah-js--abbrev-hook-f)
     ("getMinutes" "getMinutes ( ▮ )" xah-js--abbrev-hook-f)
     ("getMonth" "getMonth ( ▮ )" xah-js--abbrev-hook-f)
-    ("getPropertyValue" "getPropertyValue( 'font-family')" xah-js--abbrev-hook-f)
+    ("getPropertyValue" "getPropertyValue( \"font-family\")" xah-js--abbrev-hook-f)
     ("getSeconds" "getSeconds ( ▮ )" xah-js--abbrev-hook-f)
     ("getTime" "getTime ( ▮ )" xah-js--abbrev-hook-f)
     ("getTimezoneOffset" "getTimezoneOffset ( ▮ )" xah-js--abbrev-hook-f)
@@ -1464,11 +1517,11 @@ Version 2016-10-24"
     ("indexOf" "indexOf ( value▮, ?start )" xah-js--abbrev-hook-f)
     ("indexOf" "indexOf (str▮, pos)" xah-js--abbrev-hook-f)
     ("inf" "Infinity" xah-js--abbrev-hook-f)
-    ("insertAdjacentElement" "insertAdjacentElement('beforebegin' 'afterbegin' 'beforeend' 'afterend' , new▮ );" xah-js--abbrev-hook-f)
+    ("insertAdjacentElement" "insertAdjacentElement(\"beforebegin\" \"afterbegin\" \"beforeend\" \"afterend\" , new▮ );" xah-js--abbrev-hook-f)
     ("io" "indexOf" xah-js--abbrev-hook-f)
     ("ipo" "isPrototypeOf" xah-js--abbrev-hook-f)
     ("isPrototypeOf" "isPrototypeOf ( ▮ )" xah-js--abbrev-hook-f)
-    ("join" "join ('separator')" xah-js--abbrev-hook-f)
+    ("join" "join (\"separator\")" xah-js--abbrev-hook-f)
     ("jp" "JSON.parse" xah-js--abbrev-hook-f)
     ("js" "JSON.stringify" xah-js--abbrev-hook-f)
     ("keys" "keys ()" xah-js--abbrev-hook-f)
@@ -1530,8 +1583,8 @@ Version 2016-10-24"
     ("push" "push ( items▮ )" xah-js--abbrev-hook-f)
     ("qs" "querySelector" xah-js--abbrev-hook-f)
     ("qsa" "querySelectorAll" xah-js--abbrev-hook-f)
-    ("querySelector" "querySelector ( '▮' );" xah-js--abbrev-hook-f)
-    ("querySelectorAll" "querySelectorAll ( '▮' );" xah-js--abbrev-hook-f)
+    ("querySelector" "querySelector ( \"▮\" );" xah-js--abbrev-hook-f)
+    ("querySelectorAll" "querySelectorAll ( \"▮\" );" xah-js--abbrev-hook-f)
     ("r" "return ▮" xah-js--abbrev-hook-f)
     ("ra" "Reflect.apply" xah-js--abbrev-hook-f)
     ("raf" "requestAnimationFrame(f▮)" xah-js--abbrev-hook-f)
@@ -1542,7 +1595,7 @@ Version 2016-10-24"
     ("rep" "RegExp.prototype" xah-js--abbrev-hook-f)
     ("repeat" "repeat (n▮)" xah-js--abbrev-hook-f)
     ("replace" "replace (stringOrRegex▮, replaceStrOrFunc)" xah-js--abbrev-hook-f)
-    ("require" "require('./▮x.js')" xah-js--abbrev-hook-f)
+    ("require" "require(\"./▮x.js\")" xah-js--abbrev-hook-f)
     ("reverse" "reverse ()" xah-js--abbrev-hook-f)
     ("rg" "Reflect.get" xah-js--abbrev-hook-f)
     ("rgopd" "Reflect.getOwnPropertyDescriptor" xah-js--abbrev-hook-f)
@@ -1558,7 +1611,7 @@ Version 2016-10-24"
     ("s" "Symbol" xah-js--abbrev-hook-f)
     ("sa" "setAttribute" xah-js--abbrev-hook-f)
     ("search" "search (regex▮)" xah-js--abbrev-hook-f)
-    ("setAttribute" "setAttribute ('style', ▮ );" xah-js--abbrev-hook-f)
+    ("setAttribute" "setAttribute (\"style\", ▮ );" xah-js--abbrev-hook-f)
     ("setDate" "setDate ( date▮ )" xah-js--abbrev-hook-f)
     ("setFullYear" "setFullYear ( year▮, ?month, ?date )" xah-js--abbrev-hook-f)
     ("setHours" "setHours ( hour▮ , ?min , ?sec , ?ms )" xah-js--abbrev-hook-f)
@@ -1588,7 +1641,7 @@ Version 2016-10-24"
     ("sort" "sort (comparefn)" xah-js--abbrev-hook-f)
     ("sp" "String.prototype" xah-js--abbrev-hook-f)
     ("splice" "splice (start▮, deleteCount , items )" xah-js--abbrev-hook-f)
-    ("split" "split ('seperator' or /regex/, ?maxlength)" xah-js--abbrev-hook-f)
+    ("split" "split (\"seperator\" or /regex/, ?maxlength)" xah-js--abbrev-hook-f)
     ("sr" "String.raw" xah-js--abbrev-hook-f)
     ("st" "setTimeout" xah-js--abbrev-hook-f)
     ("startsWith" "startsWith (str▮, endpos)" xah-js--abbrev-hook-f)
@@ -1635,7 +1688,7 @@ Version 2016-10-24"
     ("u" "undefined" xah-js--abbrev-hook-f)
     ("ud" "undefined" xah-js--abbrev-hook-f)
     ("unshift" "unshift ( items▮ )" xah-js--abbrev-hook-f)
-    ("us" "'use strict';\n" xah-js--abbrev-hook-f)
+    ("us" "\"use strict\";\n" xah-js--abbrev-hook-f)
     ("valueOf" "valueOf ( ▮ )" xah-js--abbrev-hook-f)
     ("values" "values ( )" xah-js--abbrev-hook-f)
     ("var" "var ▮ = 3" xah-js--abbrev-hook-f)
