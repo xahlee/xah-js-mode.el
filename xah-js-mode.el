@@ -1,9 +1,9 @@
-;;; xah-js-mode.el --- Major mode for editing JavaScript. -*- coding: utf-8; lexical-binding: t; -*-
+;;; xah-js-mode.el --- Major mode for editing JavaScript or TypeScript. -*- coding: utf-8; lexical-binding: t; -*-
 
 ;; Copyright © 2013-2020 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 2.6.20200923211929
+;; Version: 2.7.20200923223629
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -22,16 +22,7 @@
 
 ;; version 0.1, 2013-08-21 first version
 
-;; TODO
-;; 2018-02-18 need to add indentation
-
-;; 2019-05-02. need to solve the method completion problem. some method name is property of diff obj, eg “value”. they have diff method signature.
-
-;; need to add
-;; Promise.prototype.finally
-;; Symbol.prototype.description
-
-
+;; HHH___________________________________________________________________
 ;;; Code:
 
 (require 'js) ; in emacs. temp, borrow js-indent-line, and js-syntax-propertize
@@ -40,10 +31,10 @@
 (require 'ido)        ; in emacs
 ;; (require 'lisp-mode) ; in emacs. for indent-sexp. temp hack. todo
 
-
+;; HHH___________________________________________________________________
 (defvar xah-js-mode-hook nil "Standard hook for `xah-js-mode'")
 
-
+;; HHH___________________________________________________________________
 (defvar xah-js-keyword-builtin nil "List of js language words, such as: if else for in case new break.")
 (setq xah-js-keyword-builtin '(
 
@@ -474,6 +465,27 @@
 "[Symbol.toPrimitive]"
 ) )
 
+(defvar xah-js-ts-type-words nil "List of TypeScript words")
+(setq xah-js-ts-type-words '(
+"boolean"
+"number"
+"string"
+"enum"
+"any"
+"void"
+"never"
+"interface"
+"readonly"
+"object"
+) )
+
+(defvar xah-js-ts-lang-words nil "List of TypeScript language words. e.g. as, type")
+(setq xah-js-ts-lang-words '(
+"as"
+"type"
+"interface"
+) )
+
 (defvar xah-js-dom-words nil "List of keywords from DOM or browser.")
 (setq xah-js-dom-words '(
 
@@ -860,7 +872,7 @@
        xah-js-dom-style-obj-words
        ))
 
-
+;; HHH___________________________________________________________________
 ;; syntax coloring related
 
 (defface xah-js-dollar-name
@@ -989,6 +1001,8 @@
           (,(regexp-opt xah-js-constants  'symbols) . font-lock-constant-face)
           (,(regexp-opt xah-js-dom-words  'symbols) . font-lock-function-name-face)
           (,(regexp-opt xah-js-lang-words  'symbols) . font-lock-keyword-face)
+          (,(regexp-opt xah-js-ts-type-words 'symbols) . font-lock-type-face)
+          (,(regexp-opt xah-js-ts-lang-words 'symbols) . font-lock-builtin-face)
 
           (,"</?[a-z0-9]+\\([^>]+?\\)>" . font-lock-constant-face)
 
@@ -1006,7 +1020,7 @@
         ;;
         ))
 
-
+;; HHH___________________________________________________________________
 ;; keybinding
 
 (defvar xah-js-mode-map nil "Keybinding for `xah-js-mode'")
@@ -1016,9 +1030,10 @@
   (define-key xah-js-mode-map (kbd "<menu> e TAB") 'xah-js-complete-symbol-ido)
   (define-key xah-js-mode-map (kbd "TAB") 'xah-js-complete-or-indent)
   (define-key xah-js-mode-map (kbd "<C-return>") 'xah-js-insert-semicolon)
-  (define-key xah-js-mode-map (kbd "RET") 'xah-js-smart-newline))
+  (define-key xah-js-mode-map (kbd "RET") 'xah-js-smart-newline)
+  (define-key xah-js-mode-map (kbd "C-c C-c") 'xah-js-format-code))
 
-
+;; HHH___________________________________________________________________
 ;; syntax table
 
 (defvar xah-js-mode-syntax-table nil "Syntax table for `xah-js-mode'.")
@@ -1075,7 +1090,7 @@
 
         synTable))
 
-
+;; HHH___________________________________________________________________
 ;; indent
 
 (defun xah-js-goto-outer-bracket (&optional pos)
@@ -1200,10 +1215,60 @@ Version 2017-01-27"
           (delete-region $p3 $p4)
           (insert $result))))))
 
-
+;; HHH___________________________________________________________________
 
-(defun xah-js-format-js-code ()
-  "Format JavaScript code in current buffer.
+(defun xah-ts-compile-file (&optional @prefix-arg)
+  "Compile the current file.
+The file name must end in “.ts” or “.tsx”.
+If the file is modified or not saved, save it automatically before run.
+
+URL `http://ergoemacs.org/emacs/elisp_compile_typescript.html'
+Version 2018-07-01"
+  (interactive)
+  (let* (
+         ($compile-options
+          (substring
+           (if current-prefix-arg
+               (ido-completing-read
+                "tsc options:"
+                '(
+                  "1 → --target ES2016 --alwaysStrict"
+                  "2 → --target ES5 --alwaysStrict"
+                  "3 → Ask"
+                  "4 → None"
+                  ))
+             "1 → --target ES2015 --alwaysStrict"
+             )
+           4))
+         ($outputb "*typescript compile output*")
+         (resize-mini-windows nil)
+         $fname
+         $fsuffix
+         ($prog-name "tsc")
+         $cmd-str
+         $options-string
+         )
+    (when (not (buffer-file-name)) (save-buffer))
+    (when (buffer-modified-p) (save-buffer))
+    (setq $fname (buffer-file-name))
+    (setq $fsuffix (file-name-extension $fname))
+    (setq $options-string
+          (let (($opts
+                 (cond
+                  ((string-equal $compile-options "None") "")
+                  ((string-equal $compile-options "Ask")
+                   (read-string "tsc option:" "--target ES5 --alwaysStrict"))
+                  (t $compile-options))))
+            (if (equal $fsuffix "tsx")
+                (concat $opts " --jsx react ")
+              $opts
+              )))
+    (setq $cmd-str (concat $prog-name " " (shell-quote-argument $fname) " " $options-string))
+    (message "Runing 「%s」" $cmd-str)
+    (shell-command $cmd-str $outputb )))
+
+(defun xah-js-format-code ()
+  "Format JavaScript/TypeScript code in current buffer.
 This command requires command line tool deno.
 Version 2020-09-23"
   (interactive)
@@ -1234,7 +1299,7 @@ Version 2019-12-15"
           (forward-char )
           (newline))))))
 
-
+;; HHH___________________________________________________________________
 ;; abbrev
 
 (defun xah-js-abbrev-enable-function ()
@@ -1518,6 +1583,7 @@ Version 2016-10-24"
     ("gpv" "getPropertyValue" xah-js--abbrev-hook-f)
     ("has" "has ( value▮ )" xah-js--abbrev-hook-f)
     ("hasOwnProperty" "hasOwnProperty (▮)" xah-js--abbrev-hook-f)
+    ("hie" "<HTMLInputElement>" xah-js--abbrev-hook-f)
     ("hop" "hasOwnProperty" xah-js--abbrev-hook-f)
     ("iae" "insertAdjacentElement" xah-js--abbrev-hook-f)
     ("ie" "( ( test▮ ) ? 1 : 0 )" xah-js--abbrev-hook-f)
@@ -1723,11 +1789,11 @@ Version 2016-10-24"
 (abbrev-table-put xah-js-mode-abbrev-table :system t)
 ;; (abbrev-table-put xah-js-mode-abbrev-table :enable-function 'xah-js-abbrev-enable-function) ; override by xah-js-expand-abbrev
 
-
+;; HHH___________________________________________________________________
 
 ;;;###autoload
 (define-derived-mode xah-js-mode fundamental-mode "∑js"
-  "A major mode for JavaScript.
+  "A major mode for JavaScript/TypeScript.
 
 URL `http://ergoemacs.org/emacs/xah-js-mode.html'
 
@@ -1760,6 +1826,7 @@ URL `http://ergoemacs.org/emacs/xah-js-mode.html'
 
 ;; (autoload 'xah-js-mode "xah-js-mode" "load xah-js-mode for JavaScript file" t)
 (add-to-list 'auto-mode-alist '("\\.js\\'" . xah-js-mode))
+(add-to-list 'auto-mode-alist '("\\.ts\\'" . xah-js-mode))
 (add-to-list 'auto-mode-alist '("\\.jsx\\'" . xah-js-mode))
 
 (provide 'xah-js-mode)
