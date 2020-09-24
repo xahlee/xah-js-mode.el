@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2020 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 2.7.20200923223629
+;; Version: 2.7.20200924022302
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -1269,10 +1269,12 @@ Version 2018-07-01"
 
 (defun xah-js-format-code ()
   "Format JavaScript/TypeScript code in current buffer.
+This commands save buffer first.
 This command requires command line tool deno.
 Version 2020-09-23"
   (interactive)
   (let ((fPath (buffer-file-name)))
+    (save-buffer )
     (shell-command
      (format "deno fmt %s" fPath))))
 
@@ -1533,6 +1535,7 @@ Version 2016-10-24"
     ("entries" "entries ()" xah-js--abbrev-hook-f)
     ("eq" "=== " xah-js--abbrev-hook-f)
     ("every" "every ( f▮, ?this )" xah-js--abbrev-hook-f)
+    ("f" "(x▮ => { })" xah-js--abbrev-hook-f)
     ("fc" "firstChild" xah-js--abbrev-hook-f)
     ("fe" "forEach" xah-js--abbrev-hook-f)
     ("fi" "for (let k▮ in obj) { }" xah-js--abbrev-hook-f)
