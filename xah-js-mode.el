@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2020 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 2.5.20200918202230
+;; Version: 2.6.20200923211929
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -994,7 +994,8 @@
 
           ;; font-lock-variable-name-face
           ("\\_<$[$_0-9A-Za-z]+" . 'xah-js-dollar-name)
-          ("\\_<f[$_0-9A-Za-z]+" . 'xah-js-func-name)
+          ("\\_<f_[$_0-9A-Za-z]+" . 'xah-js-func-name)
+          ("\\_<xah[$_0-9A-Za-z]+" . 'xah-js-func-name)
           ("\\_<λ[$_0-9A-Za-z]+" . 'xah-js-func-name)
           ;; ("\\_<p[$_0-9A-Za-z]+" . 'xah-js-func-param)
           ("\\_<φ[$_0-9A-Za-z]+" . 'xah-js-greek-phi-φ)
@@ -1201,6 +1202,15 @@ Version 2017-01-27"
 
 
 
+(defun xah-js-format-js-code ()
+  "Format JavaScript code in current buffer.
+This command requires command line tool deno.
+Version 2020-09-23"
+  (interactive)
+  (let ((fPath (buffer-file-name)))
+    (shell-command
+     (format "deno fmt %s" fPath))))
+
 (defun xah-js-insert-semicolon ()
   "insert a semicolon and return"
   (interactive)
@@ -1319,6 +1329,7 @@ Version 2016-10-24"
     ("Date.parse" "Date.parse ( string▮ )" xah-js--abbrev-hook-f)
     ("JSON.parse" "JSON.parse ( ▮ )" xah-js--abbrev-hook-f)
     ("JSON.stringify" "JSON.stringify ( ▮ )" xah-js--abbrev-hook-f)
+    ("Map" "Map(▮)" xah-js--abbrev-hook-f)
     ("Math.abs" "Math.abs (▮)" xah-js--abbrev-hook-f)
     ("Math.acos" "Math.acos (▮)" xah-js--abbrev-hook-f)
     ("Math.acosh" "Math.acosh (▮)" xah-js--abbrev-hook-f)
@@ -1517,7 +1528,7 @@ Version 2016-10-24"
     ("indexOf" "indexOf ( value▮, ?start )" xah-js--abbrev-hook-f)
     ("indexOf" "indexOf (str▮, pos)" xah-js--abbrev-hook-f)
     ("inf" "Infinity" xah-js--abbrev-hook-f)
-    ("insertAdjacentElement" "insertAdjacentElement(\"beforebegin\" \"afterbegin\" \"beforeend\" \"afterend\" , new▮ );" xah-js--abbrev-hook-f)
+    ("insertAdjacentElement" "insertAdjacentElement(\"beforebegin afterbegin beforeend afterend\" , new▮ );" xah-js--abbrev-hook-f)
     ("io" "indexOf" xah-js--abbrev-hook-f)
     ("ipo" "isPrototypeOf" xah-js--abbrev-hook-f)
     ("isPrototypeOf" "isPrototypeOf ( ▮ )" xah-js--abbrev-hook-f)
@@ -1540,6 +1551,7 @@ Version 2016-10-24"
     ("nii" "Number.isInteger" xah-js--abbrev-hook-f)
     ("nin" "Number.isNaN" xah-js--abbrev-hook-f)
     ("nisi" "Number.isSafeInteger" xah-js--abbrev-hook-f)
+    ("nm" "new Map(▮)" xah-js--abbrev-hook-f)
     ("normalize" "normalize (▮)" xah-js--abbrev-hook-f)
     ("np" "Number.prototype" xah-js--abbrev-hook-f)
     ("npf" "Number.parseFloat" xah-js--abbrev-hook-f)
