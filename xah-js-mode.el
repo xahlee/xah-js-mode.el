@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2020 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 2.7.20200924022302
+;; Version: 2.7.20200926202206
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -472,6 +472,7 @@
 "string"
 "enum"
 "any"
+"unknown"
 "void"
 "never"
 "interface"
@@ -484,6 +485,7 @@
 "as"
 "type"
 "interface"
+"declare"
 ) )
 
 (defvar xah-js-dom-words nil "List of keywords from DOM or browser.")
@@ -1276,7 +1278,7 @@ Version 2020-09-23"
   (let ((fPath (buffer-file-name)))
     (save-buffer )
     (shell-command
-     (format "deno fmt %s" fPath))))
+     (format "deno fmt %s" (shell-quote-argument fPath)))))
 
 (defun xah-js-insert-semicolon ()
   "insert a semicolon and return"
@@ -1535,7 +1537,6 @@ Version 2016-10-24"
     ("entries" "entries ()" xah-js--abbrev-hook-f)
     ("eq" "=== " xah-js--abbrev-hook-f)
     ("every" "every ( f▮, ?this )" xah-js--abbrev-hook-f)
-    ("f" "(x▮ => { })" xah-js--abbrev-hook-f)
     ("fc" "firstChild" xah-js--abbrev-hook-f)
     ("fe" "forEach" xah-js--abbrev-hook-f)
     ("fi" "for (let k▮ in obj) { }" xah-js--abbrev-hook-f)
