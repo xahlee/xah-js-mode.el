@@ -98,7 +98,6 @@
 "undefined"
 "value" 
 "writable"
-
 ; from property descriptor "volatile" "writable" "yield"
 
 ) )
@@ -1052,11 +1051,11 @@
 
         (modify-syntax-entry ?\\ "\\" synTable)
         (modify-syntax-entry ?\" "\"" synTable)
-        (modify-syntax-entry ?\' "\"" synTable)
+        ;; (modify-syntax-entry ?\' "\"" synTable)
 
         ;; (modify-syntax-entry ?\\ "." synTable)
         ;; (modify-syntax-entry ?\" "." synTable)
-        ;; (modify-syntax-entry ?\' "." synTable)
+        (modify-syntax-entry ?\' "." synTable)
 
         (modify-syntax-entry ?\( "()" synTable)
         (modify-syntax-entry ?\) ")(" synTable)
