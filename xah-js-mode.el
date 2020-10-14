@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2020 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 2.8.20201011113647
+;; Version: 2.9.20201014155930
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -1673,6 +1673,7 @@ Version 2016-10-24"
     ("rdp" "Reflect.defineProperty" xah-js--abbrev-hook-f)
     ("reduce" "reduce ( ((a▮,b) => (a+b)), initialValue )" xah-js--abbrev-hook-f)
     ("reduceRight" "reduceRight ( ((a▮,b) => (a+b)), initialValue )" xah-js--abbrev-hook-f)
+    ("re" "RegExp" xah-js--abbrev-hook-f)
     ("rep" "RegExp.prototype" xah-js--abbrev-hook-f)
     ("repeat" "repeat (n▮)" xah-js--abbrev-hook-f)
     ("replace" "replace (stringOrRegex▮, replaceStrOrFunc)" xah-js--abbrev-hook-f)
