@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2020 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 2.10.20201015164155
+;; Version: 2.11.20201016110640
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -156,11 +156,8 @@
 (defvar xah-js-Object-props-fullword nil "List of Object properties full words, e.g. \"Object.create\".")
 (setq xah-js-Object-props-fullword (mapcar (lambda (x)  (concat "Object." x)) xah-js-Object-props))
 
-(defvar xah-js-Reflect-props nil "List of Reflect properties.")
-(setq xah-js-Reflect-props '( "apply" "construct" "defineProperty" "deleteProperty" "get" "getOwnPropertyDescriptor" "getPrototypeOf" "has" "isExtensible" "ownKeys" "preventExtensions" "set" "setPrototypeOf" ) )
-
 (defvar xah-js-Reflect-props-fullword nil "List of Reflect properties full words, e.g. \"Reflect.apply\".")
-(setq xah-js-Reflect-props-fullword (mapcar (lambda (x)  (concat "Reflect." x)) xah-js-Reflect-props))
+(setq xah-js-Reflect-props-fullword (mapcar (lambda (x)  (concat "Reflect." x)) '( "apply" "construct" "defineProperty" "deleteProperty" "get" "getOwnPropertyDescriptor" "getPrototypeOf" "has" "isExtensible" "ownKeys" "preventExtensions" "set" "setPrototypeOf" )))
 
 (defvar xah-js-Set-props nil "List of Set properties.")
 (setq xah-js-Set-props '( "length" ) )
@@ -192,11 +189,8 @@
 (defvar xah-js-RegExp-props-fullword nil "List of RegExp properties full words, e.g. \"RegExp.prototype\".")
 (setq xah-js-RegExp-props-fullword (mapcar (lambda (x)  (concat "RegExp." x)) xah-js-RegExp-props))
 
-(defvar xah-js-String-props nil "List of String properties.")
-(setq xah-js-String-props '( "prototype" "fromCodePoint" "fromCharCode" "raw" ))
-
 (defvar xah-js-String-props-fullword nil "List of String properties full words, e.g. \"String.fromCodePoint\".")
-(setq xah-js-String-props-fullword (mapcar (lambda (x)  (concat "String." x)) xah-js-String-props))
+(setq xah-js-String-props-fullword (mapcar (lambda (x)  (concat "String." x)) '( "prototype" "fromCodePoint" "fromCharCode" "raw" )))
 
 (defvar xah-js-Number-props nil "List of Number properties.")
 (setq xah-js-Number-props '(
@@ -206,7 +200,7 @@
     "MIN_SAFE_INTEGER"
     "MIN_VALUE"
     "NEGATIVE_INFINITY"
-    ;; "NaN"
+    "NaN"
     "POSITIVE_INFINITY"
     "isFinite"
     "isInteger"
@@ -226,17 +220,11 @@
 (defvar xah-js-Promise-props-fullword nil "List of Promise constructor properties full words, e.g. \"Promise.reject\".")
 (setq xah-js-Promise-props-fullword (mapcar (lambda (x)  (concat "Promise." x)) xah-js-Promise-props))
 
-(defvar xah-js-JSON-props nil "List of Array properties.")
-(setq xah-js-JSON-props '( "stringify" "parse" ))
-
 (defvar xah-js-JSON-props-fullword nil "List of JSON properties full words, e.g. \"JSON.parse\".")
-(setq xah-js-JSON-props-fullword (mapcar (lambda (x)  (concat "JSON." x)) xah-js-JSON-props))
-
-(defvar xah-js-Math-props nil "List of JavaScript Math properties.")
-(setq xah-js-Math-props '( "E" "LN10" "LN2" "LOG10E" "LOG2E" "PI" "SQRT1_2" "SQRT2" "abs" "acos" "acosh" "asin" "asinh" "atan" "atan2" "atanh" "cbrt" "ceil" "clz32" "cos" "cosh" "exp" "expm1" "floor" "fround" "hypot" "imul" "log" "log10" "log1p" "log2" "max" "min" "pow" "random" "round" "sign" "sin" "sinh" "sqrt" "tan" "tanh" "toSource" "trunc" ) )
+(setq xah-js-JSON-props-fullword (mapcar (lambda (x)  (concat "JSON." x)) '( "stringify" "parse" )))
 
 (defvar xah-js-Math-props-fullword nil "List of Math properties full words, e.g. \"Math.parse\".")
-(setq xah-js-Math-props-fullword (mapcar (lambda (x)  (concat "Math." x)) xah-js-Math-props))
+(setq xah-js-Math-props-fullword (mapcar (lambda (x)  (concat "Math." x)) '( "E" "LN10" "LN2" "LOG10E" "LOG2E" "PI" "SQRT1_2" "SQRT2" "abs" "acos" "acosh" "asin" "asinh" "atan" "atan2" "atanh" "cbrt" "ceil" "clz32" "cos" "cosh" "exp" "expm1" "floor" "fround" "hypot" "imul" "log" "log10" "log1p" "log2" "max" "min" "pow" "random" "round" "sign" "sin" "sinh" "sqrt" "tan" "tanh" "toSource" "trunc" )))
 
 (defvar xah-js-Symbol-props nil "List of JavaScript Symbol properties.")
 (setq
@@ -578,6 +566,7 @@
 "insertAdjacentElement"
 
 "console"
+"console.log"
 "console.dir"
 "createElement"
 "createElementNS"
@@ -973,15 +962,11 @@
           (,(regexp-opt xah-js-big-obj-names 'symbols) . font-lock-keyword-face)
 
           (,(regexp-opt xah-js-Object-props 'symbols) . font-lock-keyword-face)
-          (,(regexp-opt xah-js-Reflect-props 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-Array-props 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-Function-props 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-RegExp-props 'symbols) . font-lock-keyword-face)
-          (,(regexp-opt xah-js-String-props 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-Number-props 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-Promise-props 'symbols) . font-lock-keyword-face)
-          (,(regexp-opt xah-js-JSON-props 'symbols) . font-lock-keyword-face)
-          (,(regexp-opt xah-js-Math-props 'symbols) . font-lock-function-name-face)
           (,(regexp-opt xah-js-Symbol-props 'symbols) . font-lock-function-name-face)
           (,(regexp-opt xah-js-Date-props 'symbols) . font-lock-function-name-face)
           (,(regexp-opt xah-js-Set-props 'symbols) . font-lock-keyword-face)
