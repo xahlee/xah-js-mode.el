@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2020 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 2.11.20201016110640
+;; Version: 2.12.20201018214543
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -226,30 +226,9 @@
 (defvar xah-js-Math-props-fullword nil "List of Math properties full words, e.g. \"Math.parse\".")
 (setq xah-js-Math-props-fullword (mapcar (lambda (x)  (concat "Math." x)) '( "E" "LN10" "LN2" "LOG10E" "LOG2E" "PI" "SQRT1_2" "SQRT2" "abs" "acos" "acosh" "asin" "asinh" "atan" "atan2" "atanh" "cbrt" "ceil" "clz32" "cos" "cosh" "exp" "expm1" "floor" "fround" "hypot" "imul" "log" "log10" "log1p" "log2" "max" "min" "pow" "random" "round" "sign" "sin" "sinh" "sqrt" "tan" "tanh" "toSource" "trunc" )))
 
-(defvar xah-js-Symbol-props nil "List of JavaScript Symbol properties.")
-(setq
- xah-js-Symbol-props
- '(
-
-   "for"
-   "hasInstance"
-   "isConcatSpreadable"
-   "iterator"
-   "keyFor"
-   "match"
-   "prototype"
-   "replace"
-   "search"
-   "species"
-   "split"
-   "toPrimitive"
-   "toStringTag"
-   "unscopables"
-
-   ))
 
 (defvar xah-js-Symbol-props-fullword nil "List of Symbol properties full words, e.g. \"Symbol.for\".")
-(setq xah-js-Symbol-props-fullword (mapcar (lambda (x)  (concat "Symbol." x)) xah-js-Symbol-props))
+(setq xah-js-Symbol-props-fullword (mapcar (lambda (x)  (concat "Symbol." x)) '( "for" "hasInstance" "isConcatSpreadable" "iterator" "keyFor" "match" "prototype" "replace" "search" "species" "split" "toPrimitive" "toStringTag" "unscopables" )))
 
 (defvar xah-js-Date-props nil "List of Date properties.")
 (setq xah-js-Date-props '( "now" "parse" "UTC" "prototype" ) )
@@ -353,6 +332,7 @@
 "padStart"
 "repeat"
 "replace"
+"replaceAll"
 "search"
 "slice"
 "split"
@@ -967,7 +947,6 @@
           (,(regexp-opt xah-js-RegExp-props 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-Number-props 'symbols) . font-lock-keyword-face)
           (,(regexp-opt xah-js-Promise-props 'symbols) . font-lock-keyword-face)
-          (,(regexp-opt xah-js-Symbol-props 'symbols) . font-lock-function-name-face)
           (,(regexp-opt xah-js-Date-props 'symbols) . font-lock-function-name-face)
           (,(regexp-opt xah-js-Set-props 'symbols) . font-lock-keyword-face)
 
@@ -1665,7 +1644,8 @@ Version 2016-10-24"
     ("reduceRight" "reduceRight( ((a▮,b) => (a+b)), initialValue )" xah-js--abbrev-hook-f)
     ("rep" "RegExp.prototype" xah-js--abbrev-hook-f)
     ("repeat" "repeat(n▮)" xah-js--abbrev-hook-f)
-    ("replace" "replace(stringOrRegex▮, strOrFunc)" xah-js--abbrev-hook-f)
+    ("replace" "replace(str/regex▮, str/f)" xah-js--abbrev-hook-f)
+    ("replaceAll" "replaceAll(str/regex▮, str/f)" xah-js--abbrev-hook-f)
     ("require" "require(\"./▮x.js\")" xah-js--abbrev-hook-f)
     ("reverse" "reverse()" xah-js--abbrev-hook-f)
     ("rg" "Reflect.get" xah-js--abbrev-hook-f)
@@ -1675,6 +1655,7 @@ Version 2016-10-24"
     ("rie" "Reflect.isExtensible" xah-js--abbrev-hook-f)
     ("rok" "Reflect.ownKeys" xah-js--abbrev-hook-f)
     ("rp" "replace" xah-js--abbrev-hook-f)
+    ("rpa" "replaceAll" xah-js--abbrev-hook-f)
     ("rpe" "Reflect.preventExtensions" xah-js--abbrev-hook-f)
     ("rq" "require" xah-js--abbrev-hook-f)
     ("rr" "reduceRight" xah-js--abbrev-hook-f)
