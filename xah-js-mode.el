@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2020 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 2.12.20201018214543
+;; Version: 2.13.20201025115146
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -1183,7 +1183,7 @@ Version 2017-01-27"
 
 ;; HHH___________________________________________________________________
 
-(defun xah-ts-compile-file (&optional @prefix-arg)
+(defun xah-typescript-compile-file (&optional @prefix-arg)
   "Compile the current file.
 The file name must end in “.ts” or “.tsx”.
 If the file is modified or not saved, save it automatically before run.
