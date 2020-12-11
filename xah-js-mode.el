@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2020 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 2.13.20201025115146
+;; Version: 2.13.20201211111449
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -1556,7 +1556,7 @@ Version 2016-10-24"
     ("hop" "hasOwnProperty" xah-js--abbrev-hook-f)
     ("iae" "insertAdjacentElement" xah-js--abbrev-hook-f)
     ("ie" "(( test▮ ) ? 1 : 0 )" xah-js--abbrev-hook-f)
-    ("if" "if( ▮ ) {\n}" xah-js--abbrev-hook-f)
+    ("if" "if ( ▮ ) {\n}" xah-js--abbrev-hook-f)
     ("ih" "innerHTML = " xah-js--abbrev-hook-f)
     ("includes" "includes( searchEle▮, ?fromIndex)" xah-js--abbrev-hook-f) ; todo. what to do with methods that's in different parant obj
     ("includes" "includes(str▮, pos)" xah-js--abbrev-hook-f)
