@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2020 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 2.14.20201213114202
+;; Version: 2.14.20201213114551
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -1198,12 +1198,12 @@ Version 2020-12-13"
                (ido-completing-read
                 "tsc options:"
                 '(
-                  "1 → --target ES2016 --strict"
+                  "1 → --target ES2016 --alwaysStrict"
                   "2 → --target ES5 --alwaysStrict"
                   "3 → Ask"
                   "4 → None"
                   ))
-             "1 → --target ES2015 --strict"
+             "1 → --target ES2015 --alwaysStrict"
              )
            4))
          ($outputb "*typescript compile output*")
