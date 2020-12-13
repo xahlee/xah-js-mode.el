@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2020 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 2.13.20201211111449
+;; Version: 2.14.20201213114202
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -1189,49 +1189,49 @@ The file name must end in “.ts” or “.tsx”.
 If the file is modified or not saved, save it automatically before run.
 
 URL `http://ergoemacs.org/emacs/elisp_compile_typescript.html'
-Version 2018-07-01"
+Version 2020-12-13"
   (interactive)
   (let* (
-         ($compile-options
+         ($cliOpt
           (substring
            (if current-prefix-arg
                (ido-completing-read
                 "tsc options:"
                 '(
-                  "1 → --target ES2016 --alwaysStrict"
+                  "1 → --target ES2016 --strict"
                   "2 → --target ES5 --alwaysStrict"
                   "3 → Ask"
                   "4 → None"
                   ))
-             "1 → --target ES2015 --alwaysStrict"
+             "1 → --target ES2015 --strict"
              )
            4))
          ($outputb "*typescript compile output*")
          (resize-mini-windows nil)
          $fname
          $fsuffix
-         ($prog-name "tsc")
-         $cmd-str
-         $options-string
+         ($progName "tsc")
+         $cmdStr
+         $optionsStr
          )
     (when (not (buffer-file-name)) (save-buffer))
     (when (buffer-modified-p) (save-buffer))
     (setq $fname (buffer-file-name))
     (setq $fsuffix (file-name-extension $fname))
-    (setq $options-string
+    (setq $optionsStr
           (let (($opts
                  (cond
-                  ((string-equal $compile-options "None") "")
-                  ((string-equal $compile-options "Ask")
+                  ((string-equal $cliOpt "None") "")
+                  ((string-equal $cliOpt "Ask")
                    (read-string "tsc option:" "--target ES5 --alwaysStrict"))
-                  (t $compile-options))))
+                  (t $cliOpt))))
             (if (equal $fsuffix "tsx")
                 (concat $opts " --jsx react ")
               $opts
               )))
-    (setq $cmd-str (concat $prog-name " " (shell-quote-argument $fname) " " $options-string))
-    (message "Runing 「%s」" $cmd-str)
-    (shell-command $cmd-str $outputb )))
+    (setq $cmdStr (concat $progName " " (shell-quote-argument $fname) " " $optionsStr))
+    (message "Runing 「%s」" $cmdStr)
+    (shell-command $cmdStr $outputb )))
 
 (defun xah-js-format-code ()
   "Format JavaScript/TypeScript code in current buffer.
@@ -1463,7 +1463,7 @@ Version 2016-10-24"
     ("ap" "Array.prototype" xah-js--abbrev-hook-f)
     ("appendChild" "appendChild( ele▮ );" xah-js--abbrev-hook-f)
     ("c" "const x▮ = " xah-js--abbrev-hook-f)
-    ("caf" "const ▮ = (x => { });" xah-js--abbrev-hook-f)
+    ("caf" "const ▮ = ((x) => { });" xah-js--abbrev-hook-f)
     ("case" "case ▮: x; break" xah-js--abbrev-hook-f)
     ("ce" "createElement" xah-js--abbrev-hook-f)
     ("charAt" "charAt(pos▮)" xah-js--abbrev-hook-f)
