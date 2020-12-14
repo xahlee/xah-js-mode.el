@@ -1353,6 +1353,7 @@ Version 2016-10-24"
 (define-abbrev-table 'xah-js-mode-abbrev-table
   '(
 
+    ("dfi" "// deno-fmt-ignore" xah-js--abbrev-hook-f)
     ("Array.from" "Array.from( items▮ , ?mapfn, ?this )" xah-js--abbrev-hook-f)
     ("Array.isArray" "Array.isArray( ▮ )" xah-js--abbrev-hook-f)
     ("Array.of" "Array.of( e1▮ , e2, etc )" xah-js--abbrev-hook-f)
