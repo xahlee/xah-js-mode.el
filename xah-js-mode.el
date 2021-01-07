@@ -1457,7 +1457,7 @@ Version 2016-10-24"
     ("add" "add( value▮ )" xah-js--abbrev-hook-f)
     ("addEventListener" "addEventListener(\"input\", f▮ , false);" xah-js--abbrev-hook-f)
     ("ael" "addEventListener" xah-js--abbrev-hook-f)
-    ("af" "(x▮ => { })" xah-js--abbrev-hook-f)
+    ("af" "((x▮) => { })" xah-js--abbrev-hook-f)
     ("af2" "Array.from" xah-js--abbrev-hook-f)
     ("aia" "Array.isArray" xah-js--abbrev-hook-f)
     ("ao" "Array.of" xah-js--abbrev-hook-f)
