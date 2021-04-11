@@ -1,9 +1,9 @@
 ;;; xah-js-mode.el --- Major mode for editing JavaScript or TypeScript. -*- coding: utf-8; lexical-binding: t; -*-
 
-;; Copyright © 2013-2020 by Xah Lee
+;; Copyright © 2013-2021 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 2.14.20201213114551
+;; Version: 2.14.20210410192035
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -1514,7 +1514,7 @@ Version 2016-10-24"
     ("flat" "flat( ?n▮ )" xah-js--abbrev-hook-f)
     ("flatMap" "flatMap( f▮, ?this )" xah-js--abbrev-hook-f)
     ("fo" "for (let k▮ of iterable) { }" xah-js--abbrev-hook-f)
-    ("for" "for (let i = 0; i < ▮.length; i++) { }" xah-js--abbrev-hook-f)
+    ("for" "for (let i = 0; i < x▮.length; i++) { }" xah-js--abbrev-hook-f)
     ("forEach" "forEach( f , ?this)" xah-js--abbrev-hook-f)
     ("fp" "Function.prototype" xah-js--abbrev-hook-f)
     ("fu" "function" xah-js--abbrev-hook-f)
