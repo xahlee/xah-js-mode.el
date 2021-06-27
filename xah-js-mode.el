@@ -3,7 +3,7 @@
 ;; Copyright © 2013-2021 by Xah Lee
 
 ;; Author: Xah Lee ( http://xahlee.info/ )
-;; Version: 2.14.20210410192035
+;; Version: 2.15.20210626220335
 ;; Created: 23 March 2013
 ;; Package-Requires: ((emacs "24.1"))
 ;; Keywords: languages, JavaScript
@@ -992,12 +992,13 @@
 (defvar xah-js-mode-map nil "Keybinding for `xah-js-mode'")
 (progn
   (setq xah-js-mode-map (make-sparse-keymap))
-
-  (define-key xah-js-mode-map (kbd "<menu> e TAB") 'xah-js-complete-symbol-ido)
+  (define-prefix-command 'xah-js-leader-map)
   (define-key xah-js-mode-map (kbd "TAB") 'xah-js-complete-or-indent)
-  (define-key xah-js-mode-map (kbd "<C-return>") 'xah-js-insert-semicolon)
   (define-key xah-js-mode-map (kbd "RET") 'xah-js-smart-newline)
-  (define-key xah-js-mode-map (kbd "C-c C-c") 'xah-js-format-code))
+  (define-key xah-js-mode-map (kbd "<f9>") xah-js-leader-map)
+  (define-key xah-js-leader-map (kbd "j") 'xah-js-format-code)
+  (define-key xah-js-leader-map (kbd "c") 'xah-typescript-compile-file)
+  (define-key xah-js-leader-map (kbd "TAB") 'xah-js-complete-symbol-ido))
 
 ;; HHH___________________________________________________________________
 ;; syntax table
@@ -1132,10 +1133,10 @@ Version 2016-12-09"
     (cons p1 p2 )))
 
 (defun xah-js-complete-symbol-ido ()
-  "Perform keyword completion on current word.
+  "Do keyword completion on current word.
 
 This uses `ido-mode' user interface style for completion.
-Version 2017-01-27"
+Version 2017-01-27 2021-06-26"
   (interactive)
   (let* (
          ($bds (xah-js--get-bounds-of-glyph))
@@ -1243,11 +1244,6 @@ Version 2020-09-23"
     (save-buffer )
     (shell-command
      (format "deno fmt %s" (shell-quote-argument fPath)))))
-
-(defun xah-js-insert-semicolon ()
-  "insert a semicolon and return"
-  (interactive)
-  (insert ";\n"))
 
 (defun xah-js-smart-newline ()
   "Insert a newline, maybe add a semicolon before.
